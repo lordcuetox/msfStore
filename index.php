@@ -5,6 +5,7 @@
  * @see {@link http://webxico.blogspot.mx/}
  */
 -->
+
 <?php
 require_once './clases/UtilDB.php';
 ?>
