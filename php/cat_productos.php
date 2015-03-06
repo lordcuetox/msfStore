@@ -58,7 +58,7 @@ if (isset($_POST['xAccion'])) {
                 $("#cmbCveRito").change(function () {
                     var cveRito=0;
                  //   var optionSelected = $("option:selected", this);
-                //    var valueSelected = this.value;
+
                     cveRito=this.value;
                     cargarCombo(cveRito);
 
