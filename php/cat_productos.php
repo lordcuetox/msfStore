@@ -149,10 +149,7 @@ if (isset($_POST['xAccion'])) {
             }
                    function cargarComboClasProducto2(cveRito,cveClasificacion,cveGrado,cveClasProducto)
             {   //En el div con id 'cmbGrado' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
-                alert(cveRito);
-                alert(cveClasificacion);
-                alert(cveGrado);
-                alert(cveClasProducto);
+             
                 $("#cmbClasProducto").load("cat_clasificacion_productos_combos_ajax.php",{"cveRito":cveRito,"cveClasificacion":cveClasificacion,"cveGrado":cveGrado,"cveClasProducto":cveClasProducto}, function (responseTxt, statusTxt, xhr) {
                    $("#cmbClasProducto").attr({'disabled':false});
                      cargarMuestra($("#cmbCveRito").val(),$("#ajaxCmb").val(),$("#cmbGrado").val(),$("#cmbClasProducto").val());
