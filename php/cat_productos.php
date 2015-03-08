@@ -57,8 +57,6 @@ if (isset($_POST['xAccion'])) {
             $(document).ready(function () {
                 $("#cmbCveRito").change(function () {
                     var cveRito=0;
-               
-
                     cveRito=this.value;
                     cargarCombo(cveRito);
 
@@ -110,23 +108,23 @@ if (isset($_POST['xAccion'])) {
                 $("#ajaxCmb").load("cat_clasificaciones_combos_ajax.php",{"cveRito":cveRito}, function (responseTxt, statusTxt, xhr) {
                    $("#ajaxCmb").attr({'disabled':false});
                 });
-                  cargarCombo2($("#cmbCveRito").val(),$("#ajaxCmb").val(),0);
+                  cargarCombo2($("#cmbCveRito").val(),$("#ajaxCmb").val(),0,0);
             }
-                    function cargarCombo2(cveRito,cveClasificacion,cveGrado)
+                    function cargarCombo2(cveRito,cveClasificacion,cveGrado,cveClasProducto)
             {   //En el div con id 'ajaxCmb' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
 
                 $("#ajaxCmb").load("cat_clasificaciones_combos_ajax.php",{"cveRito":cveRito,"cveClasificacion":cveClasificacion}, function (responseTxt, statusTxt, xhr) {
                    $("#ajaxCmb").attr({'disabled':false});
-                 cargarComboGrado2(cveRito,cveClasificacion,cveGrado);
+                 cargarComboGrado2(cveRito,cveClasificacion,cveGrado,cveClasProducto);
                 });
             }
             
-                  function cargarComboGrado2(cveRito,cveClasificacion,cveGrado)
+                  function cargarComboGrado2(cveRito,cveClasificacion,cveGrado,cveClasProducto)
             {   //En el div con id 'cmbGrado' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
 
                 $("#cmbGrado").load("cat_grados_combos_ajax.php",{"cveRito":cveRito,"cveClasificacion":cveClasificacion,"cveGrado":cveGrado}, function (responseTxt, statusTxt, xhr) {
                    $("#cmbGrado").attr({'disabled':false});
-                  cargarComboClasProducto2(cveRito,cveClasificacion,cveGrado,0)
+                  cargarComboClasProducto2(cveRito,cveClasificacion,cveGrado,cveClasProducto)
                 });
             }
 
@@ -304,9 +302,8 @@ if (isset($_POST['xAccion'])) {
        var Rito=$("#cmbCveRito").val();
        if (Rito!=0)
        {
-           cargarCombo2(Rito,<?php echo($clasf->getCveClasificacion() ) ?>,<?php echo($clasf->getCveGrado() ) ?>);
-            cargarComboClasProducto2(Rito,<?php echo($clasf->getCveClasificacion() ) ?>,<?php echo($clasf->getCveGrado() ) ?>,<?php echo($clasf->getCveClasProducto() ) ?>)
-   }
+           cargarCombo2(Rito,<?php echo($clasf->getCveClasificacion() ) ?>,<?php echo($clasf->getCveGrado() ) ?>,<?php echo($clasf->getCveClasProducto() ) ?>);
+       }
    
    
     </script>

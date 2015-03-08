@@ -230,13 +230,16 @@ class Productos {
                     . ") VALUES($this->cveRito,$this->cveClasificacion,$this->cveGrado,$this->cveClasProducto,$this->cveProducto,"
                     . "'$this->nombre','$this->descripcion',$this->precio,$this->novedad,'$this->fechaNovedad',$this->oferta,"
                     . "'$this->fechaOferta',$this->precioOferta,$this->existencias,$this->activo)";
-            ECHO("NUEVO".$sql);
             $count = UtilDB::ejecutaSQL($sql);
             if ($count > 0) {
                 $this->_existe = true;
             }
         } else {
-            $sql = "UPDATE productos SET ";
+            $sql.= "UPDATE productos SET ";
+            $sql.= "cve_rito= $this->cveRito,";
+            $sql.= "cve_clasificacion= $this->cveClasificacion,";
+            $sql.= "cve_grado= $this->cveGrado,";
+            $sql.= "cve_clas_producto= $this->cveClasProducto,";
             $sql.= "ruta_imagen1= '$this->rutaImagen1',";
             $sql.= "ruta_imagen2= '$this->rutaImagen2',";
             $sql.= "ruta_imagen3= '$this->rutaImagen3',";
@@ -245,13 +248,12 @@ class Productos {
             $sql.= "precio='$this->precio',";
             $sql.= "novedad=". ($this->novedad ? "1" : "0");
             $sql.= ",fecha_novedad = '$this->fechaNovedad',";
-            $sql.= ",oferta=". ($this->oferta ? "1" : "0");
+            $sql.= "oferta=". ($this->oferta ? "1" : "0");
             $sql.= ",fecha_oferta = '$this->fechaOferta',";
-            $sql.= ",descripcion = '$this->descripcion',";
-            $sql.= ",precio_oferta = '$this->precioOferta',";
+            $sql.= "descripcion = '$this->descripcion',";
+            $sql.= "precio_oferta = '$this->precioOferta',";
             $sql.= "activo=" . ($this->activo ? "1" : "0");
             $sql.= " WHERE cve_producto = $this->cveProducto";
-             ECHO("ACTUALIZAR".$sql);
             $count = UtilDB::ejecutaSQL($sql);
         }
 
@@ -270,7 +272,10 @@ class Productos {
             $this->cveClasProducto = $row['cve_clas_producto'];
             $this->nombre = $row['nombre'];
             $this->descripcion = $row['descripcion'];
-            $this->rutaImagen = $row['ruta_imagen'];
+            $this->rutaImagen1 = $row['ruta_imagen1'];
+            $this->rutaImagen2 = $row['ruta_imagen2'];
+            $this->rutaImagen3 = $row['ruta_imagen3'];
+            $this->rutaImagen4 = $row['ruta_imagen4'];
             $this->precio = $row['precio'];
             $this->novedad = $row['novedad'];
             $this->fechaNovedad = $row['fecha_novedad'];
