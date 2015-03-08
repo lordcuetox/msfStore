@@ -47,11 +47,16 @@ if(isset($_POST['cveRito']) && isset($_POST['cveClasificacion'])&& isset($_POST[
                 <td><?php echo($row['fecha_oferta']); ?></td>
                 <td><?php echo($row['precio_oferta']); ?></td>
                 <td><?php echo($row['existencias']); ?></td>
-                <td><?php echo($row['activo'] == 1 ? "Si" : "No"); ?></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                
+                <td><a href="javascript:void(0);" onclick="$('#txtCveProducto').val(<?php echo($row['cve_producto']); ?>);
+                    cargarImagen();"> <?php echo($row['ruta_imagen1'] == "" ? "Agregar Imagen" : $row['ruta_imagen1']); ?> </a></td>
+                <td><a href="javascript:void(0);" onclick="$('#txtCveProducto').val(<?php echo($row['cve_producto']); ?>);
+                    cargarImagen();"> <?php echo($row['ruta_imagen2'] == "" ? "Agregar Imagen" : $row['ruta_imagen2']); ?> </a></td>
+                 <td><a href="javascript:void(0);" onclick="$('#txtCveProducto').val(<?php echo($row['cve_producto']); ?>);
+                    cargarImagen();"> <?php echo($row['ruta_imagen3'] == "" ? "Agregar Imagen" : $row['ruta_imagen3']); ?> </a></td>
+                  <td><a href="javascript:void(0);" onclick="$('#txtCveProducto').val(<?php echo($row['cve_producto']); ?>);
+                    cargarImagen();"> <?php echo($row['ruta_imagen4'] == "" ? "Agregar Imagen" : $row['ruta_imagen4']); ?> </a></td>
+               <td><?php echo($row['activo'] == 1 ? "Si" : "No"); ?></td>
             </tr>
         <?php } $rst->closeCursor(); ?>
     </tbody>
