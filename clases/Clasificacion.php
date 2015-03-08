@@ -78,7 +78,7 @@ class Clasificacion {
 
         if (!$this->_existe) {
             $this->cve_clasificacion = UtilDB::getSiguienteNumero("clasificaciones", "cve_clasificacion");
-            $sql = "INSERT INTO clasificaciones VALUES($this->cve_clasificacion,".$this->cve_rito->getCve_rito().",'$this->descripcion',$this->activo)";
+            $sql = "INSERT INTO clasificaciones (cve_clasificacion,cve_rito,descripcion,activo) VALUES($this->cve_clasificacion,".$this->cve_rito->getCve_rito().",'$this->descripcion',$this->activo)";
             $count = UtilDB::ejecutaSQL($sql);
             if ($count > 0) {
                 $this->_existe = true;
