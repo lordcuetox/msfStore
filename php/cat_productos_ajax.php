@@ -22,6 +22,10 @@ if(isset($_POST['cveRito']) && isset($_POST['cveClasificacion'])&& isset($_POST[
              <th>Fecha límite de la oferta</th>
              <th>Precio de oferta</th>
              <th>Existencias</th>
+             <th>Imagen Principal</th>
+             <th>Imagen 2</th>
+             <th>Imagen 3</th>
+             <th>Imagen 4</th>
             <th>Activo</th>
         </tr>
     </thead>
@@ -44,6 +48,10 @@ if(isset($_POST['cveRito']) && isset($_POST['cveClasificacion'])&& isset($_POST[
                 <td><?php echo($row['precio_oferta']); ?></td>
                 <td><?php echo($row['existencias']); ?></td>
                 <td><?php echo($row['activo'] == 1 ? "Si" : "No"); ?></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
         <?php } $rst->closeCursor(); ?>
     </tbody>
