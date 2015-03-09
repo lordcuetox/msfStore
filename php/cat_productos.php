@@ -163,14 +163,14 @@ if (isset($_POST['xAccion'])) {
 
             function grabar()
             {
-                if ($("#cmbCveRito").val()>0&&$("#ajaxCmb").val()>0&&$("#cmbGrado").val()>0&&$("#txtDescripcion").val()!="")
+                if ($("#cmbCveRito").val()>0&&$("#ajaxCmb").val()>0&&$("#cmbGrado").val()>0&&$("#cmbClasProducto").val()>0&&$("#txtNombre").val()!=""&&$("#txtDescripcion").val()!=""&&$("#txtPrecio").val()>0)
                 {
                 $("#xAccion").val("grabar");
                 $("#frmProductos").submit();
                 }
                 else
                 {
-                    alert("Es necesario elegir el Rito, la Clasificación, el grado y agregar la clasificación del producto");
+                    alert("Es necesario capturar los campos indicados como obligatorios");
                 }
 
             }
@@ -192,11 +192,11 @@ if (isset($_POST['xAccion'])) {
                 <h3>Catálogo de Grados</h3>
                 <form role="form" name="frmProductos" id="frmProductos" action="<?php echo($_SERVER['PHP_SELF']); ?>" method="POST">
                     <div class="form-group">
-                        <label for="txtCveProducto">ID Grado<input type="hidden" class="form-control" name="xAccion" id="xAccion" value="0" /></label>
-                        <input type="text" class="form-control" id="txtCveProducto" name="txtCveProducto" placeholder="ID Grado" value="<?php echo($clasf->getCveProducto()); ?>">
+                       <input type="hidden" class="form-control" name="xAccion" id="xAccion" value="0" />
+                       <input type="hidden" class="form-control" id="txtCveProducto" name="txtCveProducto" placeholder="ID Grado" value="<?php echo($clasf->getCveProducto()); ?>">
                     </div>
                     <div class="form-group">
-                        <label for="cmbCveRito">Rito:</label>
+                        <label for="cmbCveRito">* Rito:</label>
                         <select name="cmbCveRito" id="cmbCveRito" class="form-control" placeholder="Rito">
                             <option value="0">--------- SELECCIONE UNA OPCIÓN ---------</option>
                             <?php
@@ -211,7 +211,7 @@ if (isset($_POST['xAccion'])) {
                         </select>
                     </div>
                      <div class="form-group">
-                        <label for="ajaxCmb">Clasificacion:</label>
+                        <label for="ajaxCmb">* Clasificacion:</label>
                         <select name="ajaxCmb" id="ajaxCmb" class="form-control" placeholder="Clasificacion" disabled>
                             <option value="0">--------- SELECCIONE UNA OPCIÓN ---------</option>
                     
@@ -219,7 +219,7 @@ if (isset($_POST['xAccion'])) {
                         </select>
                     </div>
                          <div class="form-group">
-                        <label for="cmbGrado">Grado:</label>
+                        <label for="cmbGrado">* Grado:</label>
                         <select name="cmbGrado" id="cmbGrado" class="form-control" placeholder="Grado" disabled>
                             <option value="0">--------- SELECCIONE UNA OPCIÓN ---------</option>
                     
@@ -227,7 +227,7 @@ if (isset($_POST['xAccion'])) {
                         </select>
                     </div>
                          <div class="form-group">
-                        <label for="cmbClasProducto">Clasificación del Producto:</label>
+                        <label for="cmbClasProducto">* Clasificación del Producto:</label>
                         <select name="cmbClasProducto" id="cmbClasProducto" class="form-control" placeholder="Clasificacion del Producto" disabled>
                             <option value="0">--------- SELECCIONE UNA OPCIÓN ---------</option>
                     
@@ -235,16 +235,16 @@ if (isset($_POST['xAccion'])) {
                         </select>
                          </div>
                          <div class="form-group">
-                             <label for="txtNombre">Producto:</label>
-                             <input type="text" class="form-control" id="txtDescripcion" name="txtNombre" 
-                                    placeholder="Descripcion" value="<?php echo($clasf->getNombre()); ?>">
+                             <label for="txtNombre">* Producto:</label>
+                             <input type="text" class="form-control" id="txtNombre" name="txtNombre" 
+                                    placeholder="Nombre" value="<?php echo($clasf->getNombre()); ?>">
                          </div>
                          <div class="form-group">
-                             <label for="txtDescripcion">Descripción del Producto:</label>
+                             <label for="txtDescripcion">* Descripción del Producto:</label>
                              <textarea class="form-control" rows="4" cols="50" id="txtDescripcion" name="txtDescripcion" placeholder="Descripción del Producto"><?php echo($clasf->getDescripcion()); ?></textarea>                         
                     </div>
                        <div class="form-group">
-                                 <label for="txtPrecio">Precio:</label>
+                                 <label for="txtPrecio">* Precio:</label>
                                  <input type="text" class="form-control" id="txtPrecio" name="txtPrecio" 
                                         placeholder="0.0" value="<?php echo($clasf->getPrecio()); ?>">
                              </div>
@@ -277,7 +277,8 @@ if (isset($_POST['xAccion'])) {
                                  <label for="txtExistencias">Existencias</label>
                                  <input type="text" class="form-control" id="txtExistencias" name="txtExistencias" 
                                         placeholder="0" value="<?php echo($clasf->getExistencias()); ?>">
-                             </div>
+                          <label for="txtExistencias">* Campos Obligatorios</label>  
+                           </div>
                     <div class="checkbox">
                         <label>
                             <input type="checkbox" id="cbxActivo" name="cbxActivo" value="1" checked="<?php echo($clasf->getCveProducto() != 0 ? ($clasf->getActivo() == 1 ? "checked" : "") : "checked"); ?>"> Activo
