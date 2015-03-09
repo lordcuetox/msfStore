@@ -112,7 +112,7 @@ require_once './clases/UtilDB.php';
                         $rst2 = UtilDB::ejecutaConsulta($sql2);
                         $tmp2 = "";
                         foreach ($rst2 as $row2) {
-                            $tmp2 .= "<div class=\"col-md-4\"><img src=\"" . $row2['ruta_imagen'] . "\" class=\"img-responsive\" alt=\"" . $row2['nombre'] . "\"/></div>";
+                            $tmp2 .= "<div class=\"col-md-4\"><img src=\"" . $row2['ruta_imagen1'] . "\" class=\"img-responsive\" alt=\"" . $row2['nombre'] . "\"/></div>";
                         }
                         $rst2->closeCursor();
                         echo($tmp2);
@@ -144,7 +144,7 @@ require_once './clases/UtilDB.php';
                     $rst3 = UtilDB::ejecutaConsulta($sql3);
                     $tmp3 = "";
                     foreach ($rst3 as $row3) {
-                        $tmp3 .= "<img src=\"" . $row3['ruta_imagen'] . "\" class=\"img-responsive\" title =\"" . $row3['nombre'] . "\" alt=\"" . $row3['nombre'] . "\"/>";
+                        $tmp3 .= "<img src=\"" . $row3['ruta_imagen1'] . "\" class=\"img-responsive\" title =\"" . $row3['nombre'] . "\" alt=\"" . $row3['nombre'] . "\"/>";
                         $tmp3 .= "<br/>";
                     }
                     $rst3->closeCursor();
