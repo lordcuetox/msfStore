@@ -86,13 +86,13 @@ if (isset($_POST['xAccion'])) {
             <div class="row" >
                 <div class="col-sm-4">&nbsp;</div>
                 <div class="col-sm-4">
-                    <h3>Ususario Administrador</h3>
+                    <h3>Usuario Administrador</h3>
                     <form role="form" name="frmReata" id="frmReata" action="<?php echo($_SERVER['PHP_SELF']); ?>" method="POST">
                         <div class="form-group">
-                            <label for="txtIdReata">ID Rito<input type="hidden" class="form-control" name="xAccion" id="xAccion" value="0" /></label>
-                            <input type="text" class="form-control" id="txtIdReata" name="txtIdReata"
+                         <input type="hidden" class="form-control" name="xAccion" id="xAccion" value="0" />
+                            <input type="hidden" class="form-control" id="txtIdReata" name="txtIdReata"
                                    placeholder="Clave usuario" value="<?php echo($reata->getCveReata()); ?>">
-                            <a href="javascript:void(0);"  onclick="abrirVentana();"><img src="../img/busqueda.gif" width="18" height="18" alt="busqueda"/></a>
+                            
                         </div>
                         <div class="form-group">
                             <label for="txtHabilitado">Usuario:</label>
