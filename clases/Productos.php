@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * @author Jorge José Jiménez Del Cueto
@@ -7,8 +8,8 @@
 require_once('UtilDB.php');
 
 class Productos {
-    
-        private $cveRito;
+
+    private $cveRito;
     private $cveClasificacion;
     private $cveGrado;
     private $cveClasProducto;
@@ -50,26 +51,25 @@ class Productos {
 
     private function limpiar() {
         $this->cveProducto = 0;
-        $this->cveRito=0;
-        $this->cveClasificacion=0;
-        $this->cveGrado=0;
-        $this->cveClasProducto=0;
-        $this->nombre='';
+        $this->cveRito = 0;
+        $this->cveClasificacion = 0;
+        $this->cveGrado = 0;
+        $this->cveClasProducto = 0;
+        $this->nombre = '';
         $this->descripcion = '';
-        $this->rutaImagen1='';
-        $this->rutaImagen2='';
-        $this->rutaImagen3='';
-        $this->rutaImagen4='';
-        $this->precio=0.0;
-        $this->novedad=false;
-        $this->fechaNovedad= null;
-        $this->oferta=false;
-        $this->fechaOferta= null;
-        $this->precioOferta=0.0;
-        $this->existencias=0;
+        $this->rutaImagen1 = '';
+        $this->rutaImagen2 = '';
+        $this->rutaImagen3 = '';
+        $this->rutaImagen4 = '';
+        $this->precio = 0.0;
+        $this->novedad = false;
+        $this->fechaNovedad = null;
+        $this->oferta = false;
+        $this->fechaOferta = null;
+        $this->precioOferta = 0.0;
+        $this->existencias = 0;
         $this->activo = false;
         $this->_existe = false;
-  
     }
 
     function getCveRito() {
@@ -103,15 +103,19 @@ class Productos {
     function getRutaImagen1() {
         return $this->rutaImagen1;
     }
-      function getRutaImagen2() {
+
+    function getRutaImagen2() {
         return $this->rutaImagen2;
     }
-      function getRutaImagen3() {
+
+    function getRutaImagen3() {
         return $this->rutaImagen3;
     }
-      function getRutaImagen4() {
+
+    function getRutaImagen4() {
         return $this->rutaImagen4;
     }
+
     function getPrecio() {
         return $this->precio;
     }
@@ -175,13 +179,16 @@ class Productos {
     function setRutaImagen1($rutaImagen1) {
         $this->rutaImagen1 = $rutaImagen1;
     }
-   function setRutaImagen2($rutaImagen2) {
+
+    function setRutaImagen2($rutaImagen2) {
         $this->rutaImagen2 = $rutaImagen2;
     }
-   function setRutaImagen3($rutaImagen3) {
+
+    function setRutaImagen3($rutaImagen3) {
         $this->rutaImagen3 = $rutaImagen3;
     }
-   function setRutaImagen4($rutaImagen4) {
+
+    function setRutaImagen4($rutaImagen4) {
         $this->rutaImagen4 = $rutaImagen4;
     }
 
@@ -217,7 +224,6 @@ class Productos {
         $this->activo = $activo;
     }
 
-    
     function grabar() {
         $sql = "";
         $count = 0;
@@ -246,9 +252,9 @@ class Productos {
             $sql.= "ruta_imagen4= '$this->rutaImagen4',";
             $sql.= "nombre='$this->nombre',";
             $sql.= "precio='$this->precio',";
-            $sql.= "novedad=". ($this->novedad ? "1" : "0");
+            $sql.= "novedad=" . ($this->novedad ? "1" : "0");
             $sql.= ",fecha_novedad = '$this->fechaNovedad',";
-            $sql.= "oferta=". ($this->oferta ? "1" : "0");
+            $sql.= "oferta=" . ($this->oferta ? "1" : "0");
             $sql.= ",fecha_oferta = '$this->fechaOferta',";
             $sql.= "descripcion = '$this->descripcion',";
             $sql.= "precio_oferta = '$this->precioOferta',";
@@ -290,6 +296,5 @@ class Productos {
     }
 
 }
-
 ?>
 
