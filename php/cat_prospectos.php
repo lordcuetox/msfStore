@@ -1,6 +1,6 @@
 <?php
 
-require_once '../clases/ClasificacionProductos.php';
+require_once '../clases/Prospectos.php';
 require_once '../clases/UtilDB.php';
 
 $clasf = new Prospectos();
@@ -150,51 +150,32 @@ if (isset($_POST['xAccion'])) {
         <div class="row" >
             <div class="col-sm-4">&nbsp;</div>
             <div class="col-sm-4">
-                <h3>Catálogo de clasificación de productos</h3>
-                <form role="form" name="frmClasificacionProductos" id="frmClasificacionProductos" action="<?php echo($_SERVER['PHP_SELF']); ?>" method="POST">
+                <h3>BIENVENIDO A  MSF STORE</h3>
+                <h4>Ingrese los siguientes datos para crear su cuenta:</h4>
+                <form role="form" name="frmProspectos" id="frmProspectos" action="<?php echo($_SERVER['PHP_SELF']); ?>" method="POST">
                     <div class="form-group">
-                        <label for="txtCveClasProducto"><input type="hidden" class="form-control" name="xAccion" id="xAccion" value="0" /></label>
-                        <input type="hidden" class="form-control" id="txtCveClasProducto" name="txtCveClasProducto" placeholder="ID Grado" value="<?php echo($clasf->getCveClasProducto()); ?>">
+                      <input type="hidden" class="form-control" name="xAccion" id="xAccion" value="0" />
+                      <input type="text" class="form-control" id="txtCveCliente" name="txtCveCliente" placeholder="ID Grado" value="<?php echo($clasf->getCveCliente()); ?>">
                     </div>
+                
                     <div class="form-group">
-                        <label for="cmbCveRito">Rito:</label>
-                        <select name="cmbCveRito" id="cmbCveRito" class="form-control" placeholder="Rito">
-                            <option value="0">--------- SELECCIONE UNA OPCIÓN ---------</option>
-                            <?php
-                            $sql2 = "SELECT * FROM ritos ORDER BY cve_rito";
-                            $rst2 = UtilDB::ejecutaConsulta($sql2);
-                            foreach ($rst2 as $row) {
-                                echo("<option value='" . $row['cve_rito'] . "' " . ($clasf->getCveRito() != 0 ? ($clasf->getCveRito() == $row['cve_rito'] ? "selected" : "") : "") . ">" . $row['descripcion'] . "</option>");
-                            }
-                            $rst2->closeCursor();
-                            ?>
-
-                        </select>
+                        <label for="txtNombre">Nombre:</label>
+                        <input type="text" class="form-control" id="txtNombre" name="txtNombre" 
+                               placeholder="Nombre" value="<?php echo($clasf->getNombre()); ?>">
                     </div>
-                     <div class="form-group">
-                        <label for="ajaxCmb">Clasificación:</label>
-                        <select name="ajaxCmb" id="ajaxCmb" class="form-control" placeholder="Clasificacion" disabled>
-                            <option value="0">--------- SELECCIONE UNA OPCIÓN ---------</option>
-                    
-
-                        </select>
+                      <div class="form-group">
+                        <label for="txtApellidoPat">Apellido Paterno:</label>
+                        <input type="text" class="form-control" id="txtApellidoPat" name="txtApellidoPat" 
+                               placeholder="Primer Apellido" value="<?php echo($clasf->getApellidoPat()); ?>">
                     </div>
                          <div class="form-group">
-                        <label for="cmbGrado">Grado:</label>
-                        <select name="cmbGrado" id="cmbGrado" class="form-control" placeholder="Grado" disabled>
-                            <option value="0">--------- SELECCIONE UNA OPCIÓN ---------</option>
-                    
-
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="txtDescripcion">Clasificación del Producto:</label>
-                        <input type="text" class="form-control" id="txtDescripcion" name="txtDescripcion" 
-                               placeholder="Escriba la clasificicación..." value="<?php echo($clasf->getDescripcion()); ?>">
+                        <label for="txtApellidoMat">Apellido Materno:</label>
+                        <input type="text" class="form-control" id="txtApellidoMat" name="txtApellidoMat" 
+                               placeholder="Segundo Apellido" value="<?php echo($clasf->getApellidoMat()); ?>">
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" id="cbxActivo" name="cbxActivo" value="1" checked="<?php echo($clasf->getCveClasificacion() != 0 ? ($clasf->getActivo() == 1 ? "checked" : "") : "checked"); ?>"> Activo
+                            <input type="checkbox" id="cbxActivo" name="cbxActivo" value="1" checked="<?php echo($clasf->getCveCliente() != 0 ? ($clasf->getActivo() == 1 ? "checked" : "") : "checked"); ?>"> Activo
                         </label>
                     </div>
                     <button type="button" class="btn btn-default" id="btnLimpiar" name="btnLimpiar" onclick="limpiar();">Limpiar</button>
