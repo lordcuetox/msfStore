@@ -6,7 +6,7 @@
  */
 require_once('UtilDB.php');
 
-class MediosComunicacion {
+class ElReaton {
 
     private $cveReata;
     private $habilitado;
@@ -72,7 +72,7 @@ class MediosComunicacion {
         $count = 0;
 
         if (!$this->_existe) {
-            $this->cveComunicacion = UtilDB::getSiguienteNumero("el_reaton", "cve_reata");
+            $this->cveReata = UtilDB::getSiguienteNumero("el_reaton", "cve_reata");
             $sql = "INSERT INTO el_reaton (cve_reata,habilitado,fresita) VALUES($this->cveReata,'$this->habilitado','$this->fresita')";
             $count = UtilDB::ejecutaSQL($sql);
             if ($count > 0) {
@@ -81,8 +81,9 @@ class MediosComunicacion {
         } else {
             $sql = "UPDATE el_reaton SET ";
             $sql.= "habilitado = '$this->habilitado',";
-            $sql.= "fresita = '$this->fresita',";
+            $sql.= "fresita = '$this->fresita'";
             $sql.= " WHERE cve_reata = $this->cveReata";
+            echo($sql);
             $count = UtilDB::ejecutaSQL($sql);
         }
 
@@ -94,7 +95,7 @@ class MediosComunicacion {
         $rst = UtilDB::ejecutaConsulta($sql);
 
         foreach ($rst as $row) {
-            $this->cveComunicacion = $row['cve_reata'];
+            $this->cveReata = $row['cve_reata'];
             $this->habilitado = $row['habilitado'];
             $this->fresita = $row['fresita'];
             $this->_existe = true;
