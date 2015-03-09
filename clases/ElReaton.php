@@ -83,7 +83,6 @@ class ElReaton {
             $sql.= "habilitado = '$this->habilitado',";
             $sql.= "fresita = '$this->fresita'";
             $sql.= " WHERE cve_reata = $this->cveReata";
-            echo($sql);
             $count = UtilDB::ejecutaSQL($sql);
         }
 

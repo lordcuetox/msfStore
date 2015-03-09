@@ -47,8 +47,17 @@ if (isset($_POST['xAccion'])) {
 
             function grabar()
             {
+                
+                   if ($("#txtFresita").val()!=""&&$("#txtHabilitado").val()!="")
+                {
                 $("#xAccion").val("grabar");
                 $("#frmReata").submit();
+                }
+                else
+                {
+                    alert("Es necesario escribir el usuario y el password");
+                }
+                
 
             }
 
