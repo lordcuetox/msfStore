@@ -85,50 +85,22 @@ if (isset($_POST['xAccion'])) {
         </script>
     </head>
     <body>
-        <!--<form name="frmRitos" id="frmRitos" action="cat_ritos.php" method="POST">
-            <table>
-                <thead>
-                    <tr>
-                        <th colspan="2">Catálogo de ritos</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>id rito:<input type="hidden" name="xAccion" id="xAccion" value="0" /></td>
-                        <td><input type="text" name="txtIdRito" id="txtIdRito" value="<?php echo($rito->getCve_rito()); ?>" /> <a href="javascript:void(0);"  onclick="abrirVentana();"><img src="../img/busqueda.gif" width="18" height="18" alt="busqueda"/></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Descripción:</td>
-                        <td><input type="text" name="txtDescripcion" id="txtDescripcion" value="<?php echo($rito->getDescripcion()); ?>" /></td>
-                    </tr>
-                    <tr>
-                        <td>Activo:</td>
-                        <td><input type="checkbox" name="cbxActivo" id="cbxActivo" value="1" checked="<?php echo($rito->getCve_rito() != 0 ? ($rito->getActivo() == 1 ? "checked" : "") : "checked"); ?>"  /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="button" value="Limpiar" name="btnLimpiar" id="btnLimpiar" onclick="limpiar();"/><td>
-                        <td><input type="button" value="Grabar" name="btnGrabar" id="btnGrabar" onclick="grabar();"/></td>
-                    </tr>
-                </tbody>
-            </table>
-        </form>-->
+
         <div class="container">
             <div class="row" >
                 <div class="col-sm-4">&nbsp;</div>
                 <div class="col-sm-4">
-                    <h3>Catálogo de ritos</h3>
+                    <h3>Catálogo de Ritos</h3>
                     <form role="form" name="frmRitos" id="frmRitos" action="cat_ritos.php" method="POST">
                         <div class="form-group">
-                            <label for="txtIdRito">ID Rito<input type="hidden" class="form-control" name="xAccion" id="xAccion" value="0" /></label>
-                            <input type="text" class="form-control" id="txtIdRito" name="txtIdRito"
+                            <label for="txtIdRito"><input type="hidden" class="form-control" name="xAccion" id="xAccion" value="0" /></label>
+                            <input type="hidden" class="form-control" id="txtIdRito" name="txtIdRito"
                                    placeholder="ID Rito" value="<?php echo($rito->getCve_rito()); ?>">
-                            <a href="javascript:void(0);"  onclick="abrirVentana();"><img src="../img/busqueda.gif" width="18" height="18" alt="busqueda"/></a>
-                        </div>
+                                                   </div>
                         <div class="form-group">
-                            <label for="txtDescripcion">Descripcion</label>
+                            <label for="txtDescripcion">Descripción</label>
                             <input type="text" class="form-control" id="txtDescripcion" name="txtDescripcion" 
-                                   placeholder="Descripcion" value="<?php echo($rito->getDescripcion()); ?>">
+                                   placeholder="Descripción" value="<?php echo($rito->getDescripcion()); ?>">
                         </div>
                         <div class="checkbox">
                             <label>

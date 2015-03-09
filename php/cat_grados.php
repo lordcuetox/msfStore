@@ -133,11 +133,11 @@ if (isset($_POST['xAccion'])) {
         <div class="row" >
             <div class="col-sm-4">&nbsp;</div>
             <div class="col-sm-4">
-                <h3>Catálogo de Grados</h3>
+                <h3>Catálogo de grados</h3>
                 <form role="form" name="frmGrados" id="frmGrados" action="<?php echo($_SERVER['PHP_SELF']); ?>" method="POST">
                     <div class="form-group">
-                        <label for="txtCveGrado">ID Grado<input type="hidden" class="form-control" name="xAccion" id="xAccion" value="0" /></label>
-                        <input type="text" class="form-control" id="txtCveGrado" name="txtCveGrado" placeholder="ID Grado" value="<?php echo($clasf->getCveGrado()); ?>">
+                        <label for="txtCveGrado"><input type="hidden" class="form-control" name="xAccion" id="xAccion" value="0" /></label>
+                        <input type="hidden" class="form-control" id="txtCveGrado" name="txtCveGrado" placeholder="ID Grado" value="<?php echo($clasf->getCveGrado()); ?>">
                     </div>
                     <div class="form-group">
                         <label for="cmbCveRito">Rito:</label>
@@ -155,8 +155,8 @@ if (isset($_POST['xAccion'])) {
                         </select>
                     </div>
                      <div class="form-group">
-                        <label for="ajaxCmb">Clasificacion:</label>
-                        <select name="ajaxCmb" id="ajaxCmb" class="form-control" placeholder="clasificacion" disabled>
+                        <label for="ajaxCmb">Clasificación:</label>
+                        <select name="ajaxCmb" id="ajaxCmb" class="form-control" placeholder="clasificación" disabled>
                             <option value="0">--------- SELECCIONE UNA OPCIÓN ---------</option>
                     
 
@@ -165,7 +165,7 @@ if (isset($_POST['xAccion'])) {
                     <div class="form-group">
                         <label for="txtDescripcion">Grado</label>
                         <input type="text" class="form-control" id="txtDescripcion" name="txtDescripcion" 
-                               placeholder="Descripcion" value="<?php echo($clasf->getDescripcion()); ?>">
+                               placeholder="Grado" value="<?php echo($clasf->getDescripcion()); ?>">
                     </div>
                     <div class="checkbox">
                         <label>

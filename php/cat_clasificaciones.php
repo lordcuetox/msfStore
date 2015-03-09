@@ -94,11 +94,11 @@ if (isset($_POST['xAccion'])) {
         <div class="row" >
             <div class="col-sm-4">&nbsp;</div>
             <div class="col-sm-4">
-                <h3>Catálogo de clasificaciónes</h3>
+                <h3>Catálogo de clasificaciónes de los ritos</h3>
                 <form role="form" name="frmClasificacion" id="frmClasificacion" action="<?php echo($_SERVER['PHP_SELF']); ?>" method="POST">
                     <div class="form-group">
-                        <label for="txtCveClasificacion">ID Clasificación<input type="hidden" class="form-control" name="xAccion" id="xAccion" value="0" /></label>
-                        <input type="text" class="form-control" id="txtCveClasificacion" name="txtCveClasificacion" placeholder="ID Clasificacion" value="<?php echo($clasf->getCve_clasificacion()); ?>">
+                        <label for="txtCveClasificacion"><input type="hidden" class="form-control" name="xAccion" id="xAccion" value="0" /></label>
+                        <input type="hidden" class="form-control" id="txtCveClasificacion" name="txtCveClasificacion" placeholder="ID Clasificacion" value="<?php echo($clasf->getCve_clasificacion()); ?>">
                     </div>
                     <div class="form-group">
                         <label for="cmbCveRito">Rito:</label>
@@ -116,9 +116,9 @@ if (isset($_POST['xAccion'])) {
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="txtDescripcion">Descripcion</label>
+                        <label for="txtDescripcion">Descripción</label>
                         <input type="text" class="form-control" id="txtDescripcion" name="txtDescripcion" 
-                               placeholder="Descripcion" value="<?php echo($clasf->getDescripcion()); ?>">
+                               placeholder="Descripción" value="<?php echo($clasf->getDescripcion()); ?>">
                     </div>
                     <div class="checkbox">
                         <label>
