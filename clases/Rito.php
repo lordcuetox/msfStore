@@ -37,7 +37,7 @@ class Rito {
 
     private function limpiar() {
         $this->cve_rito = 0;
-        $this->descripcion = 0;
+        $this->descripcion = '';
         $this->activo = false;
         $this->_existe = false;
     }
