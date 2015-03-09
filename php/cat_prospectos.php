@@ -173,6 +173,11 @@ if (isset($_POST['xAccion'])) {
                         <input type="text" class="form-control" id="txtApellidoMat" name="txtApellidoMat" 
                                placeholder="Segundo Apellido" value="<?php echo($clasf->getApellidoMat()); ?>">
                     </div>
+                          <div class="form-group">
+                        <label for="txtFechaNacimiento">Fecha Nacimiento:</label>
+                        <input type="text" class="form-control" id="txtFechaNacimiento" name="txtFechaNacimiento" 
+                               placeholder="12/12/2015" value="<?php echo($clasf->getFechaNac()); ?>">
+                    </div>
                     <div class="checkbox">
                         <label>
                             <input type="checkbox" id="cbxActivo" name="cbxActivo" value="1" checked="<?php echo($clasf->getCveCliente() != 0 ? ($clasf->getActivo() == 1 ? "checked" : "") : "checked"); ?>"> Activo
