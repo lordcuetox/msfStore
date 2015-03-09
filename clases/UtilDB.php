@@ -1,16 +1,16 @@
 <?php
+
 /**
  *
  * @author Roberto Eder Weiss Juárez
  * @see {@link http://webxico.blogspot.mx/}
  */
-
 class UtilDB {
 
-    private $servername = "localhost";
-    private $username = "root";
-    private $password = "";
-    private $database = "msfstore";
+    private static $servername = "localhost";
+    private static $username = "root";
+    private static $password = "";
+    private static $database = "msfstore";
     private static $cnx = NULL;
 
     function __construct() {
@@ -19,11 +19,11 @@ class UtilDB {
 
     static function getConnection() {
         try {
-            $cnx = new PDO("mysql:host=localhost;dbname=msfstore", "root", "");
-            // set the PDO error mode to exception
-            $cnx->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $cnx->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER); 
-            //echo "Connected successfully";
+            $cnxString = "mysql:host=" . UtilDB::$servername . ";dbname=" . UtilDB::$database;
+            $params = array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8", PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_CASE => PDO::CASE_LOWER);
+            $cnx = new PDO($cnxString, UtilDB::$username, UtilDB::$password, $params);
+            //$cnx->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            //$cnx->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
         } catch (PDOException $e) {
             //echo "Connection failed: " . $e->getMessage();
         }
