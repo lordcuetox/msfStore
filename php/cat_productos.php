@@ -167,8 +167,8 @@ if (isset($_POST['xAccion2'])) {
                     <ul class="nav" id="side-menu">
                         <li>
                             <a href="cat_ritos.php" ><i class="fa fa-university"></i> Ritos</a>
+                             <a href="cat_clasificaciones.php" ><i class="fa fa-leaf"></i> Clasificaciones</a>
                             <a href="cat_grados.php"><i class="fa fa-crop"></i> Grados</a>
-                            <a href="cat_clasificaciones.php" ><i class="fa fa-leaf"></i> Clasificaciones</a>
                             <a href="cat_clasificacion_productos.php"><i class="fa fa-tags"></i> Clasificación productos</a>
                             <a href="cat_productos.php"  class="active"><i class="fa fa-truck"></i> Productos</a>
                             <a href="cat_reaton.php"><i class="fa fa-users"></i> Usuarios y contraseñas</a>
