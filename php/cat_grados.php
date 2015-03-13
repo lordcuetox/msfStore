@@ -100,7 +100,7 @@ if (isset($_POST['xAccion'])) {
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Catálogo de grados</h1>
+                    <h1 class="page-header">Catálogo de Grados</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
