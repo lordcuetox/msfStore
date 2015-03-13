@@ -1,6 +1,13 @@
 <?php
 require_once '../clases/ClasificacionProductos.php';
 require_once '../clases/UtilDB.php';
+session_start();
+
+if (!isset($_SESSION['cve_usuario'])) 
+{
+    header('Location:login.php');
+    return;
+}
 
 $clasf = new ClasificacionProductos();
 $count = NULL;
@@ -28,28 +35,27 @@ if (isset($_POST['xAccion'])) {
             $msg = "[ERROR] Clasificación del producto  no grabado";
         }
     }
+    if ($_POST['xAccion'] == 'logout')
+    {   
+        unset($_SESSION['cve_usuario']);
+        header('Location:login.php');
+        return;
+    }
 }
 ?>
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <title>MSF Store Admin v1.0| Catálogo de clasificaciónes</title>
+        <title>MSF Store Admin| Catálogo de clasificaciónes</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!--<link href="../twbs/bootstrap-3.3.2/css/bootstrap.min.css" rel="stylesheet"/>
-<script src="../js/jQuery/jquery-1.11.2.min.js"></script>
-<script src="../twbs/bootstrap-3.3.2/js/bootstrap.min.js"></script>-->
-
         <!-- Bootstrap Core CSS -->
         <link href="../twbs/plugins/startbootstrap-sb-admin-2-1.0.5/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
-
         <!-- MetisMenu CSS -->
         <link href="../twbs/plugins/startbootstrap-sb-admin-2-1.0.5/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet"/>
-
         <!-- Custom CSS -->
         <link href="../twbs/plugins/startbootstrap-sb-admin-2-1.0.5/dist/css/sb-admin-2.css" rel="stylesheet"/>
-
         <!-- Custom Fonts -->
         <link href="../twbs/plugins/startbootstrap-sb-admin-2-1.0.5/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
 
@@ -59,8 +65,6 @@ if (isset($_POST['xAccion'])) {
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
-
-
     </head>
     <div id="wrapper">
         <!-- Navigation -->
@@ -72,7 +76,7 @@ if (isset($_POST['xAccion'])) {
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">MSF Store Admin v1.0</a>
+                <a class="navbar-brand" href="index.html">MSF Store Admin</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -81,11 +85,13 @@ if (isset($_POST['xAccion'])) {
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="cat_ritos.php" ><i class="fa fa-dashboard fa-fw"></i> Ritos</a>
-                            <a href="cat_grados.php"><i class="fa fa-dashboard fa-fw"></i> Grados</a>
-                            <a href="cat_clasificaciones.php.php" ><i class="fa fa-dashboard fa-fw"></i> Clasificaciones</a>
-                            <a href="cat_clasificacion_productos.php" class="active"><i class="fa fa-dashboard fa-fw"></i> Clasificacion productos</a>
-                            <a href="cat_productos.php"><i class="fa fa-dashboard fa-fw"></i> Productos</a>
+                            <a href="cat_ritos.php" ><i class="fa fa-university"></i> Ritos</a>
+                            <a href="cat_grados.php"><i class="fa fa-crop"></i> Grados</a>
+                            <a href="cat_clasificaciones.php" ><i class="fa fa-leaf"></i> Clasificaciones</a>
+                            <a href="cat_clasificacion_productos.php" class="active"><i class="fa fa-tags"></i> Clasificación productos</a>
+                            <a href="cat_productos.php"><i class="fa fa-truck"></i> Productos</a>
+                            <a href="cat_reaton.php"><i class="fa fa-users"></i> Usuarios y contraseñas</a>
+                            <a href="javascript:void(0);" onclick="logout();"><i class="fa fa-sign-out"></i> CERRAR SESIÓN</a>
                         </li>
                     </ul>
                 </div>
@@ -162,137 +168,137 @@ if (isset($_POST['xAccion'])) {
                 </div>
                 <div class="col-sm-4">&nbsp;</div>
             </div>
-        </div></div>
+        </div>
+    </div>
     <!-- jQuery -->
     <script src="../twbs/plugins/startbootstrap-sb-admin-2-1.0.5/bower_components/jquery/dist/jquery.min.js"></script>
-
     <!-- Bootstrap Core JavaScript -->
     <script src="../twbs/plugins/startbootstrap-sb-admin-2-1.0.5/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
     <!-- Metis Menu Plugin JavaScript -->
     <script src="../twbs/plugins/startbootstrap-sb-admin-2-1.0.5/bower_components/metisMenu/dist/metisMenu.min.js"></script>
-
     <!-- Custom Theme JavaScript -->
     <script src="../twbs/plugins/startbootstrap-sb-admin-2-1.0.5/dist/js/sb-admin-2.js"></script>
     <script>
+    $(document).ready(function () {
+        $("#cmbCveRito").change(function () {
+            var cveRito = 0;
+            //   var optionSelected = $("option:selected", this);
+            //    var valueSelected = this.value;
+            cveRito = this.value;
+            cargarCombo(cveRito);
 
-                        $(document).ready(function () {
-                            $("#cmbCveRito").change(function () {
-                                var cveRito = 0;
-                                //   var optionSelected = $("option:selected", this);
-                                //    var valueSelected = this.value;
-                                cveRito = this.value;
-                                cargarCombo(cveRito);
+        });
 
-                            });
+        $("#ajaxCmb").change(function () {
+            //   var optionSelected = $("option:selected", this);
+            //    var valueSelected = this.value;
+            cargarComboGrado($("#cmbCveRito").val(), this.value);
 
-                            $("#ajaxCmb").change(function () {
-                                //   var optionSelected = $("option:selected", this);
-                                //    var valueSelected = this.value;
-                                cargarComboGrado($("#cmbCveRito").val(), this.value);
+        });
+        $("#cmbGrado").change(function () {
+            //   var optionSelected = $("option:selected", this);
+            //    var valueSelected = this.value;
 
-                            });
-                            $("#cmbGrado").change(function () {
-                                //   var optionSelected = $("option:selected", this);
-                                //    var valueSelected = this.value;
+            cargarMuestra($("#cmbCveRito").val(), $("#ajaxCmb").val(), this.value);
 
-                                cargarMuestra($("#cmbCveRito").val(), $("#ajaxCmb").val(), this.value);
-
-                            });
-
-
-                        });
+        });
 
 
+    });
 
 
-                        function cargarMuestra(cveRito, cveClasificacion, cveGrado)
-                        {   //En el div con id 'ajax' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
+    function logout()
+    {
+        $("#xAccion").val("logout");
+        $("#frmClasificacionProductos").submit();
+    }
 
-                            $("#ajax").load("cat_clasificacion_productos_ajax.php", {"cveRito": cveRito, "cveClasificacion": cveClasificacion, "cveGrado": cveGrado}, function (responseTxt, statusTxt, xhr) {
-                                if (statusTxt == "success")
-                                {
-                                    //  $("#txtCveGrado").val("0");
-                                    //$("#txtDescripcion").val("");
-                                    //alert("External content loaded successfully!");
-                                }
-                                if (statusTxt == "error")
-                                    alert("Error: " + xhr.status + ": " + xhr.statusText);
-                            });
-                        }
+    function cargarMuestra(cveRito, cveClasificacion, cveGrado)
+    {   //En el div con id 'ajax' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
 
-                        function cargarCombo(cveRito)
-                        {   //En el div con id 'ajaxCmb' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
+        $("#ajax").load("cat_clasificacion_productos_ajax.php", {"cveRito": cveRito, "cveClasificacion": cveClasificacion, "cveGrado": cveGrado}, function (responseTxt, statusTxt, xhr) {
+            if (statusTxt === "success")
+            {
+                //  $("#txtCveGrado").val("0");
+                //$("#txtDescripcion").val("");
+                //alert("External content loaded successfully!");
+            }
+            if (statusTxt === "error")
+                alert("Error: " + xhr.status + ": " + xhr.statusText);
+        });
+    }
 
-                            $("#ajaxCmb").load("cat_clasificaciones_combos_ajax.php", {"cveRito": cveRito}, function (responseTxt, statusTxt, xhr) {
-                                $("#ajaxCmb").attr({'disabled': false});
-                                cargarCombo2($("#cmbCveRito").val(), $("#ajaxCmb").val(), 0);
-                            });
-                        }
-                        function cargarCombo2(cveRito, cveClasificacion, cveGrado)
-                        {   //En el div con id 'ajaxCmb' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
+    function cargarCombo(cveRito)
+    {   //En el div con id 'ajaxCmb' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
 
-                            $("#ajaxCmb").load("cat_clasificaciones_combos_ajax.php", {"cveRito": cveRito, "cveClasificacion": cveClasificacion}, function (responseTxt, statusTxt, xhr) {
-                                $("#ajaxCmb").attr({'disabled': false});
-                                cargarComboGrado2(cveRito, cveClasificacion, cveGrado);
-                            });
-                        }
+        $("#ajaxCmb").load("cat_clasificaciones_combos_ajax.php", {"cveRito": cveRito}, function (responseTxt, statusTxt, xhr) {
+            $("#ajaxCmb").attr({'disabled': false});
+            cargarCombo2($("#cmbCveRito").val(), $("#ajaxCmb").val(), 0);
+        });
+    }
+    function cargarCombo2(cveRito, cveClasificacion, cveGrado)
+    {   //En el div con id 'ajaxCmb' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
 
-                        function cargarComboGrado2(cveRito, cveClasificacion, cveGrado)
-                        {   //En el div con id 'cmbGrado' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
+        $("#ajaxCmb").load("cat_clasificaciones_combos_ajax.php", {"cveRito": cveRito, "cveClasificacion": cveClasificacion}, function (responseTxt, statusTxt, xhr) {
+            $("#ajaxCmb").attr({'disabled': false});
+            cargarComboGrado2(cveRito, cveClasificacion, cveGrado);
+        });
+    }
 
-                            $("#cmbGrado").load("cat_grados_combos_ajax.php", {"cveRito": cveRito, "cveClasificacion": cveClasificacion, "cveGrado": cveGrado}, function (responseTxt, statusTxt, xhr) {
-                                $("#cmbGrado").attr({'disabled': false});
-                                cargarMuestra(cveRito, cveClasificacion, cveGrado);
-                            });
-                        }
+    function cargarComboGrado2(cveRito, cveClasificacion, cveGrado)
+    {   //En el div con id 'cmbGrado' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
 
-                        function cargarComboGrado(cveRito, cveClasificacion)
-                        {   //En el div con id 'cmbGrado' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
+        $("#cmbGrado").load("cat_grados_combos_ajax.php", {"cveRito": cveRito, "cveClasificacion": cveClasificacion, "cveGrado": cveGrado}, function (responseTxt, statusTxt, xhr) {
+            $("#cmbGrado").attr({'disabled': false});
+            cargarMuestra(cveRito, cveClasificacion, cveGrado);
+        });
+    }
 
-                            $("#cmbGrado").load("cat_grados_combos_ajax.php", {"cveRito": cveRito, "cveClasificacion": cveClasificacion}, function (responseTxt, statusTxt, xhr) {
-                                $("#cmbGrado").attr({'disabled': false});
+    function cargarComboGrado(cveRito, cveClasificacion)
+    {   //En el div con id 'cmbGrado' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
 
-                            });
-                        }
+        $("#cmbGrado").load("cat_grados_combos_ajax.php", {"cveRito": cveRito, "cveClasificacion": cveClasificacion}, function (responseTxt, statusTxt, xhr) {
+            $("#cmbGrado").attr({'disabled': false});
 
-                        function limpiar()
-                        {
-                            $("#xAccion").val("0");
-                            $("#txtCveClasProducto").val("0");
-                            $("#frmClasificacionProductos").submit();
-                        }
+        });
+    }
 
-                        function grabar()
-                        {
-                            if ($("#cmbCveRito").val() > 0 && $("#ajaxCmb").val() > 0 && $("#cmbGrado").val() > 0 && $("#txtDescripcion").val() != "")
-                            {
-                                $("#xAccion").val("grabar");
-                                $("#frmClasificacionProductos").submit();
-                            }
-                            else
-                            {
-                                alert("Es necesario elegir el Rito, la Clasificación, el grado y agregar la clasificación del producto");
-                            }
+    function limpiar()
+    {
+        $("#xAccion").val("0");
+        $("#txtCveClasProducto").val("0");
+        $("#frmClasificacionProductos").submit();
+    }
 
-                        }
+    function grabar()
+    {
+        if ($("#cmbCveRito").val() > 0 && $("#ajaxCmb").val() > 0 && $("#cmbGrado").val() > 0 && $("#txtDescripcion").val() !== "")
+        {
+            $("#xAccion").val("grabar");
+            $("#frmClasificacionProductos").submit();
+        }
+        else
+        {
+            alert("Es necesario elegir el Rito, la Clasificación, el grado y agregar la clasificación del producto");
+        }
 
-
-                        function recargar()
-                        {
-                            $("#xAccion").val("recargar");
-                            $("#frmClasificacionProductos").submit();
-
-                        }
+    }
 
 
+    function recargar()
+    {
+        $("#xAccion").val("recargar");
+        $("#frmClasificacionProductos").submit();
 
-                        var Rito = $("#cmbCveRito").val();
-                        if (Rito != 0)
-                        {
-                            cargarCombo2(Rito,<?php echo($clasf->getCveClasificacion() ) ?>,<?php echo($clasf->getCveGrado() ) ?>);
-                        }
+    }
 
+
+
+    var Rito = $("#cmbCveRito").val();
+    if (Rito !== 0)
+    {
+        cargarCombo2(Rito,<?php echo($clasf->getCveClasificacion() ) ?>,<?php echo($clasf->getCveGrado() ) ?>);
+    }
 
     </script>
 </body>
