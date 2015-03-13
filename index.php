@@ -108,7 +108,7 @@ require_once './clases/UtilDB.php';
                     <h1>Novedades</h1>
                     <div class="row">
                         <?php
-                        $sql2 = "SELECT * FROM productos WHERE novedad = 1";
+                        $sql2 = "SELECT * FROM productos WHERE novedad = 1 AND ruta_imagen1 IS NOT NULL";
                         $rst2 = UtilDB::ejecutaConsulta($sql2);
                         $tmp2 = "";
                         foreach ($rst2 as $row2) {
@@ -140,7 +140,7 @@ require_once './clases/UtilDB.php';
                 <div class="col-md-3" id="ofertas">
                     <h1 class="text-center">Ofertas</h1>
                     <?php
-                    $sql3 = "SELECT * FROM productos WHERE oferta = 1";
+                    $sql3 = "SELECT * FROM productos WHERE oferta = 1 AND ruta_imagen1 IS NOT NULL";
                     $rst3 = UtilDB::ejecutaConsulta($sql3);
                     $tmp3 = "";
                     foreach ($rst3 as $row3) {
@@ -160,7 +160,7 @@ require_once './clases/UtilDB.php';
         </div>
         <footer class="footer">
             <div class="container">
-                <p class="text-muted text-center">Copyright 2015| Masoneria Sin Fronteras Stores| WEBXICO & Cuetox</p>
+                <p class="text-muted text-center">Copyright 2015| Masoneria Sin Fronteras Stores| Powered By WEBXICO & Cuetox</p>
             </div>
         </footer>
     </body>
