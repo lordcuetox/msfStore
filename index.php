@@ -120,23 +120,7 @@ require_once './clases/UtilDB.php';
                     </div>
                 </div>
                 <div class="col-md-3" id="grados" style="display: none;">&nbsp;</div>
-                <div class="col-md-6" id="clasificaciones_productos" style="display: none;">
-                    <!--<div class="row">
-                        <div class="col-md-6"><img src="img/mandil_aprendiz.jpg" class="img-responsive" alt="mandil_aprendiz"/></div>
-                        <div class="col-md-6"><h3>Mandil de aprendiz</h3><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.</p></div>
-                    </div>
-                    <br/>
-                    <div class="row">
-                        <div class="col-md-6"><img src="img/aprendiz2.jpg" class="img-responsive" alt="mandil_aprendiz"/></div>
-                        <div class="col-md-6"><h3>Escuadra de aprendiz</h3><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.</p></div>
-                    </div>
-                    <br/>
-                    <div class="row">
-                        <div class="col-md-6"><img src="img/aprendiz3.jpg" class="img-responsive" alt="mandil_aprendiz"/></div>
-                        <div class="col-md-6"><h3>Compas de aprendiz</h3><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.</p></div>
-                    </div>
-                    <br/>-->
-                </div>
+                <div class="col-md-6" id="clasificaciones_productos" style="display: none;">&nbsp;</div>
                 <div class="col-md-3" id="ofertas">
                     <h1 class="text-center">Ofertas</h1>
                     <?php
