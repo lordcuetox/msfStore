@@ -210,10 +210,15 @@ if (isset($_POST['xAccion'])) {
                         <input type="password" class="form-control" id="txtPass" name="txtPass" 
                                placeholder="Password" value="<?php echo($clasf->getFresita()); ?>">
                     </div>
-                        <div class="form-group">
+                    <div class="form-group">
                         <label for="txtPass">Repita la contraseña:</label>
                         <input type="password" class="form-control" id="txtPass2" name="txtPass2" 
                                placeholder="Password" value="<?php echo($clasf->getFresita()); ?>">
+                    </div>
+                           <div class="form-group">
+                        <label for="txtTelefono">Telefono:</label>
+                        <input type="password" class="form-control" id="txtTelefono" name="txtTelefono" 
+                               placeholder="(000)-00-0-0-00" value="<?php echo($clasf->getFresita()); ?>">
                     </div>
                     <div class="checkbox">
                         <label>
