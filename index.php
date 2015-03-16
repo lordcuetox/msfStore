@@ -50,7 +50,19 @@ require_once './clases/UtilDB.php';
             {
                 $("#productos").load("index_ajax.php", {"xAccion": "getProductos", "cveRito": cveRito, "cveClasificacion": cveClasificacion, "cveGrado": cveGrado, "cveClasProducto": cveClasProducto, "nombreClasProducto": nombreClasProducto}, function (responseTxt, statusTxt, xhr) {
 
-
+                        /*$("a[data-target=#myModal]").click(function (ev) {
+                        ev.preventDefault();
+                        var target = $(this).data('remote');
+                        // load the url and show modal on success
+                            $("#myModal .modal-body").load(target, function () {
+                        $("#myModal").modal("show");
+                    });
+                });*/
+        
+            $('body').on('hidden.bs.modal', '.modal', function () {
+               $(this).removeData('bs.modal');
+            });
+        
                 });
             }
         </script>
