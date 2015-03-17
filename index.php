@@ -33,16 +33,36 @@ require_once './clases/UtilDB.php';
                 $("#grados").load("index_ajax.php", {"xAccion": "getGrados", "cveRito": cveRito, "cveClasificacion": cveClasificacion, "nombreClasificacion": nombreClasificacion}, function (responseTxt, statusTxt, xhr) {
                     $("#novedades").css("display", "none");
                     $("#grados").css("display", "block");
-                    $("#clasificaciones_productos").css("display", "block");
+                    $("#productos").css("display", "block");
 
                 });
             }
 
-            function getClasificacionesProductos(cveRito, cveClasificacion, cveGrado, nombreGrado)
+            /*function getClasificacionesProductos(cveRito, cveClasificacion, cveGrado, nombreGrado)
+             {
+             $("#productos").load("index_ajax.php", {"xAccion": "getClasificacionProductos", "cveRito": cveRito, "cveClasificacion": cveClasificacion, "cveGrado": cveGrado, "nombreGrado": nombreGrado}, function (responseTxt, statusTxt, xhr) {
+             
+             
+             });
+             }*/
+
+            function getProductos(cveRito, cveClasificacion, cveGrado, cveClasProducto, nombreClasProducto)
             {
-                $("#clasificaciones_productos").load("index_ajax.php", {"xAccion": "getClasificacionProductos", "cveRito": cveRito, "cveClasificacion": cveClasificacion, "cveGrado": cveGrado, "nombreGrado": nombreGrado}, function (responseTxt, statusTxt, xhr) {
+                $("#productos").load("index_ajax.php", {"xAccion": "getProductos", "cveRito": cveRito, "cveClasificacion": cveClasificacion, "cveGrado": cveGrado, "cveClasProducto": cveClasProducto, "nombreClasProducto": nombreClasProducto}, function (responseTxt, statusTxt, xhr) {
 
-
+                        /*$("a[data-target=#myModal]").click(function (ev) {
+                        ev.preventDefault();
+                        var target = $(this).data('remote');
+                        // load the url and show modal on success
+                            $("#myModal .modal-body").load(target, function () {
+                        $("#myModal").modal("show");
+                    });
+                });*/
+        
+            $('body').on('hidden.bs.modal', '.modal', function () {
+               $(this).removeData('bs.modal');
+            });
+        
                 });
             }
         </script>
@@ -85,7 +105,7 @@ require_once './clases/UtilDB.php';
                                             $tmp .= "<a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">" . $row['descripcion'] . "<span class=\"caret\"></span></a>";
                                             $tmp .= "<ul class=\"dropdown-menu\">";
                                             foreach ($rst2 as $row2) {
-                                                $tmp .="<li><a href=\"javascript:void(0);\" onclick=\"getGrados(" . $row2['cve_rito'] . "," . $row2['cve_clasificacion'] . ",'" . $row2['descripcion'] . "');\">" . $row2['descripcion'] . "</a></li>";
+                                                $tmp .="<li><a href=\"javascript:void(0);\" onclick=\"getGrados(" . $row2['cve_rito'] . "," . $row2['cve_clasificacion'] . ",'" . ($row['descripcion'] . " / " . $row2['descripcion']) . "');\">" . $row2['descripcion'] . "</a></li>";
                                             }
                                             $rst2->closeCursor();
                                             $tmp .= "</ul>";
@@ -111,8 +131,20 @@ require_once './clases/UtilDB.php';
                         $sql2 = "SELECT * FROM productos WHERE novedad = 1 AND ruta_imagen1 IS NOT NULL";
                         $rst2 = UtilDB::ejecutaConsulta($sql2);
                         $tmp2 = "";
-                        foreach ($rst2 as $row2) {
-                            $tmp2 .= "<div class=\"col-md-4\"><img src=\"" . $row2['ruta_imagen1'] . "\" class=\"img-responsive\" alt=\"" . $row2['nombre'] . "\"/></div>";
+                        $count1 = 0;
+
+                        if ($rst2->rowCount() > 0) {
+                            foreach ($rst2 as $row2) {
+                                $tmp2 .= "<div class=\"col-md-4\"><img src=\"" . $row2['ruta_imagen1'] . "\" class=\"img-responsive\" alt=\"" . $row2['nombre'] . "\"/></div>";
+                                $count1++;
+                                if ($count1 % 3 == 0) {
+                                    $tmp2.="<div class=\"clearfix visible-sm\"></div>";
+                                    $tmp2.="<div class=\"clearfix visible-md\"></div>";
+                                    $tmp2.="<div class=\"clearfix visible-lg\"></div>";
+                                }
+                            }
+                        } else {
+                            $tmp2 .= "<div class=\"col-md-12\">0 productos cargados en NOVEDAD</div>";
                         }
                         $rst2->closeCursor();
                         echo($tmp2);
@@ -120,32 +152,21 @@ require_once './clases/UtilDB.php';
                     </div>
                 </div>
                 <div class="col-md-3" id="grados" style="display: none;">&nbsp;</div>
-                <div class="col-md-6" id="clasificaciones_productos" style="display: none;">
-                    <!--<div class="row">
-                        <div class="col-md-6"><img src="img/mandil_aprendiz.jpg" class="img-responsive" alt="mandil_aprendiz"/></div>
-                        <div class="col-md-6"><h3>Mandil de aprendiz</h3><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.</p></div>
-                    </div>
-                    <br/>
-                    <div class="row">
-                        <div class="col-md-6"><img src="img/aprendiz2.jpg" class="img-responsive" alt="mandil_aprendiz"/></div>
-                        <div class="col-md-6"><h3>Escuadra de aprendiz</h3><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.</p></div>
-                    </div>
-                    <br/>
-                    <div class="row">
-                        <div class="col-md-6"><img src="img/aprendiz3.jpg" class="img-responsive" alt="mandil_aprendiz"/></div>
-                        <div class="col-md-6"><h3>Compas de aprendiz</h3><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.</p></div>
-                    </div>
-                    <br/>-->
-                </div>
+                <div class="col-md-6" id="productos" style="display: none;">&nbsp;</div>
                 <div class="col-md-3" id="ofertas">
                     <h1 class="text-center">Ofertas</h1>
                     <?php
                     $sql3 = "SELECT * FROM productos WHERE oferta = 1 AND ruta_imagen1 IS NOT NULL";
                     $rst3 = UtilDB::ejecutaConsulta($sql3);
                     $tmp3 = "";
-                    foreach ($rst3 as $row3) {
-                        $tmp3 .= "<img src=\"" . $row3['ruta_imagen1'] . "\" class=\"img-responsive\" title =\"" . $row3['nombre'] . "\" alt=\"" . $row3['nombre'] . "\"/>";
-                        $tmp3 .= "<br/>";
+
+                    if ($rst3->rowCount() > 0) {
+                        foreach ($rst3 as $row3) {
+                            $tmp3 .= "<img src=\"" . $row3['ruta_imagen1'] . "\" class=\"img-responsive\" title =\"" . $row3['nombre'] . "\" alt=\"" . $row3['nombre'] . "\"/>";
+                            $tmp3 .= "<br/>";
+                        }
+                    } else {
+                        $tmp3 .= "<p>0productos cargados en OFERTAS<p/>";
                     }
                     $rst3->closeCursor();
                     echo($tmp3);

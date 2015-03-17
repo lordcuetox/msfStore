@@ -1,31 +1,23 @@
-<!--
-/**
- *
- * @author Roberto Eder Weiss Juárez
- * @see {@link http://webxico.blogspot.mx/}
- */
--->
 <?php
 require_once '../clases/UtilDB.php';
 session_start();
-
 if (isset($_SESSION['cve_usuario'])) 
 {
     header('Location:cat_ritos.php');
     return;
 }
-
 if (isset($_POST['xAccion'])) {
     if ($_POST['xAccion'] == "login") {
         $sql = "SELECT * FROM el_reaton WHERE habilitado = '" . $_POST['txtUser'] . "' AND fresita = '" . $_POST['txtPassword'] . "'";
         $rst = UtilDB::ejecutaConsulta($sql);
         if ($rst->rowCount() > 0) {
             foreach ($rst as $row)
-            { 
-                $_SESSION['cve_usuario'] = $row['cve_reata'];
-                 header('Location:cat_ritos.php');
+            {   $_SESSION['cve_usuario'] = $row['cve_reata'];
+                header('Location: cat_ritos.php');
+                 die();
+                 return;
             }
-            
+         
            
         }
     }
