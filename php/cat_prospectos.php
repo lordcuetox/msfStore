@@ -1,14 +1,18 @@
 <?php
 require_once '../clases/Prospectos.php';
+require_once '../clases/ComunicacionesClientes';
 require_once '../clases/UtilDB.php';
 
 $clasf = new Prospectos();
+$correo = new ComunicacionesClientes();
+$telefono = new ComunicacionesClientes();
 $count = NULL;
 $msg = "";
 
 if (isset($_POST['txtCveCliente'])) {
     if ($_POST['txtCveCliente'] != 0) {
         $clasf = new Prospectos($_POST['txtCveCliente']);
+        $correo=
     }
 }
 
@@ -217,8 +221,13 @@ if (isset($_POST['xAccion'])) {
                     </div>
                            <div class="form-group">
                         <label for="txtTelefono">Telefono:</label>
-                        <input type="password" class="form-control" id="txtTelefono" name="txtTelefono" 
+                        <input type="text" class="form-control" id="txtTelefono" name="txtTelefono" 
                                placeholder="(000)-00-0-0-00" value="<?php echo($clasf->getFresita()); ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtCorreo">Correo:</label>
+                        <input type="text" class="form-control" id="txtCorreo" name="txtCorreo" 
+                               placeholder="correo@dominio" value="<?php echo($clasf->getFresita()); ?>">
                     </div>
                     <div class="checkbox">
                         <label>
