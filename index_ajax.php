@@ -54,6 +54,7 @@ if (isset($_POST['xAccion'])) {
       echo($tmp2);
       }
       } */
+    
     if ($_POST['xAccion'] == "getProductos") {
         if (isset($_POST['cveRito']) && isset($_POST['cveClasificacion']) && isset($_POST['cveGrado']) && isset($_POST['cveClasProducto']) && isset($_POST['nombreClasProducto'])) {
             $cveRito2 = $_POST['cveRito'];
@@ -72,7 +73,7 @@ if (isset($_POST['xAccion'])) {
                 foreach ($rst2 as $row2) {
                     //$tmp2 .="<div class=\"row\"><div class=\"col-md-12\"><h2>" . $row2['descripcion'] . "</h2></div></div>";
                     $count ++;
-                    $tmp2 .= "<div class=\"col-md-4\"><img src=\"" . $row2['ruta_imagen1'] . "\" class=\"img-responsive\" alt=\"" . $row2['nombre'] . "\"/><h3>" . $row2['nombre'] . "</h3><a href=\"javascript:void(0);\" data-toggle=\"modal\" data-remote=\"php/productos_id.php?id=".$row2['cve_producto']."\" data-target=\"#myModal\" class=\"btn btn-info\">Ver descripción</a><br/></div>";
+                    $tmp2 .= "<div class=\"col-md-4\"><img src=\"" . $row2['ruta_imagen1'] . "\" class=\"img-responsive\" alt=\"" . $row2['nombre'] . "\"/><h4>" . $row2['nombre'] . "</h4><a href=\"javascript:void(0);\" data-toggle=\"modal\" data-remote=\"php/productos_id.php?id=" . $row2['cve_producto'] . "\" data-target=\"#myModal\" class=\"btn btn-info\">Ver descripción</a><br/></div>";
                     if ($count % 3 == 0) {
                         $tmp2.="<div class=\"clearfix visible-sm\"></div>";
                         $tmp2.="<div class=\"clearfix visible-md\"></div>";
