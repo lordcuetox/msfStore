@@ -3,8 +3,7 @@ require_once '../clases/Productos.php';
 require_once '../clases/UtilDB.php';
 session_start();
 
-if (!isset($_SESSION['cve_usuario'])) 
-{
+if (!isset($_SESSION['cve_usuario'])) {
     header('Location:login.php');
     return;
 }
@@ -52,8 +51,7 @@ if (isset($_POST['xAccion'])) {
             $msg = "[ERROR] Producto  no grabado";
         }
     }
-    if ($_POST['xAccion'] == 'logout')
-    {   
+    if ($_POST['xAccion'] == 'logout') {
         unset($_SESSION['cve_usuario']);
         header('Location:login.php');
         return;
@@ -70,7 +68,7 @@ if (isset($_POST['xAccion2'])) {
         /* RENOMBRADO DEL ARCHIVO CON LA CVE_PRODUCTO */
         $name_file = basename($_FILES["fileToUpload"]["name"]);
         $extension = substr($name_file, strpos($name_file, "."), strlen($name_file));
-        $new_name_file = $cve_producto . $extension;
+        $new_name_file = $cve_producto ."_".$num_imagen. $extension;
         $target_file = $target_dir . $new_name_file;
         /* RENOMBRADO DEL ARCHIVO CON LA CVE_PRODUCTO */
 
@@ -167,7 +165,7 @@ if (isset($_POST['xAccion2'])) {
                     <ul class="nav" id="side-menu">
                         <li>
                             <a href="cat_ritos.php" ><i class="fa fa-university"></i> Ritos</a>
-                             <a href="cat_clasificaciones.php" ><i class="fa fa-leaf"></i> Clasificaciones</a>
+                            <a href="cat_clasificaciones.php" ><i class="fa fa-leaf"></i> Clasificaciones</a>
                             <a href="cat_grados.php"><i class="fa fa-crop"></i> Grados</a>
                             <a href="cat_clasificacion_productos.php"><i class="fa fa-tags"></i> Clasificación productos</a>
                             <a href="cat_productos.php"  class="active"><i class="fa fa-truck"></i> Productos</a>
@@ -199,14 +197,14 @@ if (isset($_POST['xAccion2'])) {
                             <label for="cmbCveRito">* Rito:</label>
                             <select name="cmbCveRito" id="cmbCveRito" class="form-control" placeholder="Rito">
                                 <option value="0">--------- SELECCIONE UNA OPCIÓN ---------</option>
-                                <?php
-                                $sql2 = "SELECT * FROM ritos ORDER BY cve_rito";
-                                $rst2 = UtilDB::ejecutaConsulta($sql2);
-                                foreach ($rst2 as $row) {
-                                    echo("<option value='" . $row['cve_rito'] . "' " . ($clasf->getCveRito() != 0 ? ($clasf->getCveRito() == $row['cve_rito'] ? "selected" : "") : "") . ">" . $row['descripcion'] . "</option>");
-                                }
-                                $rst2->closeCursor();
-                                ?>
+<?php
+$sql2 = "SELECT * FROM ritos ORDER BY cve_rito";
+$rst2 = UtilDB::ejecutaConsulta($sql2);
+foreach ($rst2 as $row) {
+    echo("<option value='" . $row['cve_rito'] . "' " . ($clasf->getCveRito() != 0 ? ($clasf->getCveRito() == $row['cve_rito'] ? "selected" : "") : "") . ">" . $row['descripcion'] . "</option>");
+}
+$rst2->closeCursor();
+?>
 
                             </select>
                         </div>
@@ -326,22 +324,25 @@ if (isset($_POST['xAccion2'])) {
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                     <h4 class="modal-title">Subir imagen</h4>
-                                    <form role="form" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data" id="frmUpload" name="frmUpload">
-                                        <div class="form-group">
-                                            <input type="hidden" id="xCveProducto" name="xCveProducto" value="0" />
-                                            <input type="hidden" id="xNumImagen" name="xNumImagen" value="0" />
-                                            <input type="hidden" id="xAccion2" name="xAccion2" value="0" />
-                                            <label for="fileToUpload">Seleccione imagen para subir:</label>
-                                            <input type="file" name="fileToUpload" id="fileToUpload" class="form-control" placeholder="Seleccione una imagen">
-                                        </div>
-                                        <button type="button" class="btn btn-default" id="btnGrabar" name="btnGrabar" onclick="subir();">Subir</button>
-                                    </form>
-                                    <br/>
-                                    <br/>
                                 </div>
-                                <div class="modal-body"><div class="te"></div></div>
+                                <div class="modal-body">
+                                    <div class="te">
+                                        <form role="form" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data" id="frmUpload" name="frmUpload">
+                                            <div class="form-group">
+                                                <input type="hidden" id="xCveProducto" name="xCveProducto" value="0" />
+                                                <input type="hidden" id="xNumImagen" name="xNumImagen" value="0" />
+                                                <input type="hidden" id="xAccion2" name="xAccion2" value="0" />
+                                                <label for="fileToUpload">Seleccione imagen para subir:</label>
+                                                <input type="file" name="fileToUpload" id="fileToUpload" class="form-control" placeholder="Seleccione una imagen">
+                                            </div>
+                                            <button type="button" class="btn btn-default" id="btnGrabar" name="btnGrabar" onclick="subir();">Subir</button>
+                                        </form>
+                                        <br/>
+                                        <br/>
+                                    </div>
+                                </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                 </div>
                             </div>
                             <!-- /.modal-content -->
@@ -364,156 +365,156 @@ if (isset($_POST['xAccion2'])) {
     <!-- Custom Theme JavaScript -->
     <script src="../twbs/plugins/startbootstrap-sb-admin-2-1.0.5/dist/js/sb-admin-2.js"></script>
     <script>
-    $(document).ready(function () {
+        $(document).ready(function () {
 
-        $(".date-picker").datepicker();
-        $.datepicker.setDefaults($.datepicker.regional[ "es-MX" ]);
-
-
-
-        $("#cmbCveRito").change(function () {
-            var cveRito = 0;
-            cveRito = this.value;
-            cargarCombo(cveRito);
-
-        });
-
-        $("#ajaxCmb").change(function () {
-            //   var optionSelected = $("option:selected", this);
-            //    var valueSelected = this.value;
-            cargarComboGrado($("#cmbCveRito").val(), this.value);
-
-        });
-        $("#cmbGrado").change(function () {
-            //   var optionSelected = $("option:selected", this);
-            //    var valueSelected = this.value;
-            cargarComboClasProducto($("#cmbCveRito").val(), $("#ajaxCmb").val(), this.value);
-
-        });
-        $("#cmbClasProducto").change(function () {
-            //   var optionSelected = $("option:selected", this);
-            //    var valueSelected = this.value;
-            cargarMuestra($("#cmbCveRito").val(), $("#ajaxCmb").val(), $("#cmbGrado").val(), this.value);
-
-        });
-
-        var Rito = $("#cmbCveRito").val();
-        if (Rito !== 0)
-        {
-            cargarCombo2(Rito,<?php echo($clasf->getCveClasificacion() ) ?>,<?php echo($clasf->getCveGrado() ) ?>,<?php echo($clasf->getCveClasProducto() ) ?>);
-        }
+            $(".date-picker").datepicker();
+            $.datepicker.setDefaults($.datepicker.regional[ "es-MX" ]);
 
 
-    });
-    
-    function logout()
-    {
-        $("#xAccion").val("logout");
-        $("#frmProductos").submit();
-    }
 
+            $("#cmbCveRito").change(function () {
+                var cveRito = 0;
+                cveRito = this.value;
+                cargarCombo(cveRito);
 
-    function cargarMuestra(cveRito, cveClasificacion, cveGrado, cveClasProducto)
-    {   //En el div con id 'ajax' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
+            });
 
-        $("#ajax").load("cat_productos_ajax.php", {"cveRito": cveRito, "cveClasificacion": cveClasificacion, "cveGrado": cveGrado, "cveClasProducto": cveClasProducto}, function (responseTxt, statusTxt, xhr) {
-            if (statusTxt == "success")
+            $("#ajaxCmb").change(function () {
+                //   var optionSelected = $("option:selected", this);
+                //    var valueSelected = this.value;
+                cargarComboGrado($("#cmbCveRito").val(), this.value);
+
+            });
+            $("#cmbGrado").change(function () {
+                //   var optionSelected = $("option:selected", this);
+                //    var valueSelected = this.value;
+                cargarComboClasProducto($("#cmbCveRito").val(), $("#ajaxCmb").val(), this.value);
+
+            });
+            $("#cmbClasProducto").change(function () {
+                //   var optionSelected = $("option:selected", this);
+                //    var valueSelected = this.value;
+                cargarMuestra($("#cmbCveRito").val(), $("#ajaxCmb").val(), $("#cmbGrado").val(), this.value);
+
+            });
+
+            var Rito = $("#cmbCveRito").val();
+            if (Rito !== 0)
             {
-                $('[data-toggle="popover"]').popover({placement: 'top', html: true, trigger: 'click hover'});
+                cargarCombo2(Rito,<?php echo($clasf->getCveClasificacion() ) ?>,<?php echo($clasf->getCveGrado() ) ?>,<?php echo($clasf->getCveClasProducto() ) ?>);
             }
-            if (statusTxt == "error")
-                alert("Error: " + xhr.status + ": " + xhr.statusText);
+
+
         });
-    }
 
-    function cargarCombo(cveRito)
-    {   //En el div con id 'ajaxCmb' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
-
-        $("#ajaxCmb").load("cat_clasificaciones_combos_ajax.php", {"cveRito": cveRito}, function (responseTxt, statusTxt, xhr) {
-            $("#ajaxCmb").attr({'disabled': false});
-        });
-        cargarCombo2($("#cmbCveRito").val(), $("#ajaxCmb").val(), 0, 0);
-    }
-    function cargarCombo2(cveRito, cveClasificacion, cveGrado, cveClasProducto)
-    {   //En el div con id 'ajaxCmb' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
-
-        $("#ajaxCmb").load("cat_clasificaciones_combos_ajax.php", {"cveRito": cveRito, "cveClasificacion": cveClasificacion}, function (responseTxt, statusTxt, xhr) {
-            $("#ajaxCmb").attr({'disabled': false});
-            cargarComboGrado2(cveRito, cveClasificacion, cveGrado, cveClasProducto);
-        });
-    }
-
-    function cargarComboGrado2(cveRito, cveClasificacion, cveGrado, cveClasProducto)
-    {   //En el div con id 'cmbGrado' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
-
-        $("#cmbGrado").load("cat_grados_combos_ajax.php", {"cveRito": cveRito, "cveClasificacion": cveClasificacion, "cveGrado": cveGrado}, function (responseTxt, statusTxt, xhr) {
-            $("#cmbGrado").attr({'disabled': false});
-            cargarComboClasProducto2(cveRito, cveClasificacion, cveGrado, cveClasProducto)
-        });
-    }
-
-    function cargarComboGrado(cveRito, cveClasificacion)
-    {   //En el div con id 'cmbGrado' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
-
-        $("#cmbGrado").load("cat_grados_combos_ajax.php", {"cveRito": cveRito, "cveClasificacion": cveClasificacion}, function (responseTxt, statusTxt, xhr) {
-            $("#cmbGrado").attr({'disabled': false});
-        });
-        cargarComboClasProducto(cveRito, cveClasificacion, 0)
-    }
-
-    function cargarComboClasProducto(cveRito, cveClasificacion, cveGrado)
-    {   //En el div con id 'cmbGrado' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
-
-        $("#cmbClasProducto").load("cat_clasificacion_productos_combos_ajax.php", {"cveRito": cveRito, "cveClasificacion": cveClasificacion, "cveGrado": cveGrado}, function (responseTxt, statusTxt, xhr) {
-            $("#cmbClasProducto").attr({'disabled': false});
-            cargarMuestra($("#cmbCveRito").val(), $("#ajaxCmb").val(), $("#cmbGrado").val(), $("#cmbClasProducto").val());
-        });
-    }
-    function cargarComboClasProducto2(cveRito, cveClasificacion, cveGrado, cveClasProducto)
-    {   //En el div con id 'cmbGrado' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
-
-        $("#cmbClasProducto").load("cat_clasificacion_productos_combos_ajax.php", {"cveRito": cveRito, "cveClasificacion": cveClasificacion, "cveGrado": cveGrado, "cveClasProducto": cveClasProducto}, function (responseTxt, statusTxt, xhr) {
-            $("#cmbClasProducto").attr({'disabled': false});
-            cargarMuestra($("#cmbCveRito").val(), $("#ajaxCmb").val(), $("#cmbGrado").val(), $("#cmbClasProducto").val());
-        });
-    }
-
-    function limpiar()
-    {
-        $("#xAccion").val("0");
-        $("#txtCveProducto").val("0");
-        $("#frmProductos").submit();
-    }
-
-    function grabar()
-    {
-        if ($("#cmbCveRito").val() > 0 && $("#ajaxCmb").val() > 0 && $("#cmbGrado").val() > 0 && $("#cmbClasProducto").val() > 0 && $("#txtNombre").val() != "" && $("#txtDescripcion").val() != "" && $("#txtPrecio").val() > 0)
+        function logout()
         {
-            $("#xAccion").val("grabar");
+            $("#xAccion").val("logout");
             $("#frmProductos").submit();
         }
-        else
-        {
-            alert("Es necesario capturar los campos indicados como obligatorios");
+
+
+        function cargarMuestra(cveRito, cveClasificacion, cveGrado, cveClasProducto)
+        {   //En el div con id 'ajax' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
+
+            $("#ajax").load("cat_productos_ajax.php", {"cveRito": cveRito, "cveClasificacion": cveClasificacion, "cveGrado": cveGrado, "cveClasProducto": cveClasProducto}, function (responseTxt, statusTxt, xhr) {
+                if (statusTxt == "success")
+                {
+                    $('[data-toggle="popover"]').popover({placement: 'top', html: true, trigger: 'click hover'});
+                }
+                if (statusTxt == "error")
+                    alert("Error: " + xhr.status + ": " + xhr.statusText);
+            });
         }
 
-    }
+        function cargarCombo(cveRito)
+        {   //En el div con id 'ajaxCmb' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
 
-    function recargar()
-    {
-        $("#xAccion").val("recargar");
-        $("#frmProductos").submit();
-
-    }
-
-    function subir()
-    {
-        if ($("#fileToUpload").val() !== "")
-        {
-            $("#xAccion2").val("upload");
-            $("#frmUpload").submit();
+            $("#ajaxCmb").load("cat_clasificaciones_combos_ajax.php", {"cveRito": cveRito}, function (responseTxt, statusTxt, xhr) {
+                $("#ajaxCmb").attr({'disabled': false});
+            });
+            cargarCombo2($("#cmbCveRito").val(), $("#ajaxCmb").val(), 0, 0);
         }
-    }
+        function cargarCombo2(cveRito, cveClasificacion, cveGrado, cveClasProducto)
+        {   //En el div con id 'ajaxCmb' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
+
+            $("#ajaxCmb").load("cat_clasificaciones_combos_ajax.php", {"cveRito": cveRito, "cveClasificacion": cveClasificacion}, function (responseTxt, statusTxt, xhr) {
+                $("#ajaxCmb").attr({'disabled': false});
+                cargarComboGrado2(cveRito, cveClasificacion, cveGrado, cveClasProducto);
+            });
+        }
+
+        function cargarComboGrado2(cveRito, cveClasificacion, cveGrado, cveClasProducto)
+        {   //En el div con id 'cmbGrado' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
+
+            $("#cmbGrado").load("cat_grados_combos_ajax.php", {"cveRito": cveRito, "cveClasificacion": cveClasificacion, "cveGrado": cveGrado}, function (responseTxt, statusTxt, xhr) {
+                $("#cmbGrado").attr({'disabled': false});
+                cargarComboClasProducto2(cveRito, cveClasificacion, cveGrado, cveClasProducto)
+            });
+        }
+
+        function cargarComboGrado(cveRito, cveClasificacion)
+        {   //En el div con id 'cmbGrado' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
+
+            $("#cmbGrado").load("cat_grados_combos_ajax.php", {"cveRito": cveRito, "cveClasificacion": cveClasificacion}, function (responseTxt, statusTxt, xhr) {
+                $("#cmbGrado").attr({'disabled': false});
+            });
+            cargarComboClasProducto(cveRito, cveClasificacion, 0)
+        }
+
+        function cargarComboClasProducto(cveRito, cveClasificacion, cveGrado)
+        {   //En el div con id 'cmbGrado' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
+
+            $("#cmbClasProducto").load("cat_clasificacion_productos_combos_ajax.php", {"cveRito": cveRito, "cveClasificacion": cveClasificacion, "cveGrado": cveGrado}, function (responseTxt, statusTxt, xhr) {
+                $("#cmbClasProducto").attr({'disabled': false});
+                cargarMuestra($("#cmbCveRito").val(), $("#ajaxCmb").val(), $("#cmbGrado").val(), $("#cmbClasProducto").val());
+            });
+        }
+        function cargarComboClasProducto2(cveRito, cveClasificacion, cveGrado, cveClasProducto)
+        {   //En el div con id 'cmbGrado' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
+
+            $("#cmbClasProducto").load("cat_clasificacion_productos_combos_ajax.php", {"cveRito": cveRito, "cveClasificacion": cveClasificacion, "cveGrado": cveGrado, "cveClasProducto": cveClasProducto}, function (responseTxt, statusTxt, xhr) {
+                $("#cmbClasProducto").attr({'disabled': false});
+                cargarMuestra($("#cmbCveRito").val(), $("#ajaxCmb").val(), $("#cmbGrado").val(), $("#cmbClasProducto").val());
+            });
+        }
+
+        function limpiar()
+        {
+            $("#xAccion").val("0");
+            $("#txtCveProducto").val("0");
+            $("#frmProductos").submit();
+        }
+
+        function grabar()
+        {
+            if ($("#cmbCveRito").val() > 0 && $("#ajaxCmb").val() > 0 && $("#cmbGrado").val() > 0 && $("#cmbClasProducto").val() > 0 && $("#txtNombre").val() != "" && $("#txtDescripcion").val() != "" && $("#txtPrecio").val() > 0)
+            {
+                $("#xAccion").val("grabar");
+                $("#frmProductos").submit();
+            }
+            else
+            {
+                alert("Es necesario capturar los campos indicados como obligatorios");
+            }
+
+        }
+
+        function recargar()
+        {
+            $("#xAccion").val("recargar");
+            $("#frmProductos").submit();
+
+        }
+
+        function subir()
+        {
+            if ($("#fileToUpload").val() !== "")
+            {
+                $("#xAccion2").val("upload");
+                $("#frmUpload").submit();
+            }
+        }
 
     </script>
 </body>
