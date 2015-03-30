@@ -46,7 +46,7 @@ foreach ($rst as $row) {
             <p><?php echo($row['descripcion']); ?></p>
             <p class="negritas">Precio: $<?php echo($row['precio']); ?></p>
             <p class="negritas">Existencias: <?php echo($row['existencias']); ?></p>
-            <p><a href="javascript:void(0);" onclick="alert('El carrito de compras aun no esta terminado');"><img src="img/Shopping-cart-accept-icon.png" alt="Agregar al carrito de compras" class="img-responsive"/></a></p>
+            <p><a href="agregacar.php?id=<?php echo($row['cve_producto']); ?>"><img src="img/Shopping-cart-accept-icon.png" alt="Agregar al carrito de compras" class="img-responsive"/></a></p>
         </div>
     </div>
     <div class="modal-footer">
