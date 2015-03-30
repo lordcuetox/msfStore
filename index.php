@@ -8,6 +8,7 @@
 
 <?php
 require_once './clases/UtilDB.php';
+define("MIN_SLIDES_OFERTA", 4);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -16,6 +17,7 @@ require_once './clases/UtilDB.php';
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="twbs/bootstrap-3.3.2/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="js/jQuery/plugins/jquery.bxslider/jquery.bxslider.css" rel="stylesheet"/>
         <link href="css/msfstore.css" rel="stylesheet"/>
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
@@ -23,15 +25,37 @@ require_once './clases/UtilDB.php';
         <![endif]-->
         <script src="js/jQuery/jquery-1.11.2.min.js"></script>
         <script src="twbs/bootstrap-3.3.2/js/bootstrap.min.js"></script>
+        <script src="js/jQuery/plugins/jquery.bxslider/jquery.bxslider.min.js"></script>
         <script>
             $(document).ready(function () {
                 $.ajaxSetup({"cache": false});
+
+                $('div#ofertas ul.bxslider').bxSlider({
+                    mode: "vertical",
+                    pager: false,
+                    auto: true,
+                    minSlides: 4,
+                    autoHover: true,
+                    speed: 4000,
+                    slideMargin: 15,
+                    moveSlides: 4});
+
+                $('body').on('hidden.bs.modal', '.modal', function () {
+                    $(this).removeData('bs.modal');
+                });
+
+                $('#myModal').on('shown.bs.modal', function (e) {
+                    $('div.te ul.bxslider').bxSlider({adaptiveHeight: true});
+                });
+
+
             });
 
             function getGrados(cveRito, cveClasificacion, nombreClasificacion)
             {
                 $("#grados").load("index_ajax.php", {"xAccion": "getGrados", "cveRito": cveRito, "cveClasificacion": cveClasificacion, "nombreClasificacion": nombreClasificacion}, function (responseTxt, statusTxt, xhr) {
                     $("#novedades").css("display", "none");
+                    //$("#ventana_modal").css("display", "none");
                     $("#grados").css("display", "block");
                     $("#productos").css("display", "block");
 
@@ -50,19 +74,10 @@ require_once './clases/UtilDB.php';
             {
                 $("#productos").load("index_ajax.php", {"xAccion": "getProductos", "cveRito": cveRito, "cveClasificacion": cveClasificacion, "cveGrado": cveGrado, "cveClasProducto": cveClasProducto, "nombreClasProducto": nombreClasProducto}, function (responseTxt, statusTxt, xhr) {
 
-                        /*$("a[data-target=#myModal]").click(function (ev) {
-                        ev.preventDefault();
-                        var target = $(this).data('remote');
-                        // load the url and show modal on success
-                            $("#myModal .modal-body").load(target, function () {
-                        $("#myModal").modal("show");
+                    $('body').on('hidden.bs.modal', '.modal', function () {
+                        $(this).removeData('bs.modal');
                     });
-                });*/
-        
-            $('body').on('hidden.bs.modal', '.modal', function () {
-               $(this).removeData('bs.modal');
-            });
-        
+
                 });
             }
         </script>
@@ -135,7 +150,10 @@ require_once './clases/UtilDB.php';
 
                         if ($rst2->rowCount() > 0) {
                             foreach ($rst2 as $row2) {
-                                $tmp2 .= "<div class=\"col-md-4\"><img src=\"" . $row2['ruta_imagen1'] . "\" class=\"img-responsive\" alt=\"" . $row2['nombre'] . "\"/></div>";
+                                $tmp2 .= "<div class=\"col-md-4\">";
+                                $tmp2 .= "<img src=\"" . $row2['ruta_imagen1'] . "\" class=\"img-responsive\" alt=\"" . $row2['nombre'] . "\"/>";
+                                $tmp2 .= "<a href=\"javascript:void(0);\" data-toggle=\"modal\" data-remote=\"php/productos_id.php?id=" . $row2['cve_producto'] . "\" data-target=\"#myModal\" class=\"btn btn-info\">Ver descripción</a>";
+                                $tmp2 .= "</div>";
                                 $count1++;
                                 if ($count1 % 3 == 0) {
                                     $tmp2.="<div class=\"clearfix visible-sm\"></div>";
@@ -158,24 +176,45 @@ require_once './clases/UtilDB.php';
                     <?php
                     $sql3 = "SELECT * FROM productos WHERE oferta = 1 AND ruta_imagen1 IS NOT NULL";
                     $rst3 = UtilDB::ejecutaConsulta($sql3);
+                    $rowCount = $rst3->rowCount();
                     $tmp3 = "";
 
-                    if ($rst3->rowCount() > 0) {
-                        foreach ($rst3 as $row3) {
-                            $tmp3 .= "<img src=\"" . $row3['ruta_imagen1'] . "\" class=\"img-responsive\" title =\"" . $row3['nombre'] . "\" alt=\"" . $row3['nombre'] . "\"/>";
-                            $tmp3 .= "<br/>";
+                    if ($rowCount > 0) {
+                        if ($rowCount > MIN_SLIDES_OFERTA) {
+                            $tmp3 .= "<ul class=\"bxslider\">";
+                            foreach ($rst3 as $row3) {
+                                $tmp3 .= "<li>";
+                                $tmp3 .= "<a href=\"javascript:void(0);\" data-toggle=\"modal\" data-remote=\"php/productos_id.php?id=" . $row3['cve_producto'] . "\" data-target=\"#myModal\">";
+                                $tmp3 .= "<img src=\"" . $row3['ruta_imagen1'] . "\" class=\"img-responsive\" title =\"" . $row3['nombre'] . "\" alt=\"" . $row3['nombre'] . "\"/>";
+                                $tmp3 .= "</a>";
+                                $tmp3 .= "</li>";
+                            }
+                            $tmp3 .= "</ul>";
+                        } else {
+                            foreach ($rst3 as $row3) {
+                                $tmp3 .= "<a href=\"javascript:void(0);\" data-toggle=\"modal\" data-remote=\"php/productos_id.php?id=" . $row3['cve_producto'] . "\" data-target=\"#myModal\">";
+                                $tmp3 .= "<img src=\"" . $row3['ruta_imagen1'] . "\" class=\"img-responsive\" title =\"" . $row3['nombre'] . "\" alt=\"" . $row3['nombre'] . "\"/>";
+                                $tmp3 .= "</a>";
+                            }
                         }
                     } else {
-                        $tmp3 .= "<p>0productos cargados en OFERTAS<p/>";
+                        $tmp3 .= "<p>0 productos cargados en OFERTAS<p/>";
                     }
                     $rst3->closeCursor();
                     echo($tmp3);
                     ?>
                 </div>
+                <div class="col-md-12" id="ventana_modal">
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="row clearfix">
                 <div class="col-md-12">
-                    <p class="text-center">Calle 2 de Abril Nº. 233 Villahermosa, Tab. | Tel. 312 67 00, 312 67 01 | Cel. 9932772575</p>
+                    <p class="text-center">Calle 2 de Abril Nº. 233 Villahermosa, Tab. | Tel. 312 67 00, 312 67 01 <!--| Cel. 9932772575--></p>
                 </div>
             </div>
         </div>
