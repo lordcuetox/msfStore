@@ -4,7 +4,12 @@
 */
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:600,400,700);
 * { margin: 0;padding: 0;}
-body {font-family: 'Open Sans' !important;font-style: normal;font-weight: 600;}
+body {font-family: 'Open Sans' !important;font-style: normal;font-weight: 600; font-size: 1.5em}
 header { background-color: #CEEDFF;}
 h1 { text-align: center;}
 h2 { text-align: center;}
+#novedades div div img { margin-bottom: 10px;}
+.negritas { font-weight:  bold}
+.bx-wrapper img {
+    margin: 0 auto;
+}
