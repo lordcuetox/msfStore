@@ -82,32 +82,6 @@ if (isset($_POST['xAccion'])) {
                 }
                 $tmp2 .= "</div>";
 
-                $tmp2 .= "<div class=\"row\">";
-                $tmp2 .= "<div class=\"col-md-12\">";
-                ?> 
-                <!-- Modal -->
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title">Modal title</h4>
-
-                            </div>
-                            <div class="modal-body"><div class="te"></div></div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
-                        </div>
-                        <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
-                </div>
-                <!-- /.modal -->
-                <?php
-                $tmp2 .= "</div>";
-                $tmp2 .= "</div>";
             } else {
                 $tmp2 .= "<div class=\"row\"><div class=\"col-md-12\"><h2>0 productos cargados.</h2></div></div>";
             }
