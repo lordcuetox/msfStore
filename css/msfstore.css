@@ -8,7 +8,7 @@ body {font-family: 'Open Sans' !important;font-style: normal;font-weight: 600; f
 header { background-color: #CEEDFF;}
 h1 { text-align: center;}
 h2 { text-align: center;}
-#novedades div div img { margin-bottom: 10px;}
+#novedades div div img,#novedades div div a ,#productos div div img,#productos div div a{ margin-bottom: 10px;}
 .negritas { font-weight:  bold}
 .bx-wrapper img {
     margin: 0 auto;
