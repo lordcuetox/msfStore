@@ -4,6 +4,7 @@
 // The ShoppingCart class should implement Iterator so that you can loop through the cart's contents.
 // The ShoppingCart class should implement Countable so that you can use count() on a cart instance.
 // The only assumption about cart items is that they have a public getId() method.
+
 class ShoppingCart implements Iterator, Countable {
 
     // Array stores the list of items in the cart:
@@ -25,10 +26,10 @@ class ShoppingCart implements Iterator, Countable {
     }
 
     // Adds a new item to the cart:
-    public function addItem(Item $item) {
+    public function addItem(Productos $item) {
 
         // Need the item id:
-        $id = $item->getId();
+        $id = $item->getCveProducto();
 
         // Throw an exception if there's no id:
         if (!$id)
@@ -36,7 +37,7 @@ class ShoppingCart implements Iterator, Countable {
 
         // Add or update:
         if (isset($this->items[$id])) {
-            $this->updateItem($item, $this->items[$item]['qty'] + 1);
+            $this->updateItem($item, $this->items[$id]['qty'] + 1);
         } else {
             $this->items[$id] = array('item' => $item, 'qty' => 1);
             $this->ids[] = $id; // Store the id, too!
@@ -45,10 +46,10 @@ class ShoppingCart implements Iterator, Countable {
 
 // End of addItem() method.
     // Changes an item already in the cart:
-    public function updateItem(Item $item, $qty) {
+    public function updateItem(Productos $item, $qty) {
 
         // Need the unique item id:
-        $id = $item->getId();
+        $id = $item->getCveProducto();
 
         // Delete or update accordingly:
         if ($qty === 0) {
@@ -60,10 +61,10 @@ class ShoppingCart implements Iterator, Countable {
 
 // End of updateItem() method.
     // Removes an item from the cart:
-    public function deleteItem(Item $item) {
+    public function deleteItem(Productos $item) {
 
         // Need the unique item id:
-        $id = $item->getId();
+        $id = $item->getCveProducto();
 
         // Remove it:
         if (isset($this->items[$id])) {

@@ -8,7 +8,8 @@
 
 <?php
 require_once './clases/UtilDB.php';
-define("MIN_SLIDES_OFERTA", 4);
+session_start();
+define("MIN_SLIDES_OFERTA", 5);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -34,11 +35,11 @@ define("MIN_SLIDES_OFERTA", 4);
                     mode: "vertical",
                     pager: false,
                     auto: true,
-                    minSlides: 4,
+                    minSlides: 5,
                     autoHover: true,
-                    speed: 4000,
+                    speed: 3000,
                     slideMargin: 15,
-                    moveSlides: 4});
+                    moveSlides: 1});
 
                 $('body').on('hidden.bs.modal', '.modal', function () {
                     $(this).removeData('bs.modal');
@@ -62,14 +63,6 @@ define("MIN_SLIDES_OFERTA", 4);
                 });
             }
 
-            /*function getClasificacionesProductos(cveRito, cveClasificacion, cveGrado, nombreGrado)
-             {
-             $("#productos").load("index_ajax.php", {"xAccion": "getClasificacionProductos", "cveRito": cveRito, "cveClasificacion": cveClasificacion, "cveGrado": cveGrado, "nombreGrado": nombreGrado}, function (responseTxt, statusTxt, xhr) {
-             
-             
-             });
-             }*/
-
             function getProductos(cveRito, cveClasificacion, cveGrado, cveClasProducto, nombreClasProducto)
             {
                 $("#productos").load("index_ajax.php", {"xAccion": "getProductos", "cveRito": cveRito, "cveClasificacion": cveClasificacion, "cveGrado": cveGrado, "cveClasProducto": cveClasProducto, "nombreClasProducto": nombreClasProducto}, function (responseTxt, statusTxt, xhr) {
@@ -80,6 +73,11 @@ define("MIN_SLIDES_OFERTA", 4);
 
                 });
             }
+            
+            function addToShoppingCart(cve_producto)
+            {
+                $("#ajax_msg").load("php/agregacar.php", {"xCveProducto": cve_producto});
+            }
         </script>
     </head>
     <body>
@@ -87,14 +85,19 @@ define("MIN_SLIDES_OFERTA", 4);
             <div class="row clearfix">
                 <div class="col-md-12">
                     <header>
-                        <div class="pull-left"><img src="img/encabezado.jpg" alt="MSF Store" class="img-responsive"/></div>
-                        <div class="pull-right">
-                            <a href="https://www.facebook.com/MSFStore" target="_blank"><img src="img/facebook.png" class="img-responsive " alt="Facebook" style="display: inline; margin-right: 25px;"/></a>
-                            <a href="https://twitter.com/masinfronteras" target="_blank"><img src="img/twitter.png" class="img-responsive" alt="Twitter" style="display: inline; margin-right: 25px;"/></a>
-                            <a href="javascript:void(0);"><img src="img/youtube.png" class="img-responsive" alt="Youtube" style="display: inline; margin-right: 25px;"/></a>
-                            <a href="mailto:msf_store@hotmail.com"><img src="img/email.png" class="img-responsive" alt="Email" style="display: inline; margin-right: 25px;"/></a>
+                        <div class="row">
+                            <div class="col-md-8"><img src="img/encabezado.jpg" alt="MSF Store" class="img-responsive"/></div>
+                            <div class="col-md-4 text-right">
+                                <a href="https://www.facebook.com/MSFStore" target="_blank"><img src="img/facebook.png" class="img-responsive " alt="Facebook" style="display: inline; margin-right: 25px;"/></a>
+                                <a href="https://twitter.com/masinfronteras" target="_blank"><img src="img/twitter.png" class="img-responsive" alt="Twitter" style="display: inline; margin-right: 25px;"/></a>
+                                <a href="javascript:void(0);"><img src="img/youtube.png" class="img-responsive" alt="Youtube" style="display: inline; margin-right: 25px;"/></a>
+                                <a href="mailto:msf_store@hotmail.com"><img src="img/email.png" class="img-responsive" alt="Email" style="display: inline; margin-right: 25px;"/></a>
+                            </div>
+                            <div class="clearfix visible-md"></div>
+                            <div class="col-md-offset-8"></div>
+                            <div class="col-md-4 bottom text-right"><a href="javascript:void(0);" data-toggle="modal" data-remote="php/viewShoppingCart.php" data-target="#myModal"><img src="img/vercarrito.gif" alt="Ver carrito de compras"/> Carrito de compras</a></div>
+                            <div class="clearfix visible-md"></div>
                         </div>
-                        <div class="clearfix"></div>
                     </header>
                 </div>
             </div>
@@ -152,6 +155,7 @@ define("MIN_SLIDES_OFERTA", 4);
                             foreach ($rst2 as $row2) {
                                 $tmp2 .= "<div class=\"col-md-4\">";
                                 $tmp2 .= "<img src=\"" . $row2['ruta_imagen1'] . "\" class=\"img-responsive\" alt=\"" . $row2['nombre'] . "\"/>";
+                                $tmp2 .= "<h4>".$row2['nombre']."</h4>";
                                 $tmp2 .= "<a href=\"javascript:void(0);\" data-toggle=\"modal\" data-remote=\"php/productos_id.php?id=" . $row2['cve_producto'] . "\" data-target=\"#myModal\" class=\"btn btn-info\">Ver descripción</a>";
                                 $tmp2 .= "</div>";
                                 $count1++;

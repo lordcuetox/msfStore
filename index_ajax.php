@@ -1,6 +1,7 @@
 <?php
 require_once 'clases/UtilDB.php';
 if (isset($_POST['xAccion'])) {
+    
     if ($_POST['xAccion'] == "getGrados") {
         if (isset($_POST['cveRito']) && isset($_POST['cveClasificacion']) && isset($_POST['nombreClasificacion'])) {
             $cveRito = $_POST['cveRito'];
@@ -37,24 +38,6 @@ if (isset($_POST['xAccion'])) {
         }
     }
 
-    /* if ($_POST['xAccion'] == "getClasificacionProductos") {
-      if (isset($_POST['cveRito']) && isset($_POST['cveClasificacion']) && isset($_POST['cveGrado']) && isset($_POST['nombreGrado'])) {
-      $cveRito2 = $_POST['cveRito'];
-      $cveClasificacion2 = $_POST['cveClasificacion'];
-      $cveGrado2 = $_POST['cveGrado'];
-      $nombreGrado2 = $_POST['nombreGrado'];
-      $tmp2 = "<div class=\"row\"><div class=\"col-md-12\"><h1>$nombreGrado2</h1></div></div>";
-
-      $sql2 = "SELECT * FROM clasificaciones_productos WHERE cve_rito = $cveRito2 AND cve_clasificacion= $cveClasificacion2 AND cve_grado=$cveGrado2";
-      $rst2 = UtilDB::ejecutaConsulta($sql2);
-      foreach ($rst2 as $row2) {
-      $tmp2 .="<div class=\"row\"><div class=\"col-md-12\"><h2>" . $row2['descripcion'] . "</h2></div></div>";
-      }
-      $rst2->closeCursor();
-      echo($tmp2);
-      }
-      } */
-    
     if ($_POST['xAccion'] == "getProductos") {
         if (isset($_POST['cveRito']) && isset($_POST['cveClasificacion']) && isset($_POST['cveGrado']) && isset($_POST['cveClasProducto']) && isset($_POST['nombreClasProducto'])) {
             $cveRito2 = $_POST['cveRito'];

@@ -28,9 +28,9 @@ foreach ($rst as $row) {
                     <li><img src="<?php echo($row['ruta_imagen2']); ?>" class="img-responsive"/></li>
                     <li><img src="<?php echo($row['ruta_imagen3']); ?>" class="img-responsive"/></li>
                 </ul>
-        <?php
-    } elseif ($row['ruta_imagen1'] != NULL && $row['ruta_imagen2'] != NULL) {
-        ?>
+                <?php
+            } elseif ($row['ruta_imagen1'] != NULL && $row['ruta_imagen2'] != NULL) {
+                ?>
                 <ul class="bxslider">
                     <li><img src="<?php echo($row['ruta_imagen1']); ?>" class="img-responsive"/></li>
                     <li><img src="<?php echo($row['ruta_imagen2']); ?>" class="img-responsive"/></li>
@@ -39,14 +39,15 @@ foreach ($rst as $row) {
             } else {
                 ?>
                 <img src="<?php echo($row['ruta_imagen1']); ?>" class="img-responsive" style="margin:10px auto;"/>
-        <?php
-    }
-    ?>
+                <?php
+            }
+            ?>
             <p class="negritas">Descripción:</p>
             <p><?php echo($row['descripcion']); ?></p>
             <p class="negritas">Precio: $<?php echo($row['precio']); ?></p>
             <p class="negritas">Existencias: <?php echo($row['existencias']); ?></p>
-            <p><a href="agregacar.php?id=<?php echo($row['cve_producto']); ?>"><img src="img/Shopping-cart-accept-icon.png" alt="Agregar al carrito de compras" class="img-responsive"/></a></p>
+            <p><a href="javascript:void(0);" onclick="addToShoppingCart(<?php echo($row['cve_producto']); ?>);"><img src="img/Shopping-cart-accept-icon.png" alt="Carrito de comprar" title="Agregar al carrito de compras <?php echo($row['nombre']); ?>" class="img-responsive"/></a></p>
+            <p id="ajax_msg"></p>
         </div>
     </div>
     <div class="modal-footer">
