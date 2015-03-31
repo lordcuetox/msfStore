@@ -4,6 +4,7 @@
 // The ShoppingCart class should implement Iterator so that you can loop through the cart's contents.
 // The ShoppingCart class should implement Countable so that you can use count() on a cart instance.
 // The only assumption about cart items is that they have a public getId() method.
+
 class ShoppingCart2 implements Iterator, Countable {
 
     // Array stores the list of items in the cart:
@@ -36,7 +37,7 @@ class ShoppingCart2 implements Iterator, Countable {
 
         // Add or update:
         if (isset($this->items[$id])) {
-            $this->updateItem($item, $this->items[$item]['qty'] + 1);
+            $this->updateItem($item, $this->items[$id]['qty'] + 1);
         } else {
             $this->items[$id] = array('item' => $item, 'qty' => 1);
             $this->ids[] = $id; // Store the id, too!
