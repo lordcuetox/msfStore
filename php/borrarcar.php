@@ -1,31 +1,18 @@
 <?php
-session_start();
-//con session_start()
-//creamos la sesión si
-//no existe o la retomamos
-//si ya ha sido creada
-extract($_GET);
-//Como antes, usamos
-//extract() por comodidad,
-//pero podemos no hacerlo
-//tranquilamente
-$carro=$_SESSION['carro'];
-//Asignamos a la variable
-//$carro los valores
-//guardados en la sessión
-unset($carro[md5($id)]);
-//la función unset borra
-//el elemento de un array 
-//que le pasemos por
-//parámetro. En este caso
-//la usamos para borrar el
-//elemento cuyo id le pasemos
-//a la página por la url 
-$_SESSION['carro']=$carro;
-//Finalmente, actualizamos
-//la sessión, como hicimos
-//cuando agregamos un producto
-//y volvemos al catálogo
-header("Location:catalogo.php?".SID);
-?>
 
+require_once '../clases/ShoppingCart.php';
+require_once('../clases/Productos.php');
+session_start();
+
+$cart = NULL;
+$producto = NULL;
+
+if (isset($_SESSION['carro'])) {
+    $cart = unserialize($_SESSION['carro']);
+    $producto = new Productos((int) $_GET['xCveProducto']);
+    $cart->deleteItem($producto);
+    $_SESSION['carro'] = serialize($cart);
+    header('Location:../index.php');
+    return;
+}
+?>

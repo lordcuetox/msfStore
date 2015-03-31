@@ -5,7 +5,7 @@
 // The ShoppingCart class should implement Countable so that you can use count() on a cart instance.
 // The only assumption about cart items is that they have a public getId() method.
 
-class ShoppingCart2 implements Iterator, Countable {
+class ShoppingCart implements Iterator, Countable {
 
     // Array stores the list of items in the cart:
     protected $items = array();
