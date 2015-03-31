@@ -6,7 +6,7 @@
  */
 require_once('UtilDB.php');
 
-class Grados {
+class ComunicacionesClientes {
 
 
     private $cveCliente;
@@ -95,13 +95,14 @@ class Grados {
         $count = 0;
 
         if (!$this->_existe) {
-            $this->cve_rito = UtilDB::getSiguienteNumero("comunicaciones_clientes", "cve_cliente");
+            $this->consecutivoComunicacion = UtilDB::getSiguienteNumero("comunicaciones_clientes", "consecutivo_comunicacion");
             $sql = "INSERT INTO comunicaciones_clientes (cve_cliente,cve_comunicacion,"
                     . "consecutivo_comunicacion,dato"
                     . ",activo"
                     . ") VALUES($this->cveCliente,$this->cveComunicacion,$this->consecutivoComunicacion,"
                     . "'$this->dato',"
                     . " $this->activo)";
+            
             $count = UtilDB::ejecutaSQL($sql);
             if ($count > 0) {
                 $this->_existe = true;
@@ -113,6 +114,7 @@ class Grados {
             $sql.= " WHERE cve_cliente = $this->cveCliente";
             $sql.= " and cve_comunicacion = $this->cveComunicacion";
             $sql.= " and consecutivo_comunicacion = $this->consecutivoComunicacion";
+            echo($sql);
             $count = UtilDB::ejecutaSQL($sql);
         }
 
