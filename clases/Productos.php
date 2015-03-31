@@ -16,7 +16,10 @@ class Productos {
     private $cveProducto;
     private $nombre;
     private $descripcion;
-    private $rutaImagen;
+    private $rutaImagen1;
+    private $rutaImagen2;
+    private $rutaImagen3;
+    private $rutaImagen4;
     private $precio;
     private $novedad;
     private $fechaNovedad;
