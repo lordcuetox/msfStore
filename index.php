@@ -94,7 +94,8 @@ define("MIN_SLIDES_OFERTA", 4);
                             </div>
                             <div class="clearfix visible-md"></div>
                             <div class="col-md-offset-8"></div>
-                            <div class="col-md-4 bottom text-right"><a href="javascript:void(0);" data-toggle="modal" data-remote="php/viewShoppingCart.php" data-target="#myModal"><img src="img/vercarrito.gif" alt="Ver carrito de compras"/> Carrito de compras</a></div>
+                            <div class="col-md-4 text-right visible-xs visible-sm"><a href="javascript:void(0);" data-toggle="modal" data-remote="php/viewShoppingCart.php" data-target="#myModal"><img src="img/vercarrito.gif" alt="Ver carrito de compras"/> Carrito de compras</a></div>
+                            <div class="col-md-4 text-right bottom visible-md visible-lg"><a href="javascript:void(0);" data-toggle="modal" data-remote="php/viewShoppingCart.php" data-target="#myModal"><img src="img/vercarrito.gif" alt="Ver carrito de compras"/> Carrito de compras</a></div>
                             <div class="clearfix visible-md"></div>
                         </div>
                     </header>
