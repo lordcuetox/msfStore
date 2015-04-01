@@ -122,6 +122,9 @@ if (isset($_POST['xAccion'])) {
                 <td><?php echo($row['activo'] == 1 ? "Si" : "No"); ?></td>
             </tr>
         <?php } $rst->closeCursor(); ?>
+            <tr>
+                <td colspan="8"><a href="reporteExcel.php"> Haz clic para descargar el reporte</a></td>
+            </tr>
     </tbody>
 </table>
             </div>
