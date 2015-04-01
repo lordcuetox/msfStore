@@ -45,14 +45,13 @@ foreach ($rst as $row) {
             <p class="negritas">Descripción:</p>
             <p><?php echo($row['descripcion']); ?></p>
             <p class="negritas">Precio: $<?php echo($row['precio']); ?></p>
-            <p class="negritas">Existencias: <?php echo($row['existencias']); ?></p>
+            <!--<p class="negritas">Existencias: <?php echo($row['existencias']); ?></p>-->
             <p><a href="javascript:void(0);" onclick="addToShoppingCart(<?php echo($row['cve_producto']); ?>);"><img src="img/Shopping-cart-accept-icon.png" alt="Carrito de comprar" title="Agregar al carrito de compras <?php echo($row['nombre']); ?>" class="img-responsive"/></a></p>
             <p id="ajax_msg"></p>
         </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
     </div>
     <?php
 }
