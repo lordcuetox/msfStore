@@ -75,6 +75,16 @@ class Productos {
         $this->_existe = false;
     }
 
+    function isOfertaVigente() {
+        $sql = "SELECT * FROM productos WHERE oferta = 1 AND fecha_oferta >= NOW() AND cve_producto= $this->cveProducto";
+        $rst = UtilDB::ejecutaConsulta($sql);
+        if ($rst->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     function getCveRito() {
         return $this->cveRito;
     }
@@ -120,7 +130,11 @@ class Productos {
     }
 
     function getPrecio() {
-        return $this->precio;
+        if ($this->isOfertaVigente()) {
+            return $this->precioOferta;
+        } else {
+            return $this->precio;
+        }
     }
 
     function getNovedad() {
@@ -140,7 +154,11 @@ class Productos {
     }
 
     function getPrecioOferta() {
-        return $this->precioOferta;
+        if ($this->isOfertaVigente()) {
+            return $this->precioOferta;
+        } else {
+            return $this->precio;
+        }
     }
 
     function getExistencias() {
@@ -300,4 +318,3 @@ class Productos {
 
 }
 ?>
-
