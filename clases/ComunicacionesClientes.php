@@ -115,12 +115,11 @@ class ComunicacionesClientes {
             }
         } else {
             $sql = "UPDATE comunicaciones_clientes SET ";
-            $sql.= ",dato = '$this->descripcion',";
+            $sql.= "dato = '$this->dato',";
             $sql.= "activo=" . ($this->activo ? "1" : "0");
             $sql.= " WHERE cve_cliente = $this->cveCliente";
             $sql.= " and cve_comunicacion = $this->cveComunicacion";
             $sql.= " and consecutivo_comunicacion = $this->consecutivoComunicacion";
-            echo($sql);
             $count = UtilDB::ejecutaSQL($sql);
         }
 

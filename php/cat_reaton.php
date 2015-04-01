@@ -18,7 +18,7 @@ $count = NULL;
 
 if (isset($_POST['txtIdReata'])) {
     if ($_POST['txtIdReata'] != 0) {
-        $reata = new ElReaton($_POST['txtIdReata']);
+        $reata = new ElReaton($idPrincipal);
     }
 }
 
