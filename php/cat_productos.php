@@ -249,7 +249,7 @@ $rst2->closeCursor();
                         </div>
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" id="cbxNovedad" name="cbxNovedad" value="1" checked="<?php echo($clasf->getCveProducto() != 0 ? ($clasf->getNovedad() == 1 ? "checked" : "") : "checked"); ?>"> ¿Es novedad?
+                                <input type="checkbox" id="cbxNovedad" name="cbxNovedad" value="1" <?php echo($clasf->getCveProducto() != 0 ? ($clasf->getNovedad() == 1 ? "checked" : "") : ""); ?>> ¿Es novedad?
                             </label>
                         </div>
                         <div class="form-group">
@@ -269,7 +269,7 @@ $rst2->closeCursor();
                         </div>
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" id="cbxOferta" name="cbxOferta" value="1" checked="<?php echo($clasf->getCveProducto() != 0 ? ($clasf->getOferta() == 1 ? "checked" : "") : "checked"); ?>"> ¿Lo establecerá como oferta?
+                                <input type="checkbox" id="cbxOferta" name="cbxOferta" value="1" <?php echo($clasf->getCveProducto() != 0 ? ($clasf->getOferta() == 1 ? "checked" : "") : ""); ?>> ¿Lo establecerá como oferta?
                             </label>
                         </div>
                         <div class="form-group">
@@ -491,8 +491,25 @@ $rst2->closeCursor();
         {
             if ($("#cmbCveRito").val() > 0 && $("#ajaxCmb").val() > 0 && $("#cmbGrado").val() > 0 && $("#cmbClasProducto").val() > 0 && $("#txtNombre").val() != "" && $("#txtDescripcion").val() != "" && $("#txtPrecio").val() > 0)
             {
-                $("#xAccion").val("grabar");
-                $("#frmProductos").submit();
+               if($("#cbxOferta").prop('checked'))
+               {
+                  if($("#txtFechaOferta").val() != ""&&$("#txtPrecioOferta").val() != ""&&$("#txtPrecioOferta").val() >0) 
+                  {
+                     $("#xAccion").val("grabar");
+                     $("#frmProductos").submit();
+                  }
+                  else
+                  {
+                       alert("Si establecio el producto como oferta es necesario que ingrese la fecha límite de oferta y el precio de oferta");
+                  }
+               }
+               else
+               {
+                  $("#xAccion").val("grabar");
+                     $("#frmProductos").submit();  
+               
+               }
+                
             }
             else
             {
