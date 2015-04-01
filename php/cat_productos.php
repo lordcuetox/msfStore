@@ -22,8 +22,8 @@ if (isset($_POST['txtCveProducto'])) {
 if (isset($_POST['xAccion'])) {
     if ($_POST['xAccion'] == 'grabar') {
 
-        $fn = strtotime(str_replace('/', '-', ($_POST['txtFechaNovedad'] . " " . "00:00:00")));
-        $fo = strtotime(str_replace('/', '-', ($_POST['txtFechaOferta'] . " " . "00:00:00")));
+        $fn = strtotime(str_replace('/', '-', ($_POST['txtFechaNovedad'] . " " . "23:59:59")));
+        $fo = strtotime(str_replace('/', '-', ($_POST['txtFechaOferta'] . " " . "23:59:59")));
 
 
         $fNovedad = date('Y-m-d H:i:s', $fn);
