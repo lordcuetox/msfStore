@@ -77,7 +77,7 @@ define("MIN_SLIDES_OFERTA", 4);
 
             function addToShoppingCart(cve_producto)
             {
-                $("#ajax_msg").load("php/agregacar.php", {"xCveProducto": cve_producto});
+                $("#ajax_msg").load("php/agregacar.php", {"xCveProducto": cve_producto} , function() { $("#ajax_msg").fadeIn();});
             }
         </script>
     </head>
