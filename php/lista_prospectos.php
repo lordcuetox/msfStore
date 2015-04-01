@@ -1,5 +1,5 @@
 <?php
-require_once '../clases/Rito.php';
+require_once '../clases/ComunicacionesClientes.php';
 require_once '../clases/UtilDB.php';
 session_start();
 
@@ -8,26 +8,17 @@ if (!isset($_SESSION['cve_usuario']))
     header('Location:login.php');
     return;
 }
-
-
-$sql = "SELECT * FROM ritos ORDER BY cve_rito";
-$rst = UtilDB::ejecutaConsulta($sql);
-
-$rito = new Rito();
-$count = NULL;
-
-if (isset($_POST['txtIdRito'])) {
-    if ($_POST['txtIdRito'] != 0) {
-        $rito = new Rito($_POST['txtIdRito']);
-    }
+else
+{
+    $idPrincipal=isset($_SESSION['cve_usuario']);
 }
 
+$correo = new ComunicacionesClientes();
+$telefono = new ComunicacionesClientes();
 
 if (isset($_POST['xAccion'])) {
     if ($_POST['xAccion'] == 'grabar') {
-        $rito->setDescripcion($_POST['txtDescripcion']);
-        $rito->setActivo(isset($_POST['cbxActivo']) ? "1" : "0");
-        $count = $rito->grabar();
+
     }
     if ($_POST['xAccion'] == 'logout')
     {   
@@ -95,56 +86,44 @@ if (isset($_POST['xAccion'])) {
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Catálogo de Ritos</h1>
+                        <h1 class="page-header">Catálogo de Clientes</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
-                <div class="row" >
-                    <div class="col-sm-4">&nbsp;</div>
-                    <div class="col-sm-4">
-                        <form role="form" name="frmRitos" id="frmRitos" action="cat_ritos.php" method="POST">
-                            <div class="form-group">
-                                <label for="txtIdRito"><input type="hidden" class="form-control" name="xAccion" id="xAccion" value="0" /></label>
-                                <input type="hidden" class="form-control" id="txtIdRito" name="txtIdRito"
-                                       placeholder="ID Rito" value="<?php echo($rito->getCve_rito()); ?>">
-                            </div>
-                            <div class="form-group">
-                                <label for="txtDescripcion">Descripción</label>
-                                <input type="text" class="form-control" id="txtDescripcion" name="txtDescripcion" 
-                                       placeholder="Descripción" value="<?php echo($rito->getDescripcion()); ?>">
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" id="cbxActivo" name="cbxActivo" value="1" checked="<?php echo($rito->getCve_rito() != 0 ? ($rito->getActivo() == 1 ? "checked" : "") : "checked"); ?>"> Activo
-                                </label>
-                            </div>
-                            <button type="button" class="btn btn-default" id="btnLimpiar" name="btnLimpiar" onclick="limpiar();">Limpiar</button>
-                            <button type="button" class="btn btn-default" id="btnGrabar" name="btnGrabar" onclick="grabar();">Enviar</button>
-                        </form>
-                        <br/>
-                        <br/>
-                        <table class="table table-bordered table-striped table-hover table-responsive">
-                            <thead>
-                                <tr>
-                                    <th>ID Rito</th>
-                                    <th>Descripción</th>
-                                    <th>Activo</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($rst as $row) { ?>
-                                    <tr>
-                                        <td><a href="javascript:void(0);" onclick="$('#txtIdRito').val(<?php echo($row['cve_rito']); ?>);
-                                                    recargar();"><?php echo($row['cve_rito']); ?></a></td>
-                                        <td><?php echo($row['descripcion']); ?></td>
-                                        <td><?php echo($row['activo'] == 1 ? "Si" : "No"); ?></td>
-                                    </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-sm-4">&nbsp;</div>
-                </div>
+     <table class="table table-bordered table-striped table-hover table-responsive">
+    <thead>
+        <tr>
+            <th>ID Cliente</th>
+            <th>Nombre</th>
+            <th>Apellido Paterno</th>
+            <th>Apellido Materno</th>
+            <th>Sexo</th>
+            <th>Teléfono</th>
+            <th>Correo Electrónico</th>
+            <th>Activo</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        $sql = "SELECT * from prospectos p order by p.cve_cliente,p.nombre,p.apellido_pat,p.apellido_mat";
+        $rst = UtilDB::ejecutaConsulta($sql);
+        foreach ($rst as $row) {
+              $telefono= new ComunicacionesClientes($row['cve_cliente'],1);
+              $correo= new ComunicacionesClientes($row['cve_cliente'],2);
+            ?>
+            <tr>
+                <td><?php echo($row['cve_cliente']); ?></td>
+                <td><?php echo($row['nombre']); ?></td>
+                <td><?php echo($row['apellido_pat']); ?></td>
+                <td><?php echo($row['apellido_mat']); ?></td>
+                <td><?php echo($row['sexo']==1?"Hombre":"Mujer"); ?></td>
+                <td><?php echo($telefono->getDato());  ?></td>  
+                <td><?php  echo($correo->getDato()); ?></td>  
+                <td><?php echo($row['activo'] == 1 ? "Si" : "No"); ?></td>
+            </tr>
+        <?php } $rst->closeCursor(); ?>
+    </tbody>
+</table>
             </div>
         </div>    
         <!-- jQuery -->
