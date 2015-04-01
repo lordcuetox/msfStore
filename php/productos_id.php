@@ -68,7 +68,7 @@ if ($producto->getCveProducto() != 0) {
                         ?></span></p>
            <!--<p class="negritas">Existencias: <?php echo($producto->getExistencias()); ?></p>-->
             <p><a href="javascript:void(0);" onclick="addToShoppingCart(<?php echo($producto->getCveProducto()); ?>);"><img src="img/Shopping-cart-accept-icon.png" alt="Carrito de comprar" title="Agregar al carrito de compras <?php echo($producto->getNombre()); ?>" class="img-responsive"/></a></p>
-            <p id="ajax_msg"></p>
+            <div id="ajax_msg" class="alert alert-success" style="display: none"></div>
         </div>
     </div>
     <div class="modal-footer">
