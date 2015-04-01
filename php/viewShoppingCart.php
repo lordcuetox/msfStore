@@ -2,6 +2,7 @@
 session_start();
 require('../Clases/ShoppingCart.php');
 require('../Clases/Productos.php');
+define("GASTOS_ENVIO",180);
 $cart = NULL;
 ?>
 <div class="modal-header">
@@ -55,7 +56,9 @@ $cart = NULL;
                 </table>
 
                 <div align="center"><span class="prod">Total de Artículos: <?php echo count($cart); ?></span></div><br>
-                <div align="center"><span class="prod">Total: $<?php echo number_format($suma, 2); ?></span></div>
+                <div align="center"><span class="prod">Subtotal: $<?php echo number_format($suma, 2); ?></span></div><br>
+                <div align="center"><span class="prod">(+) Gastos de envío: $<?php echo(GASTOS_ENVIO); ?></span></div><br>
+                <div align="center"><span class="prod">Total: $<?php echo number_format($suma+GASTOS_ENVIO, 2); ?></span></div><br>
             <?php } else { ?>
                 <p align="center"> <span class="prod">No hay productos seleccionados</span></p>
                 <?php
