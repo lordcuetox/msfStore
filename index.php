@@ -9,7 +9,7 @@
 <?php
 require_once './clases/UtilDB.php';
 session_start();
-define("MIN_SLIDES_OFERTA", 5);
+define("MIN_SLIDES_OFERTA", 4);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -35,11 +35,11 @@ define("MIN_SLIDES_OFERTA", 5);
                     mode: "vertical",
                     pager: false,
                     auto: true,
-                    minSlides: 5,
+                    minSlides: <?php echo(MIN_SLIDES_OFERTA);?>,
                     autoHover: true,
                     speed: 3000,
                     slideMargin: 15,
-                    moveSlides: 2});
+                    moveSlides: <?php echo(MIN_SLIDES_OFERTA);?>});
 
                 $('body').on('hidden.bs.modal', '.modal', function () {
                     $(this).removeData('bs.modal');
@@ -73,7 +73,7 @@ define("MIN_SLIDES_OFERTA", 5);
 
                 });
             }
-            
+
             function addToShoppingCart(cve_producto)
             {
                 $("#ajax_msg").load("php/agregacar.php", {"xCveProducto": cve_producto});
@@ -145,7 +145,7 @@ define("MIN_SLIDES_OFERTA", 5);
                     <h1>Novedades</h1>
                     <div class="row">
                         <?php
-                        $sql2 = "SELECT * FROM productos WHERE novedad = 1 AND ruta_imagen1 IS NOT NULL";
+                        $sql2 = "SELECT * FROM productos WHERE novedad = 1 AND ruta_imagen1 IS NOT NULL AND fecha_novedad >= NOW()";
                         $rst2 = UtilDB::ejecutaConsulta($sql2);
                         $tmp2 = "";
                         $count1 = 0;
@@ -154,8 +154,8 @@ define("MIN_SLIDES_OFERTA", 5);
                             foreach ($rst2 as $row2) {
                                 $tmp2 .= "<div class=\"col-md-4\">";
                                 $tmp2 .= "<img src=\"" . $row2['ruta_imagen1'] . "\" class=\"img-responsive\" alt=\"" . $row2['nombre'] . "\"/>";
-                                $tmp2 .= "<h4>".$row2['nombre']."</h4>";
-                                $tmp2 .= "<a href=\"javascript:void(0);\" data-toggle=\"modal\" data-remote=\"php/productos_id.php?id=" . $row2['cve_producto'] . "\" data-target=\"#myModal\" class=\"btn btn-custom\">Ver descripción</a>";
+                                $tmp2 .= "<h4>" . $row2['nombre'] . "</h4>";
+                                $tmp2 .= "<a href=\"javascript:void(0);\" data-toggle=\"modal\" data-remote=\"php/productos_id.php?id=" . $row2['cve_producto'] . "&from=novedad\" data-target=\"#myModal\" class=\"btn btn-custom\">Ver descripción</a>";
                                 $tmp2 .= "</div>";
                                 $count1++;
                                 if ($count1 % 3 == 0) {
@@ -165,7 +165,7 @@ define("MIN_SLIDES_OFERTA", 5);
                                 }
                             }
                         } else {
-                            $tmp2 .= "<div class=\"col-md-12\">0 productos cargados en NOVEDAD</div>";
+                            $tmp2 .= "<div class=\"col-md-12\">Lo sentimos, en este momento no hay productos en novedad.</div>";
                         }
                         $rst2->closeCursor();
                         echo($tmp2);
@@ -177,7 +177,7 @@ define("MIN_SLIDES_OFERTA", 5);
                 <div class="col-md-3" id="ofertas">
                     <h1 class="text-center">Ofertas</h1>
                     <?php
-                    $sql3 = "SELECT * FROM productos WHERE oferta = 1 AND ruta_imagen1 IS NOT NULL";
+                    $sql3 = "SELECT * FROM productos WHERE oferta = 1 AND ruta_imagen1 IS NOT NULL AND fecha_oferta >= NOW()";
                     $rst3 = UtilDB::ejecutaConsulta($sql3);
                     $rowCount = $rst3->rowCount();
                     $tmp3 = "";
@@ -187,22 +187,23 @@ define("MIN_SLIDES_OFERTA", 5);
                             $tmp3 .= "<ul class=\"bxslider\">";
                             foreach ($rst3 as $row3) {
                                 $tmp3 .= "<li>";
-                                $tmp3 .= "<a href=\"javascript:void(0);\" data-toggle=\"modal\" data-remote=\"php/productos_id.php?id=" . $row3['cve_producto'] . "\" data-target=\"#myModal\">";
+                                $tmp3 .= "<a href=\"javascript:void(0);\" data-toggle=\"modal\" data-remote=\"php/productos_id.php?id=" . $row3['cve_producto'] . "&from=ofertas\" data-target=\"#myModal\">";
                                 $tmp3 .= "<img src=\"" . $row3['ruta_imagen1'] . "\" class=\"img-responsive\" title =\"" . $row3['nombre'] . "\" alt=\"" . $row3['nombre'] . "\"/>";
                                 $tmp3 .= "</a>";
-                                $tmp3 .= "<h4 style=\"text-align:center\">".$row3['nombre']."</h4>";
+                                $tmp3 .= "<h4 style=\"text-align:center\">" . $row3['nombre'] . "</h4>";
                                 $tmp3 .= "</li>";
                             }
                             $tmp3 .= "</ul>";
                         } else {
                             foreach ($rst3 as $row3) {
-                                $tmp3 .= "<a href=\"javascript:void(0);\" data-toggle=\"modal\" data-remote=\"php/productos_id.php?id=" . $row3['cve_producto'] . "\" data-target=\"#myModal\">";
+                                $tmp3 .= "<a href=\"javascript:void(0);\" data-toggle=\"modal\" data-remote=\"php/productos_id.php?id=" . $row3['cve_producto'] . "&from=ofertas\" data-target=\"#myModal\">";
                                 $tmp3 .= "<img src=\"" . $row3['ruta_imagen1'] . "\" class=\"img-responsive\" title =\"" . $row3['nombre'] . "\" alt=\"" . $row3['nombre'] . "\"/>";
                                 $tmp3 .= "</a>";
+                                $tmp3 .= "<h4 style=\"text-align:center\">" . $row3['nombre'] . "</h4>";
                             }
                         }
                     } else {
-                        $tmp3 .= "<p>0 productos cargados en OFERTAS<p/>";
+                        $tmp3 .= "<p>Lo sentimos, en este momento no hay productos en oferta.<p/>";
                     }
                     $rst3->closeCursor();
                     echo($tmp3);
