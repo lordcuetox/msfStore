@@ -14,6 +14,7 @@ define("MIN_SLIDES_OFERTA", 4);
 <!DOCTYPE html>
 <html lang="es">
     <head>
+        <title>MSF Store | Todo para el Mason, Todo para su logia</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
