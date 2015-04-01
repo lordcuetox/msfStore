@@ -10,6 +10,7 @@ $count = NULL;
 $count2 = NULL;
 $count3 = NULL;
 $msg = "";
+$total=0;
 
 if (isset($_POST['txtCveCliente'])) {
     if ($_POST['txtCveCliente'] != 0) {
@@ -41,6 +42,7 @@ if (isset($_POST['xAccion'])) {
           }
     }
         
+    
 
         $clasf->setNombre($_POST['txtNombre']);
         $clasf->setApellidoPat($_POST['txtApellidoPat']);
@@ -51,8 +53,18 @@ if (isset($_POST['xAccion'])) {
         $clasf->setHabilitado($_POST['txtUsuario']);
         $clasf->setFresita($_POST['txtPass']);
         $clasf->setActivo("1");
-   
-        $correo->setDato($_POST['txtCorreo']);
+
+         
+              $sql = "SELECT * from prospectos where habilitado='".($_POST['txtUsuario'])."'";
+             $rst = UtilDB::ejecutaConsulta($sql);
+    if($rst->rowCount()>0)
+    {
+        $total=$rst->rowCount();
+        echo($total);
+         $msg = "No es posible asignar el usuario, elija otro.";
+    }
+ else {
+           
         $count = $clasf->grabar();
         $telefono->setCveCliente($clasf->getCveCliente());
         $telefono->setCveComunicacion(1);      
@@ -63,6 +75,7 @@ if (isset($_POST['xAccion'])) {
         $correo->setCveComunicacion(2);      
         $correo->setDato($_POST['txtCorreo']);
          $correo->setActivo("1");
+  
         $count3 = $correo->grabar();
         
         if ($count != 0&&$count2 != 0&&$count3 != 0) {
@@ -71,6 +84,8 @@ if (isset($_POST['xAccion'])) {
             $msg = "[ERROR] Sus datos no se han grabado";
         }
     }
+    $rst->closeCursor();
+}
 }
 ?>
 <!DOCTYPE html>
@@ -276,10 +291,11 @@ if (isset($_POST['xAccion'])) {
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="txtUsuario">*Usuario:</label>
+                    <div class="form-group" >
+                        <label for="txtUsuario" class="<?php echo(($total>0?"alert alert-danger":"")) ?>" >*Usuario:</label>
+                         <label class="<?php echo(($total>0?"alert alert-danger":"")) ?>"  style="<?php echo($total >0 ? "display:block;" : "display:none;"); ?>"><?php echo($msg); ?></label>
                         <input type="text" class="form-control" id="txtUsuario" name="txtUsuario" 
-                               placeholder="Usuario" value="<?php echo($clasf->getHabilitado()); ?>">
+                               placeholder="Usuario"  value="<?php echo($clasf->getHabilitado()); ?>">
                     </div>
                     <div class="form-group">
                         <label for="txtPass">*Contraseña:</label>

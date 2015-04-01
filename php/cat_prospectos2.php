@@ -1,10 +1,11 @@
 <?php
+
 require_once '../clases/Prospectos.php';
 require_once '../clases/ComunicacionesClientes.php';
 require_once '../clases/UtilDB.php';
 
 session_start();
-
+//unset($_SESSION['cve_cliente']);
 if (!isset($_SESSION['cve_cliente'])) 
 {
     header('Location:login_cliente.php');
@@ -23,12 +24,13 @@ $count2 = NULL;
 $count3 = NULL;
 $msg = "";
 
-if (isset($_POST['txtCveCliente'])) {
-    if ($_POST['txtCveCliente'] != 0) {
+if (isset($_SESSION['cve_cliente'])) {
+   
         $clasf = new Prospectos($idPrincipal);
-          $telefono= new ComunicacionesClientes($clasf->getCveCliente(),1);
-        $correo= new ComunicacionesClientes($clasf->getCveCliente(),2);
-    }
+          $telefono= new ComunicacionesClientes($idPrincipal,1);
+         // $telefono->cargar2();
+        $correo= new ComunicacionesClientes($idPrincipal,2);
+    
 }
 
 
@@ -62,8 +64,7 @@ if (isset($_POST['xAccion'])) {
         $clasf->setFechaRegistro($fRegistro);
         $clasf->setFresita($_POST['txtPass']);
         $clasf->setActivo("1");
-   
-        $correo->setDato($_POST['txtCorreo']);
+
         $count = $clasf->grabar();
         $telefono->setCveCliente($clasf->getCveCliente());
         $telefono->setCveComunicacion(1);    

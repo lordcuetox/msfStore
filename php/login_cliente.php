@@ -1,11 +1,12 @@
 <?php
 require_once '../clases/UtilDB.php';
 session_start();
-if (isset($_SESSION['cve_usuario'])) 
+if (isset($_SESSION['cve_cliente'])) 
 {
     header('Location:cat_prospectos2.php');
     return;
 }
+
 if (isset($_POST['xAccion'])) {
     if ($_POST['xAccion'] == "login") {
         $sql = "SELECT * FROM prospectos WHERE habilitado = '" . $_POST['txtUser'] . "' AND fresita = '" . $_POST['txtPassword'] . "'";
@@ -67,6 +68,9 @@ if (isset($_POST['xAccion'])) {
                                     </div>
                                     <!-- Change this to a button or input when using this as a form -->
                                     <input type="button" name="btnLogin" id="btnLogin" value="Login" class="btn btn-lg btn-success btn-block" onclick="login()"/>
+                                       <div class="form-group">
+                                           <a href="cat_prospectos.php">Registrate Aquí</a>
+                                    </div>
                                 </fieldset>
                             </form>
                         </div>
