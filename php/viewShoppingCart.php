@@ -39,7 +39,7 @@ $cart = NULL;
                         <form name="frmShoppingCart<?php echo($item->getCveProducto()); ?>" id="frmShoppingCart<?php echo($item->getCveProducto() ); ?>" method="post" action="php/agregacar.php">
                             <tr bgcolor="<?php echo $color[$contador % 2]; ?>" class='prod'> 
                                 <td><?php echo $item->getNombre() ?></td>
-                                <td>$ <?php echo $item->getPrecio() ?></td>
+                                <td <?php if($item->isOfertaVigente()){ echo("style=\"color:red;\"");}?>>$ <?php echo $item->getPrecio() ?> <span <?php if($item->isOfertaVigente()){ echo("style=\"color:red;\"");}?>><?php if($item->isOfertaVigente()){ echo("OFERTA!!");}?></span></td>
                                 <td width="43" align="center"><?php echo $arr['qty'] ?></td>
                                 <td width="136" align="center"> 
                                     <input name="txtCantidad" type="text" id="txtCantidad" value="<?php echo $arr['qty'] ?>" size="3">
