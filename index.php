@@ -39,7 +39,7 @@ define("MIN_SLIDES_OFERTA", 5);
                     autoHover: true,
                     speed: 3000,
                     slideMargin: 15,
-                    moveSlides: 1});
+                    moveSlides: 2});
 
                 $('body').on('hidden.bs.modal', '.modal', function () {
                     $(this).removeData('bs.modal');
@@ -156,7 +156,7 @@ define("MIN_SLIDES_OFERTA", 5);
                                 $tmp2 .= "<div class=\"col-md-4\">";
                                 $tmp2 .= "<img src=\"" . $row2['ruta_imagen1'] . "\" class=\"img-responsive\" alt=\"" . $row2['nombre'] . "\"/>";
                                 $tmp2 .= "<h4>".$row2['nombre']."</h4>";
-                                $tmp2 .= "<a href=\"javascript:void(0);\" data-toggle=\"modal\" data-remote=\"php/productos_id.php?id=" . $row2['cve_producto'] . "\" data-target=\"#myModal\" class=\"btn btn-info\">Ver descripción</a>";
+                                $tmp2 .= "<a href=\"javascript:void(0);\" data-toggle=\"modal\" data-remote=\"php/productos_id.php?id=" . $row2['cve_producto'] . "\" data-target=\"#myModal\" class=\"btn btn-custom\">Ver descripción</a>";
                                 $tmp2 .= "</div>";
                                 $count1++;
                                 if ($count1 % 3 == 0) {
@@ -191,6 +191,7 @@ define("MIN_SLIDES_OFERTA", 5);
                                 $tmp3 .= "<a href=\"javascript:void(0);\" data-toggle=\"modal\" data-remote=\"php/productos_id.php?id=" . $row3['cve_producto'] . "\" data-target=\"#myModal\">";
                                 $tmp3 .= "<img src=\"" . $row3['ruta_imagen1'] . "\" class=\"img-responsive\" title =\"" . $row3['nombre'] . "\" alt=\"" . $row3['nombre'] . "\"/>";
                                 $tmp3 .= "</a>";
+                                $tmp3 .= "<h4 style=\"text-align:center\">".$row3['nombre']."</h4>";
                                 $tmp3 .= "</li>";
                             }
                             $tmp3 .= "</ul>";
@@ -218,13 +219,13 @@ define("MIN_SLIDES_OFERTA", 5);
             </div>
             <div class="row clearfix">
                 <div class="col-md-12">
-                    <p class="text-center">Calle 2 de Abril Nº. 233 Villahermosa, Tab. | Tel. 312 67 00, 312 67 01 <!--| Cel. 9932772575--></p>
+                    <p class="text-center">Calle 2 de Abril Nº. 233 Villahermosa, Tab. <!--| Tel. 312 67 00, 312 67 01--> | Cel. 9932772575</p>
                 </div>
             </div>
         </div>
         <footer class="footer">
             <div class="container">
-                <p class="text-muted text-center">Copyright 2015| Masoneria Sin Fronteras Stores| Powered By WEBXICO & Cuetox</p>
+                <p class="text-muted text-center">Copyright 2015| Masoneria Sin Fronteras Store| Powered By WEBXICO & Cuetox</p>
             </div>
         </footer>
     </body>
