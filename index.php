@@ -21,6 +21,11 @@ define("MIN_SLIDES_OFERTA", 4);
         <link href="twbs/bootstrap-3.3.2/css/bootstrap.min.css" rel="stylesheet"/>
         <link href="js/jQuery/plugins/jquery.bxslider/jquery.bxslider.css" rel="stylesheet"/>
         <link href="css/msfstore.css" rel="stylesheet"/>
+        <style>
+            span.glyphicon-shopping-cart {
+    font-size: 1.2em;
+}
+        </style>
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
           <script src="js/html5shiv.js"></script>
@@ -95,8 +100,10 @@ define("MIN_SLIDES_OFERTA", 4);
                             </div>
                             <div class="clearfix visible-md"></div>
                             <div class="col-md-offset-8"></div>
-                            <div class="col-md-4 text-right visible-xs visible-sm"><a href="javascript:void(0);" data-toggle="modal" data-remote="php/viewShoppingCart.php" data-target="#myModal"><img src="img/vercarrito.gif" alt="Ver carrito de compras"/> Carrito de compras</a></div>
-                            <div class="col-md-4 text-right bottom visible-md visible-lg"><a href="javascript:void(0);" data-toggle="modal" data-remote="php/viewShoppingCart.php" data-target="#myModal"><img src="img/vercarrito.gif" alt="Ver carrito de compras"/> Carrito de compras</a></div>
+                            <div class="col-md-2 text-right visible-xs visible-sm"><span class="glyphicon glyphicon-shopping-cart"></span> <a href="javascript:void(0);" data-toggle="modal" data-remote="php/viewShoppingCart.php" data-target="#myModal">Carrito de compras</a></div>
+                            <div class="col-md-2 text-right visible-xs visible-sm"><span class="glyphicon glyphicon-user"></span> <a href="php/login_cliente.php" target="_blank">Inicio de sesión</a></div>
+                            <div class="col-md-2 text-right bottom visible-md visible-lg"><span class="glyphicon glyphicon-shopping-cart"></span> <a href="javascript:void(0);" data-toggle="modal" data-remote="php/viewShoppingCart.php" data-target="#myModal">Carrito de compras</a></div>
+                            <div class="col-md-2 text-right bottom2 visible-md visible-lg"><span class="glyphicon glyphicon-user"></span> <a href="php/login_cliente.php" target="_blank">Inicio de sesión</a></div>
                             <div class="clearfix visible-md"></div>
                         </div>
                     </header>
