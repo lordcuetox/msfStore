@@ -90,7 +90,6 @@ define("MIN_SLIDES_OFERTA", 5);
                             <div class="col-md-4 text-right">
                                 <a href="https://www.facebook.com/MSFStore" target="_blank"><img src="img/facebook.png" class="img-responsive " alt="Facebook" style="display: inline; margin-right: 25px;"/></a>
                                 <a href="https://twitter.com/masinfronteras" target="_blank"><img src="img/twitter.png" class="img-responsive" alt="Twitter" style="display: inline; margin-right: 25px;"/></a>
-                                <a href="javascript:void(0);"><img src="img/youtube.png" class="img-responsive" alt="Youtube" style="display: inline; margin-right: 25px;"/></a>
                                 <a href="mailto:msf_store@hotmail.com"><img src="img/email.png" class="img-responsive" alt="Email" style="display: inline; margin-right: 25px;"/></a>
                             </div>
                             <div class="clearfix visible-md"></div>
