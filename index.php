@@ -227,7 +227,7 @@ define("MIN_SLIDES_OFERTA", 4);
         </div>
         <footer class="footer">
             <div class="container">
-                <p class="text-muted text-center">Copyright 2015| Masoneria Sin Fronteras Store| Powered By WEBXICO & Cuetox</p>
+                <p class="text-muted text-center">Copyright <?php echo date("Y"); ?>| Masoneria Sin Fronteras Store| Powered By WEBXICO & Cuetox</p>
             </div>
         </footer>
     </body>
