@@ -8,8 +8,12 @@ if (!isset($_SESSION['cve_usuario']))
     header('Location:login.php');
     return;
 }
+else
+{
+    $idPrincipal=isset($_SESSION['cve_usuario']);
+}
 
-$reata = new ElReaton(1);
+$reata = new ElReaton($idPrincipal);
 $count = NULL;
 
 if (isset($_POST['txtIdReata'])) {

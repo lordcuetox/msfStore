@@ -3,7 +3,19 @@ require_once '../clases/Prospectos.php';
 require_once '../clases/ComunicacionesClientes.php';
 require_once '../clases/UtilDB.php';
 
-$clasf = new Prospectos();
+session_start();
+
+if (!isset($_SESSION['cve_cliente'])) 
+{
+    header('Location:login_cliente.php');
+    return;
+}
+else
+{
+    $idPrincipal=isset($_SESSION['cve_cliente']);
+}
+
+$clasf = new Prospectos($idPrincipal);
 $correo = new ComunicacionesClientes();
 $telefono = new ComunicacionesClientes();
 $count = NULL;
@@ -13,7 +25,7 @@ $msg = "";
 
 if (isset($_POST['txtCveCliente'])) {
     if ($_POST['txtCveCliente'] != 0) {
-        $clasf = new Prospectos($_POST['txtCveCliente']);
+        $clasf = new Prospectos($idPrincipal);
           $telefono= new ComunicacionesClientes($clasf->getCveCliente(),1);
         $correo= new ComunicacionesClientes($clasf->getCveCliente(),2);
     }
@@ -48,14 +60,13 @@ if (isset($_POST['xAccion'])) {
         $clasf->setSexo($sexo);
         $clasf->setFechaNac($fNacimiento);
         $clasf->setFechaRegistro($fRegistro);
-        $clasf->setHabilitado($_POST['txtUsuario']);
         $clasf->setFresita($_POST['txtPass']);
         $clasf->setActivo("1");
    
         $correo->setDato($_POST['txtCorreo']);
         $count = $clasf->grabar();
         $telefono->setCveCliente($clasf->getCveCliente());
-        $telefono->setCveComunicacion(1);      
+        $telefono->setCveComunicacion(1);    
         $telefono->setDato($_POST['txtTelefono']);
         $telefono->setActivo("1");
         $count2 = $telefono->grabar();
@@ -168,7 +179,7 @@ if (isset($_POST['xAccion'])) {
 
             function grabar()
             {
-                if ($("#txtNombre").val() !="" && $("#txtApellidoPat").val() !="" && $("#txtFechaNacimiento").val() != "" && $("#txtUsuario").val() != ""&& $("#txtPass").val() != ""&& $("#txtPass2").val() != ""&& $("#txtCorreo").val() != "")
+                if ($("#txtNombre").val() !="" && $("#txtApellidoPat").val() !="" && $("#txtFechaNacimiento").val() != "" && $("#txtPass").val() != ""&& $("#txtPass2").val() != ""&& $("#txtCorreo").val() != "")
                 {
                      if(valEmail($("#txtCorreo").val()))
                       {
@@ -228,15 +239,11 @@ if (isset($_POST['xAccion'])) {
             <div class="col-sm-4">
 
                 <form role="form" name="frmProspectos" id="frmProspectos" action="<?php echo($_SERVER['PHP_SELF']); ?>" method="POST">
-                    <?php
-                    if($clasf->getCveCliente()==0)
-                    {
-                    ?>
-                     <h3>BIENVENIDO A  MSF STORE</h3>
-                     <h4>Ingrese los siguientes datos para crear su cuenta:</h4>
+
+                     <h3>Datos Personales:</h3>
                     <div class="form-group">
                         <input type="hidden" class="form-control" name="xAccion" id="xAccion" value="0" />
-                        <input type="hidden" class="form-control" id="txtCveCliente" name="txtCveCliente" placeholder="ID Grado" value="<?php echo($clasf->getCveCliente()); ?>">
+                        <input type="text" class="form-control" id="txtCveCliente" name="txtCveCliente" placeholder="ID Grado" value="<?php echo($clasf->getCveCliente()); ?>">
                     </div>
 
                     <div class="form-group">
@@ -276,11 +283,7 @@ if (isset($_POST['xAccion'])) {
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="txtUsuario">*Usuario:</label>
-                        <input type="text" class="form-control" id="txtUsuario" name="txtUsuario" 
-                               placeholder="Usuario" value="<?php echo($clasf->getHabilitado()); ?>">
-                    </div>
+                
                     <div class="form-group">
                         <label for="txtPass">*Contraseña:</label>
                         <input type="password" class="form-control" id="txtPass" name="txtPass" 
@@ -306,14 +309,7 @@ if (isset($_POST['xAccion'])) {
                           <div class="form-group">
                     <label for="mensa">* Campos obligatorios</label>
                        </div>
-                    <?php } else
-                    {
-                       
-?>
-                            <div class="form-group">
-                    <label for="mensa">¡Gracias por registrarse en arreosMSF!,para continuar presione aquí.</label>
-                       </div>
-                    <?php } ?>
+                 
                 </form>
                 <br/>
                 <br/>
