@@ -84,7 +84,7 @@ class Clasificacion {
                 $this->_existe = true;
             }
         } else {
-            $sql = "UPDATE CLASIFICACIONES SET ";
+            $sql = "UPDATE clasificaciones SET ";
             $sql.= "cve_rito=".$this->cve_rito->getCve_rito();
             $sql.= ",descripcion = '$this->descripcion',";
             $sql.= " activo=" . ($this->activo ? "1" : "0");

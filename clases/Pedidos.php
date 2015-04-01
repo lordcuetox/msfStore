@@ -133,7 +133,7 @@ class Pedidos {
 
         if (!$this->_existe) {
             $this->cveProducto = UtilDB::getSiguienteNumero("pedidos", "cve_pedido");
-            $sql = "INSERT INTO prospectos (cve_cliente,cve_pedido,"
+            $sql = "INSERT INTO pedidos (cve_cliente,cve_pedido,"
                     . "referencia, fecha,status,monto_total,fecha_actualizacion"
                     . ",numero_guia,descripcion_guia"
                     . ") VALUES($this->cveCliente,$this->nombre,'$this->apellidoPat','$this->apellidoMat',$this->sexo,"
@@ -144,7 +144,7 @@ class Pedidos {
                 $this->_existe = true;
             }
         } else {
-            $sql = "UPDATE prospectos SET ";
+            $sql = "UPDATE pedidos SET ";
             $sql.= "nombre= '$this->nombre',";
             $sql.= "apellido_pat='$this->apellidoPat',";
             $sql.= "apellido_mat='$this->apellidoMat',";

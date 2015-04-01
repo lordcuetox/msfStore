@@ -82,7 +82,7 @@ class Rito {
                 $this->_existe = true;
             }
         } else {
-            $sql = "UPDATE RITOS SET ";
+            $sql = "UPDATE ritos SET ";
             $sql.= "descripcion = '$this->descripcion',";
             $sql.= "activo=" . ($this->activo ? "1" : "0");
             $sql.= " WHERE cve_rito = $this->cve_rito";

@@ -232,7 +232,7 @@ class Productos {
         $count = 0;
 
         if (!$this->_existe) {
-            $this->cveProducto = UtilDB::getSiguienteNumero("Productos", "cve_producto");
+            $this->cveProducto = UtilDB::getSiguienteNumero("productos", "cve_producto");
             $sql = "INSERT INTO productos (cve_rito,cve_clasificacion,"
                     . "cve_grado, cve_clas_producto,cve_producto,nombre,descripcion"
                     . ",precio,novedad,fecha_novedad,oferta,fecha_oferta,precio_oferta,existencias,activo"
