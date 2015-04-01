@@ -89,6 +89,7 @@ if (isset($_POST['xAccion'])) {
                             <a href="cat_clasificacion_productos.php"><i class="fa fa-tags"></i> Clasificación productos</a>
                             <a href="cat_productos.php"><i class="fa fa-truck"></i> Productos</a>
                             <a href="cat_reaton.php"><i class="fa fa-users"></i> Usuarios y contraseñas</a>
+                             <a href="lista_prospectos.php"><i class="fa fa-truck"></i> Lista de clientes</a>
                             <a href="javascript:void(0);" onclick="logout();"><i class="fa fa-sign-out"></i> CERRAR SESIÓN</a>
                         </li>
                     </ul>

@@ -1,5 +1,5 @@
 <?php
-require_once '../clases/ElReaton.php';
+require_once '../clases/Rito.php';
 require_once '../clases/UtilDB.php';
 session_start();
 
@@ -8,31 +8,26 @@ if (!isset($_SESSION['cve_usuario']))
     header('Location:login.php');
     return;
 }
-else
-{
-    $idPrincipal=isset($_SESSION['cve_usuario']);
-}
 
-$reata = new ElReaton($idPrincipal);
+
+$sql = "SELECT * FROM ritos ORDER BY cve_rito";
+$rst = UtilDB::ejecutaConsulta($sql);
+
+$rito = new Rito();
 $count = NULL;
 
-if (isset($_POST['txtIdReata'])) {
-    if ($_POST['txtIdReata'] != 0) {
-        $reata = new ElReaton($_POST['txtIdReata']);
+if (isset($_POST['txtIdRito'])) {
+    if ($_POST['txtIdRito'] != 0) {
+        $rito = new Rito($_POST['txtIdRito']);
     }
 }
 
 
 if (isset($_POST['xAccion'])) {
     if ($_POST['xAccion'] == 'grabar') {
-        $reata->setHabilitado($_POST['txtHabilitado']);
-        $reata->setFresita($_POST['txtFresita']);
-        $count = $reata->grabar();
-        if ($count != 0) {
-            $msg = "¡Usuario y contraseña actualizado!";
-        } else {
-            $msg = "[ERROR] Usuario y contraseña no actualizado";
-        }
+        $rito->setDescripcion($_POST['txtDescripcion']);
+        $rito->setActivo(isset($_POST['cbxActivo']) ? "1" : "0");
+        $count = $rito->grabar();
     }
     if ($_POST['xAccion'] == 'logout')
     {   
@@ -45,7 +40,7 @@ if (isset($_POST['xAccion'])) {
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <title>MSF Store Admin| Usuario Administrador</title>
+        <title>MSF Store Admin | Catálogo de ritos</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -78,18 +73,16 @@ if (isset($_POST['xAccion'])) {
                     <a class="navbar-brand" href="index.html">MSF Store Admin</a>
                 </div>
                 <!-- /.navbar-header -->
-
-
                 <div class="navbar-default sidebar" role="navigation">
                     <div class="sidebar-nav navbar-collapse">
                         <ul class="nav" id="side-menu">
                             <li>
-                                <a href="cat_ritos.php" ><i class="fa fa-university"></i> Ritos</a>
-                                 <a href="cat_clasificaciones.php" ><i class="fa fa-leaf"></i> Clasificaciones</a>
+                                <a href="cat_ritos.php" class="active"><i class="fa fa-university"></i> Ritos</a>
+                                <a href="cat_clasificaciones.php"><i class="fa fa-leaf"></i> Clasificaciones</a>
                                 <a href="cat_grados.php"><i class="fa fa-crop"></i> Grados</a>
                                 <a href="cat_clasificacion_productos.php"><i class="fa fa-tags"></i> Clasificación productos</a>
                                 <a href="cat_productos.php"><i class="fa fa-truck"></i> Productos</a>
-                                <a href="cat_reaton.php" class="active"><i class="fa fa-users"></i> Usuarios y contraseñas</a>
+                                <a href="cat_reaton.php"><i class="fa fa-users"></i> Usuarios y contraseñas</a>
                                  <a href="lista_prospectos.php"><i class="fa fa-truck"></i> Lista de clientes</a>
                                 <a href="javascript:void(0);" onclick="logout();"><i class="fa fa-sign-out"></i> CERRAR SESIÓN</a>
                             </li>
@@ -102,47 +95,60 @@ if (isset($_POST['xAccion'])) {
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Usuario Administrador</h1>
+                        <h1 class="page-header">Catálogo de Ritos</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
                 <div class="row" >
                     <div class="col-sm-4">&nbsp;</div>
                     <div class="col-sm-4">
-
-                        <form role="form" name="frmReata" id="frmReata" action="<?php echo($_SERVER['PHP_SELF']); ?>" method="POST">
+                        <form role="form" name="frmRitos" id="frmRitos" action="cat_ritos.php" method="POST">
                             <div class="form-group">
-                                <input type="hidden" class="form-control" name="xAccion" id="xAccion" value="0" />
-                                <input type="hidden" class="form-control" id="txtIdReata" name="txtIdReata"
-                                       placeholder="Clave usuario" value="<?php echo($reata->getCveReata()); ?>">
-
+                                <label for="txtIdRito"><input type="hidden" class="form-control" name="xAccion" id="xAccion" value="0" /></label>
+                                <input type="hidden" class="form-control" id="txtIdRito" name="txtIdRito"
+                                       placeholder="ID Rito" value="<?php echo($rito->getCve_rito()); ?>">
                             </div>
                             <div class="form-group">
-                                <label for="txtHabilitado">Usuario:</label>
-                                <input type="text" class="form-control" id="txtHabilitado" name="txtHabilitado" 
-                                       placeholder="Usuario" value="<?php echo($reata->getHabilitado()); ?>">
+                                <label for="txtDescripcion">Descripción</label>
+                                <input type="text" class="form-control" id="txtDescripcion" name="txtDescripcion" 
+                                       placeholder="Descripción" value="<?php echo($rito->getDescripcion()); ?>">
                             </div>
-                            <div class="form-group">
-                                <label for="txtFresita">Contraseña:</label>
-                                <input type="password" class="form-control" id="txtFresita" name="txtFresita" 
-                                       placeholder="Contraseña" value="<?php echo($reata->getFresita()); ?>">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" id="cbxActivo" name="cbxActivo" value="1" checked="<?php echo($rito->getCve_rito() != 0 ? ($rito->getActivo() == 1 ? "checked" : "") : "checked"); ?>"> Activo
+                                </label>
                             </div>
                             <button type="button" class="btn btn-default" id="btnLimpiar" name="btnLimpiar" onclick="limpiar();">Limpiar</button>
                             <button type="button" class="btn btn-default" id="btnGrabar" name="btnGrabar" onclick="grabar();">Enviar</button>
                         </form>
                         <br/>
                         <br/>
-                        <div class="<?php echo($count != 0 ? "alert alert-success" : "alert alert-danger"); ?>" style="<?php echo($count == NULL ? "display:none;" : "display:block;"); ?>"><?php echo($msg); ?></div>
-                        <br/>
-                        <br/>
+                        <table class="table table-bordered table-striped table-hover table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>ID Rito</th>
+                                    <th>Descripción</th>
+                                    <th>Activo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($rst as $row) { ?>
+                                    <tr>
+                                        <td><a href="javascript:void(0);" onclick="$('#txtIdRito').val(<?php echo($row['cve_rito']); ?>);
+                                                    recargar();"><?php echo($row['cve_rito']); ?></a></td>
+                                        <td><?php echo($row['descripcion']); ?></td>
+                                        <td><?php echo($row['activo'] == 1 ? "Si" : "No"); ?></td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
                     </div>
+                    <div class="col-sm-4">&nbsp;</div>
                 </div>
             </div>
-        </div>
+        </div>    
         <!-- jQuery -->
         <script src="../twbs/plugins/startbootstrap-sb-admin-2-1.0.5/bower_components/jquery/dist/jquery.min.js"></script>
-        <script src="../js/jQuery/jquery-ui-1.11.3/jquery-ui.min.js"></script>
-        <script src="../js/jQuery/jquery-ui-1.11.3/jquery.ui.datepicker-es-MX.js"></script>
         <!-- Bootstrap Core JavaScript -->
         <script src="../twbs/plugins/startbootstrap-sb-admin-2-1.0.5/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <!-- Metis Menu Plugin JavaScript -->
@@ -153,31 +159,40 @@ if (isset($_POST['xAccion'])) {
         function logout()
         {
             $("#xAccion").val("logout");
-            $("#frmReata").submit();
+            $("#frmRitos").submit();
         }
-        
+            
+        function msg(opcion)
+        {
+            switch (opcion)
+            {
+                case 0:
+                    alert("[ERROR] Rito no grabado");
+                    break;
+                case 1:
+                    alert("Rito grabado con exito!");
+                    break;
+                default:
+                    break;
+
+            }
+
+        }
+
         function limpiar()
         {
             $("#xAccion").val("0");
-            $("#txtIdReata").val("0");
-            $("#frmReata").submit();
+            $("#txtIdRito").val("0");
+            $("#frmRitos").submit();
         }
 
         function grabar()
         {
-
-            if ($("#txtFresita").val() !== "" && $("#txtHabilitado").val() !== "")
-            {
-                $("#xAccion").val("grabar");
-                $("#frmReata").submit();
-            }
-            else
-            {
-                alert("Es necesario escribir el usuario y el password");
-            }
-
+            $("#xAccion").val("grabar");
+            $("#frmRitos").submit();
 
         }
+
 
         function abrirVentana() {
             var w = 400;
@@ -194,6 +209,10 @@ if (isset($_POST['xAccion'])) {
             $("#frmRitos").submit();
 
         }
+
+
+        msg(<?php echo($count) ?>);
         </script>
     </body>
 </html>
+
