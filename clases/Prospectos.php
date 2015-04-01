@@ -142,13 +142,14 @@ class Prospectos {
         $count = 0;
 
         if (!$this->_existe) {
-            $this->cveProducto = UtilDB::getSiguienteNumero("prospectos", "cve_cliente");
+            $this->cveCliente = UtilDB::getSiguienteNumero("prospectos", "cve_cliente");
             $sql = "INSERT INTO prospectos (cve_cliente,nombre,"
                     . "apellido_pat, apellido_mat,sexo,fecha_nac,fecha_registro"
                     . ",habilitado,fresita,activo"
                     . ") VALUES($this->cveCliente,'$this->nombre','$this->apellidoPat','$this->apellidoMat',$this->sexo,"
                     . "'$this->fechaNac','$this->fechaRegistro','$this->habilitado','$this->fresita',"
                     . " $this->activo)";
+      
             $count = UtilDB::ejecutaSQL($sql);
             if ($count > 0) {
                 $this->_existe = true;
@@ -159,9 +160,9 @@ class Prospectos {
             $sql.= "apellido_pat='$this->apellidoPat',";
             $sql.= "apellido_mat='$this->apellidoMat',";
             $sql.= "sexo=". ($this->sexo ? "1" : "0");
-            $sql.= ",fecha_nac = '$this->fechaNac',";
-            $sql.= ",fecha_registro=' $this->fechaRegistro',";
-            $sql.= ",habilitado = '$this->habilitado',";
+            $sql.= ",fecha_nac = '$this->fechaNac'";
+            $sql.= ",fecha_registro=' $this->fechaRegistro'";
+            $sql.= ",habilitado = '$this->habilitado'";
             $sql.= ",fresita = '$this->fresita',";
             $sql.= "activo=" . ($this->activo ? "1" : "0");
             $sql.= " WHERE cve_cliente = $this->cveCliente";
