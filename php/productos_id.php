@@ -1,84 +1,80 @@
 <?php
 require_once '../clases/UtilDB.php';
+require_once('../clases/Productos.php');
+$producto = "";
 $sql = "";
 $msg = "";
 
-if (isset($_GET['from'])) {
-    if ($_GET['from'] == "ofertas") {
-        $sql = "SELECT * FROM productos WHERE oferta = 1 AND ruta_imagen1 IS NOT NULL AND fecha_oferta >= NOW() AND cve_producto=" . $_GET['id'];
-        $msg = "Lo sentimos la oferta ha expirado";
-    }
-    if ($_GET['from'] == "novedad") {
-        $sql = "SELECT * FROM productos WHERE novedad = 1 AND ruta_imagen1 IS NOT NULL AND fecha_novedad >= NOW() AND cve_producto=" . $_GET['id'];
-        $msg = "Lo sentimos, la novedad ha expirado";
-    }
+if (isset($_GET['id'])) {
+    $producto = new Productos((int) $_GET['id']);
 } else {
-    $sql = "SELECT * FROM productos WHERE cve_producto=" . $_GET['id'];
+    $producto = new Productos();
     $msg = "Lo sentimos, su busqueda no tiene resultados";
 }
 
-$rst = UtilDB::ejecutaConsulta($sql);
-if ($rst->rowCount() > 0) {
-    foreach ($rst as $row) {
-        ?>
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title"><?php echo($row['nombre']); ?></h4>
-        </div>
-        <div class="modal-body">
-            <div class="te">
-                <?php
-                if ($row['ruta_imagen1'] != NULL && $row['ruta_imagen2'] != NULL && $row['ruta_imagen3'] != NULL && $row['ruta_imagen4'] != NULL) {
-                    ?>
-                    <ul class="bxslider">
-                        <li><img src="<?php echo($row['ruta_imagen1']); ?>" class="img-responsive"/></li>
-                        <li><img src="<?php echo($row['ruta_imagen2']); ?>" class="img-responsive"/></li>
-                        <li><img src="<?php echo($row['ruta_imagen3']); ?>" class="img-responsive"/></li>
-                        <li><img src="<?php echo($row['ruta_imagen4']); ?>" class="img-responsive"/></li>
-                    </ul>
-                    <?php
-                } elseif ($row['ruta_imagen1'] != NULL && $row['ruta_imagen2'] != NULL && $row['ruta_imagen3'] != NULL) {
-                    ?>
-                    <ul class="bxslider">
-                        <li><img src="<?php echo($row['ruta_imagen1']); ?>" class="img-responsive"/></li>
-                        <li><img src="<?php echo($row['ruta_imagen2']); ?>" class="img-responsive"/></li>
-                        <li><img src="<?php echo($row['ruta_imagen3']); ?>" class="img-responsive"/></li>
-                    </ul>
-                    <?php
-                } elseif ($row['ruta_imagen1'] != NULL && $row['ruta_imagen2'] != NULL) {
-                    ?>
-                    <ul class="bxslider">
-                        <li><img src="<?php echo($row['ruta_imagen1']); ?>" class="img-responsive"/></li>
-                        <li><img src="<?php echo($row['ruta_imagen2']); ?>" class="img-responsive"/></li>
-                    </ul>
-                    <?php
-                } else {
-                    ?>
-                    <img src="<?php echo($row['ruta_imagen1']); ?>" class="img-responsive" style="margin:10px auto;"/>
-                    <?php
-                }
+if ($producto->getCveProducto() != 0) {
+    ?>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"><?php echo($producto->getNombre()); ?></h4>
+    </div>
+    <div class="modal-body">
+        <div class="te">
+            <?php
+            if ($producto->getRutaImagen1() != "" && $producto->getRutaImagen2() != "" && $producto->getRutaImagen3() != "" && $producto->getRutaImagen4() != "") {
                 ?>
-                <p class="negritas">Descripción:</p>
-                <p><?php echo($row['descripcion']); ?></p>
+                <ul class="bxslider">
+                    <li><img src="<?php echo($producto->getRutaImagen1()); ?>" class="img-responsive"/></li>
+                    <li><img src="<?php echo($producto->getRutaImagen2()); ?>" class="img-responsive"/></li>
+                    <li><img src="<?php echo($producto->getRutaImagen3()); ?>" class="img-responsive"/></li>
+                    <li><img src="<?php echo($producto->getRutaImagen4()); ?>" class="img-responsive"/></li>
+                </ul>
                 <?php
-                if ($row['oferta'] == 1) {
+            } elseif ($producto->getRutaImagen1() != "" && $producto->getRutaImagen2() != "" && $producto->getRutaImagen3() != "") {
                 ?>
-                <p class="negritas_oferta">Precio oferta: $<?php echo($row['precio_oferta']); ?></p>
+                <ul class="bxslider">
+                    <li><img src="<?php echo($producto->getRutaImagen1()); ?>" class="img-responsive"/></li>
+                    <li><img src="<?php echo($producto->getRutaImagen2()); ?>" class="img-responsive"/></li>
+                    <li><img src="<?php echo($producto->getRutaImagen3()); ?>" class="img-responsive"/></li>
+                </ul>
                 <?php
-                } else {
+            } elseif ($producto->getRutaImagen1() != "" && $producto->getRutaImagen2() != "") {
                 ?>
-                <p class="negritas_">Precio: $<?php echo($row['precio']); ?></p>
-                <?php } ?>
-        <!--<p class="negritas">Existencias: <?php echo($row['existencias']); ?></p>-->
-                <p><a href="javascript:void(0);" onclick="addToShoppingCart(<?php echo($row['cve_producto']); ?>);"><img src="img/Shopping-cart-accept-icon.png" alt="Carrito de comprar" title="Agregar al carrito de compras <?php echo($row['nombre']); ?>" class="img-responsive"/></a></p>
-                <p id="ajax_msg"></p>
-            </div>
+                <ul class="bxslider">
+                    <li><img src="<?php echo($producto->getRutaImagen1()); ?>" class="img-responsive"/></li>
+                    <li><img src="<?php echo($producto->getRutaImagen2()); ?>" class="img-responsive"/></li>
+                </ul>
+                <?php
+            } else {
+                ?>
+                <img src="<?php echo($producto->getRutaImagen1()); ?>" class="img-responsive" style="margin:10px auto;"/>
+                <?php
+            }
+            ?>
+            <p class="negritas">Descripción:</p>
+            <p><?php echo($producto->getDescripcion()); ?></p>
+            <p <?php
+            if ($producto->isOfertaVigente()) {
+                echo("style=\"color:red;\"");
+            }
+            ?>>$ <?php echo $producto->getPrecio() ?> <span <?php
+                        if ($producto->isOfertaVigente()) {
+                            echo("style=\"color:red;\"");
+                        }
+                        ?>><?php
+                        if ($producto->isOfertaVigente()) {
+                            echo("OFERTA!!");
+                        }
+                        ?></span></p>
+           <!--<p class="negritas">Existencias: <?php echo($producto->getExistencias()); ?></p>-->
+            <p><a href="javascript:void(0);" onclick="addToShoppingCart(<?php echo($producto->getCveProducto()); ?>);"><img src="img/Shopping-cart-accept-icon.png" alt="Carrito de comprar" title="Agregar al carrito de compras <?php echo($producto->getNombre()); ?>" class="img-responsive"/></a></p>
+            <p id="ajax_msg"></p>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        </div>
-        <?php
-    }
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+    </div>
+    <?php
 } else {
     ?>    
     <div class="modal-header">
