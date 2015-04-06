@@ -59,7 +59,7 @@ else
         		    ->setCellValue('A'.$i,  $row['nombre'])
 		            ->setCellValue('B'.$i,  $row['apellido_pat'])
         		    ->setCellValue('C'.$i,  $row['apellido_mat'])
-            		->setCellValue('D'.$i,      $row['sexo']==1?"Hombre":"Mujer");
+            		   ->setCellValue('D'.$i,   $row['sexo']==1?"Hombre":"Mujer");
 					$i++;
 		}
 		
