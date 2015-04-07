@@ -54,8 +54,9 @@ if (isset($_POST['xAccion'])) {
         $clasf->setFresita($_POST['txtPass']);
         $clasf->setActivo("1");
 
-         
-              $sql = "SELECT * from prospectos where habilitado='".($_POST['txtUsuario'])."'";
+          $username = mysql_real_escape_string(trim($_REQUEST['txtUsuario']));
+             // $sql = "SELECT * from prospectos where habilitado='".($_POST['txtUsuario'])."'";
+              $sql = sprintf("SELECT * FROM prospectos WHERE habilitado = '%s';",$username);
              $rst = UtilDB::ejecutaConsulta($sql);
     if($rst->rowCount()>0)
     {
@@ -327,7 +328,7 @@ if (isset($_POST['xAccion'])) {
                        
 ?>
                             <div class="form-group">
-                    <label for="mensa">¡Gracias por registrarse en arreosMSF!,para continuar presione aquí.</label>
+                                <label for="mensa">¡Gracias por registrarse en arreosMSF!,para continuar presione<a href="../index.php"> aquí</a>.</label>
                        </div>
                     <?php } ?>
                 </form>

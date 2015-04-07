@@ -15,7 +15,6 @@ if (isset($_POST['xAccion'])) {
         
        // $sql = sprintf("SELECT * FROM prospectos WHERE habilitado = '" . $_POST['txtUser'] . "' AND fresita = '" . $_POST['txtPassword'] . "'");
          $sql = sprintf("SELECT habilitado FROM prospectos WHERE habilitado = '%s' AND fresita = '%s';",$username,$password);
-      echo($sql);
         $rst = UtilDB::ejecutaConsulta($sql);
         if ($rst->rowCount() > 0) {
             foreach ($rst as $row)
