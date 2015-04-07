@@ -13,7 +13,6 @@ if (!isset( $_SESSION['habilitado']))
 }
 else
 {
-    //$idPrincipal=isset($_SESSION['habilitado']);
     $idPrincipal=mysql_real_escape_string($_SESSION['habilitado']);
 }
 
@@ -85,7 +84,7 @@ if (isset($_POST['xAccion'])) {
     }
         if ($_POST['xAccion'] == 'logout')
     {   
-        unset($_SESSION['cve_cliente']);
+        unset($_SESSION['habilitado']);
         header('Location:../index.php');
         return;
     }
@@ -140,56 +139,10 @@ if (isset($_POST['xAccion'])) {
 
 
 
-            function cargarMuestra(cveRito, cveClasificacion, cveGrado)
-            {   //En el div con id 'ajax' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
-
-                $("#ajax").load("cat_clasificacion_productos_ajax.php", {"cveRito": cveRito, "cveClasificacion": cveClasificacion, "cveGrado": cveGrado}, function (responseTxt, statusTxt, xhr) {
-                    if (statusTxt == "success")
-                    {
-                        //  $("#txtCveGrado").val("0");
-                        //$("#txtDescripcion").val("");
-                        //alert("External content loaded successfully!");
-                    }
-                    if (statusTxt == "error")
-                        alert("Error: " + xhr.status + ": " + xhr.statusText);
-                });
-            }
-
-            function cargarCombo(cveRito)
-            {   //En el div con id 'ajaxCmb' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
-
-                $("#ajaxCmb").load("cat_clasificaciones_combos_ajax.php", {"cveRito": cveRito}, function (responseTxt, statusTxt, xhr) {
-                    $("#ajaxCmb").attr({'disabled': false});
-                    cargarCombo2($("#cmbCveRito").val(), $("#ajaxCmb").val(), 0);
-                });
-            }
-            function cargarCombo2(cveRito, cveClasificacion, cveGrado)
-            {   //En el div con id 'ajaxCmb' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
-
-                $("#ajaxCmb").load("cat_clasificaciones_combos_ajax.php", {"cveRito": cveRito, "cveClasificacion": cveClasificacion}, function (responseTxt, statusTxt, xhr) {
-                    $("#ajaxCmb").attr({'disabled': false});
-                    cargarComboGrado2(cveRito, cveClasificacion, cveGrado);
-                });
-            }
-
-            function cargarComboGrado2(cveRito, cveClasificacion, cveGrado)
-            {   //En el div con id 'cmbGrado' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
-
-                $("#cmbGrado").load("cat_grados_combos_ajax.php", {"cveRito": cveRito, "cveClasificacion": cveClasificacion, "cveGrado": cveGrado}, function (responseTxt, statusTxt, xhr) {
-                    $("#cmbGrado").attr({'disabled': false});
-                    cargarMuestra(cveRito, cveClasificacion, cveGrado);
-                });
-            }
-
-            function cargarComboGrado(cveRito, cveClasificacion)
-            {   //En el div con id 'cmbGrado' se cargara lo que devuelva el ajax, esta petición  es realizada como POST
-
-                $("#cmbGrado").load("cat_grados_combos_ajax.php", {"cveRito": cveRito, "cveClasificacion": cveClasificacion}, function (responseTxt, statusTxt, xhr) {
-                    $("#cmbGrado").attr({'disabled': false});
-
-                });
-            }
-
+ 
+         
+  
+      
             function limpiar()
             {
                 $("#xAccion").val("0");
