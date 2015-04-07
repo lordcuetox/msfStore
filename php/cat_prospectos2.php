@@ -252,7 +252,7 @@ if (isset($_POST['xAccion'])) {
                      <h3>Datos Personales:</h3>
                     <div class="form-group">
                         <input type="hidden" class="form-control" name="xAccion" id="xAccion" value="0" />
-                        <input type="text" class="form-control" id="txtCveCliente" name="txtCveCliente" placeholder="ID Grado" value="<?php echo($clasf->getCveCliente()); ?>">
+                        <input type="hidden" class="form-control" id="txtCveCliente" name="txtCveCliente" placeholder="ID Grado" value="<?php echo($clasf->getCveCliente()); ?>">
                     </div>
 
                     <div class="form-group">

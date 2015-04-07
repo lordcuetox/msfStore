@@ -4,6 +4,7 @@ require_once '../clases/Prospectos.php';
 require_once '../clases/UtilDB.php';
 
 session_start();
+setlocale(LC_ALL, 'es_MX');
 //unset($_SESSION['cve_cliente']);
 if (!isset( $_SESSION['habilitado'])) 
 {
@@ -22,6 +23,14 @@ if (isset($_SESSION['habilitado'])) {
    
         $clasf->cargar2($idPrincipal);
     
+}
+if (isset($_POST['xAccion'])) {
+            if ($_POST['xAccion'] == 'logout')
+    {   
+        unset($_SESSION['habilitado']);
+        header('Location:../index.php');
+        return;
+    }
 }
 
 ?>
@@ -72,12 +81,6 @@ if (isset($_SESSION['habilitado'])) {
             });
 
 
-
-
- 
-         
-  
-      
             function limpiar()
             {
                 $("#xAccion").val("0");
@@ -140,9 +143,10 @@ if (isset($_SESSION['habilitado'])) {
     function logout()
         {
             $("#xAccion").val("logout");
-            $("#frmProspectos2").submit();
+            alert('entrando');
+            $("#mispedidos1").submit();
         }
-        
+         
 
 
 
@@ -179,6 +183,10 @@ if (isset($_SESSION['habilitado'])) {
                 <!-- /.navbar-static-side -->
             </nav>
             <div id="page-wrapper">
+           <form role="form" name="mispedidos1" id="mispedidos1" action="<?php echo($_SERVER['PHP_SELF']); ?>" method="POST">
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" name="xAccion" id="xAccion" value="0" />
+                    </div>
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">Pedidos</h1>
@@ -197,22 +205,37 @@ if (isset($_SESSION['habilitado'])) {
     </thead>
     <tbody>
         <?php
-        $sql = "SELECT * from prospectos p order by p.cve_cliente,p.nombre,p.apellido_pat,p.apellido_mat";
+        $sql = "SELECT * from pedidos where status=1 and cve_cliente=".$clasf->getCveCliente()."  order by fecha ";
         $rst = UtilDB::ejecutaConsulta($sql);
+        if($rst->rowCount()>0)
+        {
         foreach ($rst as $row) {
 
             ?>
             <tr>
-                <td><?php echo($row['cve_cliente']); ?></td>
-                <td><?php echo($row['nombre']); ?></td>
-                <td><?php echo($row['apellido_pat']); ?></td>
-                <td><?php echo($row['apellido_mat']); ?></td>
+                <td><?php echo( substr($row['fecha'],0,10));  ?></td>
+                <td><?php echo($row['referencia']); ?></td>
+                <td><?php echo('$ '.number_format($row['monto_total'],  2 , '.' , ',' )); ?></td>
+                <td><?php echo('Por confirmar pago'); ?></td>
                 <td><a href=""> Ver</a></td>
             </tr>
-        <?php } $rst->closeCursor(); ?>
+        <?php }
+        
+        }
+        else
+        {
+            ?>
+             <tr>
+                     <td>No hay pedidos</td>
+            </tr>
+            <?php
+            
+        }
+        $rst->closeCursor(); ?>
 
     </tbody>
 </table>
+               </form>
             </div>
 
     </div>
