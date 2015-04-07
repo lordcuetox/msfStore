@@ -9,13 +9,21 @@ if (isset($_SESSION['cve_cliente']))
 
 if (isset($_POST['xAccion'])) {
     if ($_POST['xAccion'] == "login") {
-        $sql = "SELECT * FROM prospectos WHERE habilitado = '" . $_POST['txtUser'] . "' AND fresita = '" . $_POST['txtPassword'] . "'";
+        $username = mysql_real_escape_string(trim($_REQUEST['txtUser']));
+        $password = mysql_real_escape_string(trim($_REQUEST['txtPassword']));
+
+        
+       // $sql = sprintf("SELECT * FROM prospectos WHERE habilitado = '" . $_POST['txtUser'] . "' AND fresita = '" . $_POST['txtPassword'] . "'");
+         $sql = sprintf("SELECT habilitado FROM prospectos WHERE habilitado = '%s' AND fresita = '%s';",$username,$password);
+      echo($sql);
         $rst = UtilDB::ejecutaConsulta($sql);
         if ($rst->rowCount() > 0) {
             foreach ($rst as $row)
-            {   $_SESSION['cve_cliente'] = $row['cve_cliente'];
-                header('Location: cat_prospectos2.php');
-                 die();
+            {     
+                $_SESSION['habilitado'] = $row['habilitado'];
+
+              header('Location: cat_prospectos2.php');
+              die();
                  return;
             }
          

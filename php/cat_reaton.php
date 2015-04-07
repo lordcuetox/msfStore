@@ -13,11 +13,11 @@ else
     $idPrincipal=isset($_SESSION['cve_usuario']);
 }
 
-$reata = new ElReaton($idPrincipal);
+$reata = new ElReaton();
 $count = NULL;
 
-if (isset($_POST['txtIdReata'])) {
-    if ($_POST['txtIdReata'] != 0) {
+if (isset($_SESSION['cve_usuario'])) {
+    if (isset($_SESSION['cve_usuario']) != 0) {
         $reata = new ElReaton($idPrincipal);
     }
 }

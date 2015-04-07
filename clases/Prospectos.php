@@ -38,6 +38,7 @@ class Prospectos {
 
     function __construct1($cveCliente) {
         $this->limpiar();
+        echo('recibiendo='.$cveCliente);
         $this->cveCliente = $cveCliente;
         $this->cargar();
     }
@@ -174,6 +175,29 @@ class Prospectos {
 
     function cargar() {
         $sql = "SELECT * FROM prospectos WHERE cve_cliente = $this->cveCliente";
+        $rst = UtilDB::ejecutaConsulta($sql);
+
+        foreach ($rst as $row) {
+            $this->cveCliente = $row['cve_cliente'];
+            $this->nombre = $row['nombre'];
+            $this->apellidoPat = $row['apellido_pat'];
+            $this->apellidoMat = $row['apellido_mat'];
+            $this->sexo = $row['sexo'];
+            $this->fechaNac = $row['fecha_nac'];
+            $this->fechaRegistro = $row['fecha_registro'];
+            $this->habilitado = $row['habilitado'];
+            $this->fresita = $row['fresita'];
+            $this->activo = $row['activo'];
+            $this->_existe = true;
+        }
+        $rst->closeCursor();
+    }
+    
+    
+    function cargar2($habilitado) {
+        $this->limpiar();
+        $this->habilitado=$habilitado;
+        $sql = "SELECT * FROM prospectos WHERE habilitado ='".$habilitado."'";
         $rst = UtilDB::ejecutaConsulta($sql);
 
         foreach ($rst as $row) {

@@ -122,7 +122,7 @@ class ComunicacionesClientes {
             $sql.= " and consecutivo_comunicacion = $this->consecutivoComunicacion";
             $count = UtilDB::ejecutaSQL($sql);
         }
-
+            echo('pasando por aquí'.$count);
         return $count;
     }
 
