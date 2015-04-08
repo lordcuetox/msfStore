@@ -1,0 +1,151 @@
+.modalmask {
+    position: fixed;
+    font-family: Arial, sans-serif;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 99999;
+    opacity:0;
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+    pointer-events: none;
+}
+.modalmask:target {
+    opacity:1;
+    pointer-events: auto;
+}
+
+.modalbox{
+    width: 80%;
+    position: relative;
+    padding: 5px 20px 13px 20px;
+    background: #fff;
+    border-radius:3px;
+    -webkit-transition: all 500ms ease-in;
+    -moz-transition: all 500ms ease-in;
+    transition: all 500ms ease-in;
+
+}
+
+.movedown {
+    margin: 0 auto;
+}
+.rotate {
+    margin: 10% auto;
+    -webkit-transform: scale(-5,-5);
+    transform: scale(-5,-5);
+}
+.resize {
+    margin: 10% auto;
+    width:0;
+    height:0;
+
+}
+.modalmask:target .movedown{       
+    margin:10% auto;
+}
+.modalmask:target .rotate{     
+    transform: rotate(360deg) scale(1,1);
+    -webkit-transform: rotate(360deg) scale(1,1);
+}
+
+.modalmask:target .resize{
+    width:75%;
+    height:75%;
+}
+
+.close {
+    background: #606061;
+    color: #FFFFFF;
+    line-height: 25px;
+    position: absolute;
+    right: 1px;
+    text-align: center;
+    top: 1px;
+    width: 24px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius:3px;
+
+}
+
+.close:hover {
+    background: #FAAC58;
+    color:#222;
+}
+
+.CeldaEncabezado{
+    width: 95%;
+
+}
+.CeldaEncabezadoModal1{
+
+    background:  #2D5998;
+    color: white;
+    display: inline-block;
+    font-size: 1.5em;
+    width: 30%;
+    padding: 0.5em 0.5em 0.5em 0.5em;
+    margin: 0;
+    // border-color: red;
+    border-style: solid;
+    text-align: center;
+    position: relative;
+
+
+
+
+}
+.CeldaEncabezadoModal{
+
+
+    background:  #2D5998;
+    color: white;
+    display: inline-block;
+    font-size: 1.5em;
+    padding: 0.5em 0.5em 0.5em 0.5em;
+    margin: 0;
+    width: 20%;
+    text-align: center;
+    position: relative;
+}
+#TituloModal{
+    color: #2D5998;
+
+}
+#LineaDetalle{
+    width: 95%;
+
+}
+.CeldaDetalleModal1{
+
+    display: inline-block;
+    font-size: 1em;
+    padding-top: 0.5em;
+    padding-right: 0.5em;
+    padding-bottom: 0.5em;
+    padding-left: 0.5em;
+    margin:  0;
+    width: 30%;
+    position: relative;
+    border-bottom-color: #4CC9F0;
+    border-bottom-style: solid;
+}
+.CeldaDetalleModal{
+
+    display: inline-block;
+    font-size: 1em;
+    padding-top: 0.5em;
+    padding-right: 0.5em;
+    padding-bottom: 0.5em;
+    padding-left: 0.5em;
+    margin:  0;
+    text-align: center;
+    width: 20%;
+    position: relative;
+    border-bottom-color: #4CC9F0;
+    border-bottom-style: solid;
+}

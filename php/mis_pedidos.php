@@ -58,6 +58,7 @@ if (isset($_POST['xAccion'])) {
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
         <link href="../js/jQuery/jquery-ui-1.11.3/jquery-ui.min.css" rel="stylesheet"/>
+        <link href="../css/modal.css" rel="stylesheet"/>
         <title>Mis Pedidos</title>
         <script src="../js/jQuery/jquery-1.11.2.min.js"></script>
         <script src="../js/jQuery/jquery-ui-1.11.3/jquery-ui.min.js"></script>
@@ -118,87 +119,6 @@ if (isset($_POST['xAccion'])) {
 
         </script>
         
-        <style>
-            
-            .modalmask {
-    position: fixed;
-    font-family: Arial, sans-serif;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: rgba(0,0,0,0.8);
-    z-index: 99999;
-    opacity:0;
-    -webkit-transition: opacity 400ms ease-in;
-    -moz-transition: opacity 400ms ease-in;
-    transition: opacity 400ms ease-in;
-    pointer-events: none;
-}
-.modalmask:target {
-    opacity:1;
-    pointer-events: auto;
-}
-
-.modalbox{
-    width: 400px;
-    position: relative;
-    padding: 5px 20px 13px 20px;
-    background: #fff;
-    border-radius:3px;
-    -webkit-transition: all 500ms ease-in;
-    -moz-transition: all 500ms ease-in;
-    transition: all 500ms ease-in;
-     
-}
-
-.movedown {
-    margin: 0 auto;
-}
-.rotate {
-    margin: 10% auto;
-    -webkit-transform: scale(-5,-5);
-    transform: scale(-5,-5);
-}
-.resize {
-    margin: 10% auto;
-    width:0;
-    height:0;
- 
-}
-.modalmask:target .movedown{       
-    margin:10% auto;
-}
-.modalmask:target .rotate{     
-    transform: rotate(360deg) scale(1,1);
-        -webkit-transform: rotate(360deg) scale(1,1);
-}
- 
-.modalmask:target .resize{
-    width:600px;
-    height:400px;
-}
-
-.close {
-    background: #606061;
-    color: #FFFFFF;
-    line-height: 25px;
-    position: absolute;
-    right: 1px;
-    text-align: center;
-    top: 1px;
-    width: 24px;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius:3px;
- 
-}
- 
-.close:hover {
-    background: #FAAC58;
-    color:#222;
-}
-        </style>
         
     </head>
     
@@ -278,12 +198,14 @@ if (isset($_POST['xAccion'])) {
             <div id="modal<?PHP echo($row['cve_pedido']); ?>" class="modalmask">
                 <div class="modalbox resize">
                     <a href="#close" title="Close" class="close">X</a>
-                    <div>
-                        <div>Producto </div>
-                        <div>Cantidad </div>
-                        <div>Precio U. </div>
-                        <div>Total</div>
-                        
+                    <h3 id="TituloModal">Detalle del Pedido</h3>
+                    <div class="CeldaEncabezado" >
+                       
+                        <div class="CeldaEncabezadoModal1">Producto</div>
+                        <div class="CeldaEncabezadoModal">Precio U.</div>
+                        <div class="CeldaEncabezadoModal">Cantidad</div> 
+                        <div class="CeldaEncabezadoModal">Total</div>
+                       
                     </div>
                      <?php
         $sql2 = "SELECT * from detalle_pedido where cve_pedido=".$row['cve_pedido']." and cve_cliente=".$clasf->getCveCliente();
@@ -294,12 +216,11 @@ if (isset($_POST['xAccion'])) {
         foreach ($rst2 as $row2) {
           $clasf2 = new Productos($row2['cve_producto']);
             ?>
-                        <div>
-                        <div> <?php echo($clasf2->getNombre()); ?></div>
-                        <div><?php echo($row2['cantidad']); ?></div>
-                        <div><?php echo($row2['descuento']==0?('$ '.number_format($row2['precio_unitario'],  2 , '.' , ',' )):('$ '.number_format($row2['precio_unitario_desc'],  2 , '.' , ',' ))); ?> </div>
-                        <div><?php echo('$ '.number_format($row2['monto_total_pagar'],  2 , '.' , ',' )); ?></div>
-                        
+                        <div id="LineaDetalle">
+                            <div class="CeldaDetalleModal1"> <?php echo($clasf2->getNombre()); ?></div>
+                            <div class="CeldaDetalleModal"><?php echo($row2['descuento']==0?('$ '.number_format($row2['precio_unitario'],  2 , '.' , ',' )):('$ '.number_format($row2['precio_unitario_desc'],  2 , '.' , ',' ))); ?> </div>
+                            <div class="CeldaDetalleModal"><?php echo($row2['cantidad']); ?></div>
+                            <div class="CeldaDetalleModal"><?php echo('$ '.number_format($row2['monto_total_pagar'],  2 , '.' , ',' )); ?></div>    
                     </div>
                      <?php }
         

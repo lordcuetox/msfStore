@@ -1,6 +1,7 @@
 <?php
 
 require_once '../clases/Prospectos.php';
+require_once '../clases/Productos.php';
 require_once '../clases/UtilDB.php';
 
 session_start();
@@ -17,6 +18,7 @@ else
 }
 
 $clasf = new Prospectos();
+$clasf2 = new Productos();
 $msg = "";
 
 if (isset($_SESSION['habilitado'])) {
@@ -37,7 +39,7 @@ if (isset($_POST['xAccion'])) {
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <title>MSF Store | Historial de Pedidos</title>
+        <title>MSF Store | Mis pedidos</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -56,6 +58,7 @@ if (isset($_POST['xAccion'])) {
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
         <link href="../js/jQuery/jquery-ui-1.11.3/jquery-ui.min.css" rel="stylesheet"/>
+        <link href="../css/modal.css" rel="stylesheet"/>
         <title>Mis Pedidos</title>
         <script src="../js/jQuery/jquery-1.11.2.min.js"></script>
         <script src="../js/jQuery/jquery-ui-1.11.3/jquery-ui.min.js"></script>
@@ -66,15 +69,14 @@ if (isset($_POST['xAccion'])) {
 
                 $(".date-picker").datepicker();
                 $.datepicker.setDefaults($.datepicker.regional[ "es-MX" ]);
-
+                
+                
                 $("#cmbCveRito").change(function () {
-                    var cveRito = 0;
-                    //   var optionSelected = $("option:selected", this);
-                    //    var valueSelected = this.value;
-                    cveRito = this.value;
-                    cargarCombo(cveRito);
+                var cveRito = 0;
+                cveRito = this.value;
+                cargarCombo(cveRito);
 
-                });
+            });
 
 
 
@@ -88,40 +90,6 @@ if (isset($_POST['xAccion'])) {
                 $("#frmProspectos").submit();
             }
 
-            function grabar()
-            {
-                if ($("#txtNombre").val() !="" && $("#txtApellidoPat").val() !="" && $("#txtFechaNacimiento").val() != "" && $("#txtPass").val() != ""&& $("#txtPass2").val() != ""&& $("#txtCorreo").val() != "")
-                {
-                     if(valEmail($("#txtCorreo").val()))
-                      {
-                        if($("#txtPass").val()==$("#txtPass2").val())
-                          {
-                             if($("#txtPass").val()!="12345678")
-                             {
-                                    $("#xAccion").val("grabar");
-                                    $("#frmProspectos2").submit();
-                                }
-                                else
-                                {
-                                    alert("La contraseña debe incluir letras y números. Verifique por favor");  
-                                }
-                          }
-                        else
-                          {
-                           alert("Las contraseñas no coinciden. Verifique por favor"); 
-                          }
-                      }
-                      else
-                      {
-                           alert("El formato del correo electrónico es incorrecto. Verifique por favor"); 
-                      }
-                }
-                else
-                {
-                    alert("Es necesario que ingrese los campos obligatorios");
-                }
-
-            }
 
 
             function recargar()
@@ -149,9 +117,11 @@ if (isset($_POST['xAccion'])) {
          
 
 
-
         </script>
+        
+        
     </head>
+    
     <div id="wrapper">
         
          <!-- Navigation -->
@@ -163,7 +133,7 @@ if (isset($_POST['xAccion'])) {
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.html">Histórico de Pedidos</a>
+                    <a class="navbar-brand" href="index.html">Mis Pedidos</a>
                 </div>
                 <!-- /.navbar-header -->
 
@@ -222,8 +192,52 @@ if (isset($_POST['xAccion'])) {
                 <th><?php echo($row['status']==3?'Entregado':''); ?></th>
                 <th><?php echo($row['status']==3?$row['numero_guia']:''); ?></th>
                 <th><?php echo($row['status']==3?$row['descripcion_guia']:''); ?></th>
-                <th><a href=""> Ver</a></th>
+                <th><a href="#modal<?PHP echo $row['cve_pedido'];?>">ver</a></th>
             </tr>
+            <!--ventana modal del elemento-->
+            <div id="modal<?PHP echo($row['cve_pedido']); ?>" class="modalmask">
+                <div class="modalbox resize">
+                    <a href="#close" title="Close" class="close">X</a>
+                    <h3 id="TituloModal">Detalle del Pedido</h3>
+                    <div class="CeldaEncabezado" >
+                       
+                        <div class="CeldaEncabezadoModal1">Producto</div>
+                        <div class="CeldaEncabezadoModal">Precio U.</div>
+                        <div class="CeldaEncabezadoModal">Cantidad</div> 
+                        <div class="CeldaEncabezadoModal">Total</div>
+                       
+                    </div>
+                     <?php
+        $sql2 = "SELECT * from detalle_pedido where cve_pedido=".$row['cve_pedido']." and cve_cliente=".$clasf->getCveCliente();
+        $rst2 = UtilDB::ejecutaConsulta($sql2);
+       
+        if($rst2->rowCount()>0)
+        {
+        foreach ($rst2 as $row2) {
+          $clasf2 = new Productos($row2['cve_producto']);
+            ?>
+                        <div id="LineaDetalle">
+                            <div class="CeldaDetalleModal1"> <?php echo($clasf2->getNombre()); ?></div>
+                            <div class="CeldaDetalleModal"><?php echo($row2['descuento']==0?('$ '.number_format($row2['precio_unitario'],  2 , '.' , ',' )):('$ '.number_format($row2['precio_unitario_desc'],  2 , '.' , ',' ))); ?> </div>
+                            <div class="CeldaDetalleModal"><?php echo($row2['cantidad']); ?></div>
+                            <div class="CeldaDetalleModal"><?php echo('$ '.number_format($row2['monto_total_pagar'],  2 , '.' , ',' )); ?></div>    
+                    </div>
+                     <?php }
+        
+        }
+        else
+        {
+            ?>
+                    <div>Aqui no hay datos</div>
+                          <?php
+            
+        }
+        $rst2->closeCursor(); ?>
+                </div>
+
+            
+            </div>
+    <!-- fin de ventana modal del elemento-->
         <?php }
         
         }
@@ -244,6 +258,11 @@ if (isset($_POST['xAccion'])) {
             </div>
 
     </div>
+    <!---ventana Modal-->
 
+
+
+
+<!--- fin de ventana modal-->
 </body>
 </html>
