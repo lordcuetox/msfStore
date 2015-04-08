@@ -1,7 +1,6 @@
 <?php
 
 require_once '../clases/Prospectos.php';
-require_once '../clases/Productos.php';
 require_once '../clases/UtilDB.php';
 
 session_start();
@@ -18,7 +17,6 @@ else
 }
 
 $clasf = new Prospectos();
-$clasf2 = new Productos();
 $msg = "";
 
 if (isset($_SESSION['habilitado'])) {
@@ -39,7 +37,7 @@ if (isset($_POST['xAccion'])) {
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <title>MSF Store | Mis pedidos</title>
+        <title>MSF Store | Historial de Pedidos</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -68,14 +66,15 @@ if (isset($_POST['xAccion'])) {
 
                 $(".date-picker").datepicker();
                 $.datepicker.setDefaults($.datepicker.regional[ "es-MX" ]);
-                
-                
-                $("#cmbCveRito").change(function () {
-                var cveRito = 0;
-                cveRito = this.value;
-                cargarCombo(cveRito);
 
-            });
+                $("#cmbCveRito").change(function () {
+                    var cveRito = 0;
+                    //   var optionSelected = $("option:selected", this);
+                    //    var valueSelected = this.value;
+                    cveRito = this.value;
+                    cargarCombo(cveRito);
+
+                });
 
 
 
@@ -89,6 +88,40 @@ if (isset($_POST['xAccion'])) {
                 $("#frmProspectos").submit();
             }
 
+            function grabar()
+            {
+                if ($("#txtNombre").val() !="" && $("#txtApellidoPat").val() !="" && $("#txtFechaNacimiento").val() != "" && $("#txtPass").val() != ""&& $("#txtPass2").val() != ""&& $("#txtCorreo").val() != "")
+                {
+                     if(valEmail($("#txtCorreo").val()))
+                      {
+                        if($("#txtPass").val()==$("#txtPass2").val())
+                          {
+                             if($("#txtPass").val()!="12345678")
+                             {
+                                    $("#xAccion").val("grabar");
+                                    $("#frmProspectos2").submit();
+                                }
+                                else
+                                {
+                                    alert("La contraseña debe incluir letras y números. Verifique por favor");  
+                                }
+                          }
+                        else
+                          {
+                           alert("Las contraseñas no coinciden. Verifique por favor"); 
+                          }
+                      }
+                      else
+                      {
+                           alert("El formato del correo electrónico es incorrecto. Verifique por favor"); 
+                      }
+                }
+                else
+                {
+                    alert("Es necesario que ingrese los campos obligatorios");
+                }
+
+            }
 
 
             function recargar()
@@ -116,92 +149,9 @@ if (isset($_POST['xAccion'])) {
          
 
 
+
         </script>
-        
-        <style>
-            
-            .modalmask {
-    position: fixed;
-    font-family: Arial, sans-serif;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: rgba(0,0,0,0.8);
-    z-index: 99999;
-    opacity:0;
-    -webkit-transition: opacity 400ms ease-in;
-    -moz-transition: opacity 400ms ease-in;
-    transition: opacity 400ms ease-in;
-    pointer-events: none;
-}
-.modalmask:target {
-    opacity:1;
-    pointer-events: auto;
-}
-
-.modalbox{
-    width: 400px;
-    position: relative;
-    padding: 5px 20px 13px 20px;
-    background: #fff;
-    border-radius:3px;
-    -webkit-transition: all 500ms ease-in;
-    -moz-transition: all 500ms ease-in;
-    transition: all 500ms ease-in;
-     
-}
-
-.movedown {
-    margin: 0 auto;
-}
-.rotate {
-    margin: 10% auto;
-    -webkit-transform: scale(-5,-5);
-    transform: scale(-5,-5);
-}
-.resize {
-    margin: 10% auto;
-    width:0;
-    height:0;
- 
-}
-.modalmask:target .movedown{       
-    margin:10% auto;
-}
-.modalmask:target .rotate{     
-    transform: rotate(360deg) scale(1,1);
-        -webkit-transform: rotate(360deg) scale(1,1);
-}
- 
-.modalmask:target .resize{
-    width:600px;
-    height:400px;
-}
-
-.close {
-    background: #606061;
-    color: #FFFFFF;
-    line-height: 25px;
-    position: absolute;
-    right: 1px;
-    text-align: center;
-    top: 1px;
-    width: 24px;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius:3px;
- 
-}
- 
-.close:hover {
-    background: #FAAC58;
-    color:#222;
-}
-        </style>
-        
     </head>
-    
     <div id="wrapper">
         
          <!-- Navigation -->
@@ -213,7 +163,7 @@ if (isset($_POST['xAccion'])) {
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.html">Mis Pedidos</a>
+                    <a class="navbar-brand" href="index.html">Histórico de Pedidos</a>
                 </div>
                 <!-- /.navbar-header -->
 
@@ -240,7 +190,7 @@ if (isset($_POST['xAccion'])) {
                     </div>
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Pedidos Pendientes</h1>
+                        <h1 class="page-header">Histórico de Pedidos</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -258,7 +208,7 @@ if (isset($_POST['xAccion'])) {
     </thead>
     <tbody>
         <?php
-        $sql = "SELECT * from pedidos where status in (1,2) and cve_cliente=".$clasf->getCveCliente()."  order by fecha ";
+        $sql = "SELECT * from pedidos where status in (3) and cve_cliente=".$clasf->getCveCliente()."  order by fecha ";
         $rst = UtilDB::ejecutaConsulta($sql);
         if($rst->rowCount()>0)
         {
@@ -269,54 +219,11 @@ if (isset($_POST['xAccion'])) {
                 <th><?php echo( substr($row['fecha'],0,10));  ?></th>
                 <th><?php echo($row['referencia']); ?></th>
                 <th><?php echo('$ '.number_format($row['monto_total'],  2 , '.' , ',' )); ?></th>
-                <th><?php echo($row['status']==1?'Por confirmar pago':'Enviado'); ?></th>
-                <th><?php echo($row['status']==2?$row['numero_guia']:''); ?></th>
-                <th><?php echo($row['status']==2?$row['descripcion_guia']:''); ?></th>
-                <th><a href="#modal<?PHP echo $row['cve_pedido'];?>">ver</a></th>
+                <th><?php echo($row['status']==3?'Entregado':''); ?></th>
+                <th><?php echo($row['status']==3?$row['numero_guia']:''); ?></th>
+                <th><?php echo($row['status']==3?$row['descripcion_guia']:''); ?></th>
+                <th><a href=""> Ver</a></th>
             </tr>
-            <!--ventana modal del elemento-->
-            <div id="modal<?PHP echo($row['cve_pedido']); ?>" class="modalmask">
-                <div class="modalbox resize">
-                    <a href="#close" title="Close" class="close">X</a>
-                    <div>
-                        <div>Producto </div>
-                        <div>Cantidad </div>
-                        <div>Precio U. </div>
-                        <div>Total</div>
-                        
-                    </div>
-                     <?php
-        $sql2 = "SELECT * from detalle_pedido where cve_pedido=".$row['cve_pedido']." and cve_cliente=".$clasf->getCveCliente();
-        $rst2 = UtilDB::ejecutaConsulta($sql2);
-       
-        if($rst2->rowCount()>0)
-        {
-        foreach ($rst2 as $row2) {
-          $clasf2 = new Productos($row2['cve_producto']);
-            ?>
-                        <div>
-                        <div> <?php echo($clasf2->getNombre()); ?></div>
-                        <div><?php echo($row2['cantidad']); ?></div>
-                        <div><?php echo($row2['descuento']==0?('$ '.number_format($row2['precio_unitario'],  2 , '.' , ',' )):('$ '.number_format($row2['precio_unitario_desc'],  2 , '.' , ',' ))); ?> </div>
-                        <div><?php echo('$ '.number_format($row2['monto_total_pagar'],  2 , '.' , ',' )); ?></div>
-                        
-                    </div>
-                     <?php }
-        
-        }
-        else
-        {
-            ?>
-                    <div>Aqui no hay datos</div>
-                          <?php
-            
-        }
-        $rst2->closeCursor(); ?>
-                </div>
-
-            
-            </div>
-    <!-- fin de ventana modal del elemento-->
         <?php }
         
         }
@@ -337,11 +244,6 @@ if (isset($_POST['xAccion'])) {
             </div>
 
     </div>
-    <!---ventana Modal-->
 
-
-
-
-<!--- fin de ventana modal-->
 </body>
 </html>

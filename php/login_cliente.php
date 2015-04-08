@@ -3,7 +3,7 @@ require_once '../clases/UtilDB.php';
 session_start();
 if (isset($_SESSION['cve_cliente'])) 
 {
-    header('Location:cat_prospectos2.php');
+    header('Location:mis_pedidos.php');
     return;
 }
 
@@ -21,7 +21,7 @@ if (isset($_POST['xAccion'])) {
             {     
                 $_SESSION['habilitado'] = $row['habilitado'];
 
-              header('Location: cat_prospectos2.php');
+              header('Location: mis_pedidos.php');
               die();
                  return;
             }

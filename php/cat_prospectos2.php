@@ -233,8 +233,9 @@ if (isset($_POST['xAccion'])) {
                     <div class="sidebar-nav navbar-collapse">
                         <ul class="nav" id="side-menu">
                             <li>
-                                <a href="cat_prospectos2.php" ><i class="fa fa-university"></i> Mi Datos Personales</a>
-                                <a href="mis_pedidos.php" ><i class="fa fa-leaf"></i> Mis Pedidos</a>
+                                <a href="cat_prospectos2.php" ><i class="fa fa-user"></i> Mi Datos Personales</a>
+                                <a href="mis_pedidos.php" ><i class="fa fa-list-alt"></i> Pedidos Pendientes</a>
+                                <a href="historial_pedidos.php" ><i class="fa fa-archive"></i> Histórico de Pedidos</a>
                                 <a href="javascript:void(0);" onclick="logout();"><i class="fa fa-sign-out"></i> CERRAR SESIÓN</a>
                             </li>
                         </ul>
