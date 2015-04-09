@@ -203,6 +203,8 @@ if (isset($_POST['xAccion'])) {
             <th>Cliente</th>
              <th>Total</th>
               <th>Dirección Envío</th>
+             <th># de Guía</th>
+            <th>Paquetería</th>
             <th>Detalle</th>
             <th>Terminar</th>
         </tr>
@@ -223,6 +225,8 @@ if (isset($_POST['xAccion'])) {
                 <th><?php echo($clasf->getNombre().' '.$clasf->getApellidoPat().' '.$clasf->getApellidoMat()); ?></th>
                 <th><?php echo('$ '.number_format($row['monto_total'],  2 , '.' , ',' )); ?></th>
                 <th><?php echo($row['direccion_envio']); ?></th>
+                <th><?php echo($row['status']==2?$row['numero_guia']:''); ?></th>
+                <th><?php echo($row['status']==2?$row['descripcion_guia']:''); ?></th>
                 <th><a href="#modal<?PHP echo $row['cve_pedido'];?>">Ver</a></th>
                 <th><button type="button" class="btn btn-default" id="btnGrabar" name="btnGrabar" onclick="grabar(<?PHP echo $row['cve_pedido'];?>);">Terminar</button></th>
             </tr>

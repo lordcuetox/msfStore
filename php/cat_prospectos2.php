@@ -28,7 +28,6 @@ if (isset($_SESSION['habilitado'])) {
    
         $clasf->cargar2($idPrincipal);
           $telefono= new ComunicacionesClientes($clasf->getCveCliente(),1);
-         // $telefono->cargar2();
         $correo= new ComunicacionesClientes($clasf->getCveCliente(),2);
     
 }

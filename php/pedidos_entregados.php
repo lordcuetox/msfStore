@@ -198,6 +198,8 @@ if (isset($_POST['xAccion'])) {
               <th>Dirección Envío</th>
                  <th>Estatus</th>
               <th>Última Fecha de Actualización</th>
+             <th># de Guía</th>
+            <th>Paquetería</th>
             <th>Detalle</th>
         </tr>
     </thead>
@@ -219,6 +221,8 @@ if (isset($_POST['xAccion'])) {
                 <th><?php echo($row['direccion_envio']); ?></th>
                  <th>Entregado</th>
                 <th><?php echo( substr($row['fecha_actualizacion'],0,10));  ?></th>
+                <th><?php echo($row['status']==3?$row['numero_guia']:''); ?></th>
+                <th><?php echo($row['status']==3?$row['descripcion_guia']:''); ?></th>
                 <th><a href="#modal<?PHP echo $row['cve_pedido'];?>">Ver</a></th>
             </tr>
             <!-- ventana modal de envio-->

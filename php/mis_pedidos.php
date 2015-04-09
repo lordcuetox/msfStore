@@ -172,7 +172,7 @@ if (isset($_POST['xAccion'])) {
             <th>Total</th>
             <th>Estado</th>
             <th># de Guía</th>
-            <th>Descrición</th>
+            <th>Paquetería</th>
             <th>Detalle</th>
         </tr>
     </thead>
