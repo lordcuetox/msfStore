@@ -61,7 +61,6 @@ if (isset($_POST['xAccion'])) {
     if($rst->rowCount()>0)
     {
         $total=$rst->rowCount();
-        echo($total);
          $msg = "No es posible asignar el usuario, elija otro.";
     }
  else {

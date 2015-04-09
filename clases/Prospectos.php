@@ -38,7 +38,6 @@ class Prospectos {
 
     function __construct1($cveCliente) {
         $this->limpiar();
-        echo('recibiendo='.$cveCliente);
         $this->cveCliente = $cveCliente;
         $this->cargar();
     }

@@ -17,6 +17,7 @@ class Pedidos {
     private $fechaActualizacion;
     private $numeroGuia;
     private $descripcionGuia;
+    private $direccionEnvio;
     private $_existe;
 
     function __construct() {
@@ -46,11 +47,12 @@ class Pedidos {
         $this->cvePedido=0;
         $this->referencia='';
         $this->fecha=null;
-        $this->status=int;
+        $this->status=0;
         $this->montoTotal=0;
         $this->fechaActualizacion= null;
         $this->numeroGuia='';
         $this->descripcionGuia= '';
+        $this->direccionEnvio= '';
         $this->_existe = false;
   
     }
@@ -89,6 +91,10 @@ class Pedidos {
     function getDescripcionGuia() {
         return $this->descripcionGuia;
     }
+     function getDireccionEnvio() {
+        return $this->direccionEnvio;
+    }
+    
 
     function setCveCliente($cveCliente) {
         $this->cveCliente = $cveCliente;
@@ -125,6 +131,10 @@ class Pedidos {
     function setDescripcionGuia($descripcionGuia) {
         $this->descripcionGuia = $descripcionGuia;
     }
+    
+     function setDireccionEnvio($direccionEnvio) {
+        $this->direccionEnvio = $direccionEnvio;
+    }
 
         
     function grabar() {
@@ -134,29 +144,24 @@ class Pedidos {
         if (!$this->_existe) {
             $this->cveProducto = UtilDB::getSiguienteNumero("pedidos", "cve_pedido");
             $sql = "INSERT INTO pedidos (cve_cliente,cve_pedido,"
-                    . "referencia, fecha,status,monto_total,fecha_actualizacion"
-                    . ",numero_guia,descripcion_guia"
-                    . ") VALUES($this->cveCliente,$this->nombre,'$this->apellidoPat','$this->apellidoMat',$this->sexo,"
-                    . "'$this->fechaNac','$this->fechaRegistro','$this->habilitado','$this->fresita',"
-                    . " $this->activo)";
+                    . "referencia, fecha,status,monto_total,direccion_envio"
+                    . ") VALUES($this->cveCliente,$this->cvePedido,'$this->referencia','$this->fecha',$this->status,$this->montoTotal,"
+                    . "'$this->direccionEnvio')";
+               
             $count = UtilDB::ejecutaSQL($sql);
             if ($count > 0) {
                 $this->_existe = true;
             }
         } else {
             $sql = "UPDATE pedidos SET ";
-            $sql.= "nombre= '$this->nombre',";
-            $sql.= "apellido_pat='$this->apellidoPat',";
-            $sql.= "apellido_mat='$this->apellidoMat',";
-            $sql.= "sexo=". ($this->sexo ? "1" : "0");
-            $sql.= ",fecha_nac = '$this->fechaNac',";
-            $sql.= ",fecha_registro=' $this->fechaRegistro',";
-            $sql.= ",habilitado = '$this->habilitado',";
-            $sql.= ",fresita = '$this->fresita',";
-            $sql.= "activo=" . ($this->activo ? "1" : "0");
-            $sql.= " WHERE cve_cliente = $this->cveCliente";
+            $sql.= "status= $this->status,";
+            $sql.= "fecha_actualizacion='$this->fechaActualizacion',";
+            $sql.= "numero_guia='$this->numeroGuia',";
+            $sql.= "descripcion_guia = '$this->descripcionGuia' ";
+            $sql.= " WHERE cve_cliente = $this->cveCliente and cve_pedido= $this->cvePedido";
             $count = UtilDB::ejecutaSQL($sql);
         }
+        
 
         return $count;
     }
@@ -167,15 +172,15 @@ class Pedidos {
 
         foreach ($rst as $row) {
             $this->cveCliente = $row['cve_cliente'];
-            $this->nombre = $row['nombre'];
-            $this->apellidoPat = $row['apellido_pat'];
-            $this->apellidoMat = $row['apellido_mat'];
-            $this->sexo = $row['sexo'];
-            $this->fechaNac = $row['fecha_nac'];
-            $this->fechaRegistro = $row['fecha_registro'];
-            $this->habilitado = $row['habilitado'];
-            $this->fresita = $row['fresita'];
-            $this->activo = $row['activo'];
+            $this->cvePedido = $row['cve_pedido'];
+            $this->referencia = $row['referencia'];
+            $this->fecha = $row['fecha'];
+            $this->status = $row['status'];
+            $this->montoTotal = $row['monto_total'];
+            $this->fechaActualizacion = $row['fecha_actualizacion'];
+            $this->numeroGuia = $row['numero_guia'];
+            $this->descripcionGuia = $row['descripcion_guia'];
+            $this->direccionEnvio = $row['direccion_envio'];
             $this->_existe = true;
         }
         $rst->closeCursor();
