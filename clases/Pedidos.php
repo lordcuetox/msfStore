@@ -145,7 +145,7 @@ class Pedidos {
             $this->cvePedido = UtilDB::getSiguienteNumero("pedidos", "cve_pedido");
             $sql = "INSERT INTO pedidos (cve_cliente,cve_pedido,"
                     . "referencia, fecha,status,monto_total,direccion_envio"
-                    . ") VALUES($this->cveCliente,$this->cvePedido,'$this->referencia','$this->fecha',$this->status,$this->montoTotal,"
+                    . ") VALUES($this->cveCliente,$this->cvePedido,'$this->referencia',NOW(),$this->status,$this->montoTotal,"
                     . "'$this->direccionEnvio')";
                
             $count = UtilDB::ejecutaSQL($sql);
