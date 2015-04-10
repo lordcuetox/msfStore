@@ -142,7 +142,7 @@ class Pedidos {
         $count = 0;
 
         if (!$this->_existe) {
-            $this->cveProducto = UtilDB::getSiguienteNumero("pedidos", "cve_pedido");
+            $this->cvePedido = UtilDB::getSiguienteNumero("pedidos", "cve_pedido");
             $sql = "INSERT INTO pedidos (cve_cliente,cve_pedido,"
                     . "referencia, fecha,status,monto_total,direccion_envio"
                     . ") VALUES($this->cveCliente,$this->cvePedido,'$this->referencia','$this->fecha',$this->status,$this->montoTotal,"
