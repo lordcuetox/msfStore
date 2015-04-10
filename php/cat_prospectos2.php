@@ -84,6 +84,7 @@ if (isset($_POST['xAccion'])) {
         if ($_POST['xAccion'] == 'logout')
     {   
         unset($_SESSION['habilitado']);
+         unset($_SESSION['nombre_completo']);
         header('Location:../index.php');
         return;
     }
