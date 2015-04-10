@@ -105,7 +105,11 @@ if (isset($_POST['xAccion'])) {
 
             $(document).ready(function () {
 
-                $(".date-picker").datepicker();
+                $(".date-picker").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-100:+0"
+        });
                 $.datepicker.setDefaults($.datepicker.regional[ "es-MX" ]);
 
                 $("#cmbCveRito").change(function () {
