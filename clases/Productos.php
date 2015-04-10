@@ -169,6 +169,10 @@ class Productos {
         return $this->activo;
     }
 
+    function getPrecioUnitario() {
+        return $this->precio;
+    }
+
     function setCveRito($cveRito) {
         $this->cveRito = $cveRito;
     }
@@ -257,9 +261,9 @@ class Productos {
                     . ") VALUES($this->cveRito,$this->cveClasificacion,$this->cveGrado,$this->cveClasProducto,$this->cveProducto,"
                     . "'$this->nombre','$this->descripcion',$this->precio,"
                     . "$this->novedad,"
-                    . ($this->novedad ?"'$this->fechaNovedad'":'null')
-                    . ",$this->oferta,". ($this->oferta ?"'$this->fechaOferta'":'null')
-                    . ",".($this->oferta ?"$this->precioOferta":'0')
+                    . ($this->novedad ? "'$this->fechaNovedad'" : 'null')
+                    . ",$this->oferta," . ($this->oferta ? "'$this->fechaOferta'" : 'null')
+                    . "," . ($this->oferta ? "$this->precioOferta" : '0')
                     . ",$this->existencias,$this->activo)";
             $count = UtilDB::ejecutaSQL($sql);
             if ($count > 0) {
@@ -278,11 +282,11 @@ class Productos {
             $sql.= "nombre='$this->nombre',";
             $sql.= "precio='$this->precio',";
             $sql.= "novedad=" . ($this->novedad ? "1" : "0");
-            $sql.= ",fecha_novedad = ".($this->novedad ?"'$this->fechaNovedad'":'null');
+            $sql.= ",fecha_novedad = " . ($this->novedad ? "'$this->fechaNovedad'" : 'null');
             $sql.= ",oferta=" . ($this->oferta ? "1" : "0");
-            $sql.= ",fecha_oferta = ".($this->oferta ?"'$this->fechaOferta'":'null');
+            $sql.= ",fecha_oferta = " . ($this->oferta ? "'$this->fechaOferta'" : 'null');
             $sql.= ",descripcion = '$this->descripcion',";
-            $sql.= "precio_oferta = ".($this->oferta ?"$this->precioOferta":'0');
+            $sql.= "precio_oferta = " . ($this->oferta ? "$this->precioOferta" : '0');
             $sql.= ",activo=" . ($this->activo ? "1" : "0");
             $sql.= " WHERE cve_producto = $this->cveProducto";
             $count = UtilDB::ejecutaSQL($sql);
@@ -321,4 +325,5 @@ class Productos {
     }
 
 }
+
 ?>
