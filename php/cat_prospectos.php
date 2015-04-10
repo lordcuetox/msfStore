@@ -275,10 +275,8 @@ if (isset($_POST['xAccion'])) {
                     </div>
                     <div class="form-group">
                         <label for="optSexo">*Sexo:</label>
-                        <input type="radio" class="form-control" id="optSexo" name="optSexo" value="0"
-                              <?php echo($clasf->getCveCliente() != 0 ? ($clasf->getSexo() == 0 ? "checked" : "") : ""); ?>>Femenino
-                        <input type="radio" class="form-control" id="optSexo" name="optSexo" value="1"
-                               <?php echo($clasf->getCveCliente() != 0 ? ($clasf->getSexo() == 1 ? "checked" : "") : "checked"); ?>>Masculino
+                        <input type="radio" id="optSexo" name="optSexo" value="0" <?php echo($clasf->getCveCliente() != 0 ? ($clasf->getSexo() == 0 ? "checked" : "") : ""); ?>>&nbsp;Femenino&nbsp;&nbsp;
+                        <input type="radio" id="optSexo" name="optSexo" value="1" <?php echo($clasf->getCveCliente() != 0 ? ($clasf->getSexo() == 1 ? "checked" : "") : "checked"); ?>>&nbsp;Masculino
                     </div>
                     <div class="form-group">
                         <div class="date-form">
