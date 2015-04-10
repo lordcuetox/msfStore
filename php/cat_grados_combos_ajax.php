@@ -1,4 +1,11 @@
 <?php require_once '../clases/UtilDB.php'; 
+session_start();
+
+if (!isset($_SESSION['cve_usuario'])) 
+{
+    header('Location:login.php');
+    return;
+}
 if(isset($_POST['cveRito']) && isset($_POST['cveClasificacion']) && isset($_POST['cveGrado']) )
 
 { $cveRito =  $_POST['cveRito'];
