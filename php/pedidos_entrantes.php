@@ -42,6 +42,23 @@ if (isset($_POST['xAccion'])) {
         } 
           
      }
+       
+            if ($_POST['xAccion'] == 'cancelar')
+    {  
+            $fecha = strtotime(str_replace('/', '-', (date("d/m/Y h:i"))));
+          $fRegistro = date('Y-m-d H:i:s', $fecha);
+          
+          $clasf3= new Pedidos($_POST['xPedido']);
+          
+          $clasf3->setFechaActualizacion($fRegistro);
+          $clasf3->setStatus(4);
+          $count = $clasf3->grabar();
+            if ($count != 0) {
+            $msg = "Sus datos han sido grabado con éxito!";
+        } 
+                
+    }
+            
     
             if ($_POST['xAccion'] == 'logout')
     {   
@@ -147,6 +164,17 @@ if (isset($_POST['xAccion'])) {
                  }
              }
 
+        function cancelar( valor)
+            {
+              if( confirm("¿Seguro que desea Cancelar el pedido?"))
+              {
+                  $("#xAccion").val("cancelar");
+                    $("#xPedido").val(valor);
+                   $("#pedidosEntrantes").submit();
+               }
+               
+            
+             }
 
         </script>
         
@@ -177,12 +205,13 @@ if (isset($_POST['xAccion'])) {
                                  <a href="cat_clasificaciones.php" ><i class="fa fa-leaf"></i> Clasificaciones</a>
                                 <a href="cat_grados.php"><i class="fa fa-crop"></i> Grados</a>
                                 <a href="cat_clasificacion_productos.php"><i class="fa fa-tags"></i> Clasificación Productos</a>
-                                <a href="cat_productos.php"><i class="fa fa-truck"></i> Productos</a>
-                                 <a href="pedidos_entrantes.php"><i class="fa fa-truck"></i> Nuevo Pedidos</a>
+                                <a href="cat_productos.php"><i class="fa fa-list"></i> Productos</a>
+                                 <a href="pedidos_entrantes.php"><i class="fa fa-inbox"></i> Nuevo Pedidos</a>
                                   <a href="pedidos_enviados.php"><i class="fa fa-truck"></i> Pedidos Enviados</a>
-                                   <a href="pedidos_entregados.php"><i class="fa fa-truck"></i> Historial de Pedidos</a>
-                                 <a href="lista_prospectos.php"><i class="fa fa-truck"></i> Lista de Clientes</a>
-                                 <a href="cat_reaton.php" class="active"><i class="fa fa-users"></i> Usuario y Contraseña</a>
+                                   <a href="pedidos_entregados.php"><i class="fa fa-check-square-o"></i> Historial de Pedidos</a>
+                                   <a href="pedidos_cancelados.php"><i class="fa fa-trash"></i> Pedidos Cancelados</a>
+                                 <a href="lista_prospectos.php"><i class="fa fa-users"></i> Lista de Clientes</a>
+                                 <a href="cat_reaton.php" class="active"><i class="fa fa-key"></i> Usuario y Contraseña</a>
                                 <a href="javascript:void(0);" onclick="logout();"><i class="fa fa-sign-out"></i> CERRAR SESIÓN</a>
                             </li>
                         </ul>
@@ -215,6 +244,7 @@ if (isset($_POST['xAccion'])) {
               <th>Dirección Envío</th>
             <th>Detalle</th>
             <th>Enviar</th>
+            <th>Cancelar Pedido</th>
         </tr>
     </thead>
     <tbody>
@@ -235,6 +265,7 @@ if (isset($_POST['xAccion'])) {
                 <th><?php echo($row['direccion_envio']); ?></th>
                 <th><a href="#modal<?PHP echo $row['cve_pedido'];?>">Ver</a></th>
                 <th><a href="#envio<?PHP echo $row['cve_pedido'];?>">Enviar</a></th>
+                <th><button type="button" class="btn btn-default" id="btnCancelar" name="btnCancelar" onclick="cancelar(<?PHP echo $row['cve_pedido'];?>);">Cancelar</button></th>
             </tr>
             <!-- ventana modal de envio-->
             <div id="envio<?PHP echo($row['cve_pedido']); ?>" class="modalmask">
@@ -308,7 +339,7 @@ if (isset($_POST['xAccion'])) {
         {
             ?>
              <tr>
-                 <td colspan="7">No hay pedidos</td>
+                 <td colspan="8">No hay pedidos</td>
             </tr>
             <?php
             

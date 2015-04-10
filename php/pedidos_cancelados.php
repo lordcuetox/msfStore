@@ -25,22 +25,7 @@ $msg = "";
 $count = NULL;
 
 if (isset($_POST['xAccion'])) {
-    
-     if ($_POST['xAccion'] == 'grabar') {
-          $fecha = strtotime(str_replace('/', '-', (date("d/m/Y h:i"))));
-          $fRegistro = date('Y-m-d H:i:s', $fecha);
-          
-          $clasf3= new Pedidos($_POST['xPedido']);
-          
-          $clasf3->setFechaActualizacion($fRegistro);
-          $clasf3->setStatus(3);
-          $count = $clasf3->grabar();
-            if ($count != 0) {
-            $msg = "Sus datos han sido grabado con éxito!";
-        } 
-          
-     }
-    
+       
             if ($_POST['xAccion'] == 'logout')
     {   
         unset($_SESSION['cve_usuario']);
@@ -128,15 +113,21 @@ if (isset($_POST['xAccion'])) {
             $("#pedidosEntrantes").submit();
         }
          
-           function grabar( valor)
+           function grabar( valor,paquete,guia)
             {
-                    if( confirm("¿Seguro que desea enviar a terminados este pedido?"))
-                    {
+                if ($(paquete).val() !="" && $(guia).val() !="" )
+                {
+                 
                   $("#xAccion").val("grabar");
+                  $("#guia").val($(guia).val());
+                     $("#paqueteria").val($(paquete).val());
                     $("#xPedido").val(valor);
                    $("#pedidosEntrantes").submit();
-               }
-            
+                 }
+                 else
+                 {
+                    alert("Es necesario que ingrese la paquetería y la guía de envío"); 
+                 }
              }
 
 
@@ -189,11 +180,12 @@ if (isset($_POST['xAccion'])) {
                     <div class="form-group">
                         <input type="hidden" class="form-control" name="xAccion" id="xAccion" value="0" />
                           <input type="hidden" class="form-control" name="xPedido" id="xPedido" value="0" />
-                          
+                          <input type="hidden" class="form-control" name="guia" id="guia" value="0" />
+                          <input type="hidden" class="form-control" name="paqueteria" id="paqueteria" value="0" />
                     </div>
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Pedidos Enviados</h1>
+                        <h1 class="page-header">Historial de Pedidos</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -201,19 +193,18 @@ if (isset($_POST['xAccion'])) {
     <thead>
         <tr>
             <th>Fecha</th>
-            <th># Pedido</th> 
+            <th>Pedido</th> 
             <th>Cliente</th>
              <th>Total</th>
               <th>Dirección Envío</th>
-             <th># de Guía</th>
-            <th>Paquetería</th>
+                 <th>Estatus</th>
+              <th>Fecha de Cancelación</th>
             <th>Detalle</th>
-            <th>Terminar</th>
         </tr>
     </thead>
     <tbody>
         <?php
-        $sql = "SELECT * from pedidos where status in (2)  order by fecha ";
+        $sql = "SELECT * from pedidos where status in (4)  order by fecha ";
         $rst = UtilDB::ejecutaConsulta($sql);
         if($rst->rowCount()>0)
         {
@@ -227,13 +218,12 @@ if (isset($_POST['xAccion'])) {
                 <th><?php echo($clasf->getNombre().' '.$clasf->getApellidoPat().' '.$clasf->getApellidoMat()); ?></th>
                 <th><?php echo('$ '.number_format($row['monto_total'],  2 , '.' , ',' )); ?></th>
                 <th><?php echo($row['direccion_envio']); ?></th>
-                <th><?php echo($row['status']==2?$row['numero_guia']:''); ?></th>
-                <th><?php echo($row['status']==2?$row['descripcion_guia']:''); ?></th>
+                 <th>Cancelado</th>
+                <th><?php echo( substr($row['fecha_actualizacion'],0,10));  ?></th>
                 <th><a href="#modal<?PHP echo $row['cve_pedido'];?>">Ver</a></th>
-                <th><button type="button" class="btn btn-default" id="btnGrabar" name="btnGrabar" onclick="grabar(<?PHP echo $row['cve_pedido'];?>);">Terminar</button></th>
             </tr>
             <!-- ventana modal de envio-->
-     
+
                 
             <!--- fin de ventana modal de envío-->
             <!--ventana modal del elemento-->
