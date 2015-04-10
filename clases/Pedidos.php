@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * @author Jorge José Jiménez Del Cueto
@@ -7,7 +8,7 @@
 require_once('UtilDB.php');
 
 class Pedidos {
-    
+
     private $cveCliente;
     private $cvePedido;
     private $referencia;
@@ -38,24 +39,24 @@ class Pedidos {
 
     function __construct1($cvePedido) {
         $this->limpiar();
-        $this->cvePedido =  $cvePedido;
+        $this->cvePedido = $cvePedido;
         $this->cargar();
     }
 
     private function limpiar() {
         $this->cveCliente = 0;
-        $this->cvePedido=0;
-        $this->referencia='';
-        $this->fecha=null;
-        $this->status=0;
-        $this->montoTotal=0;
-        $this->fechaActualizacion= null;
-        $this->numeroGuia='';
-        $this->descripcionGuia= '';
-        $this->direccionEnvio= '';
+        $this->cvePedido = 0;
+        $this->referencia = '';
+        $this->fecha = null;
+        $this->status = 0;
+        $this->montoTotal = 0;
+        $this->fechaActualizacion = null;
+        $this->numeroGuia = '';
+        $this->descripcionGuia = '';
+        $this->direccionEnvio = '';
         $this->_existe = false;
-  
     }
+
     function getCveCliente() {
         return $this->cveCliente;
     }
@@ -91,10 +92,10 @@ class Pedidos {
     function getDescripcionGuia() {
         return $this->descripcionGuia;
     }
-     function getDireccionEnvio() {
+
+    function getDireccionEnvio() {
         return $this->direccionEnvio;
     }
-    
 
     function setCveCliente($cveCliente) {
         $this->cveCliente = $cveCliente;
@@ -131,12 +132,11 @@ class Pedidos {
     function setDescripcionGuia($descripcionGuia) {
         $this->descripcionGuia = $descripcionGuia;
     }
-    
-     function setDireccionEnvio($direccionEnvio) {
+
+    function setDireccionEnvio($direccionEnvio) {
         $this->direccionEnvio = $direccionEnvio;
     }
 
-        
     function grabar() {
         $sql = "";
         $count = 0;
@@ -147,7 +147,7 @@ class Pedidos {
                     . "referencia, fecha,status,monto_total,direccion_envio"
                     . ") VALUES($this->cveCliente,$this->cvePedido,'$this->referencia',NOW(),$this->status,$this->montoTotal,"
                     . "'$this->direccionEnvio')";
-               
+
             $count = UtilDB::ejecutaSQL($sql);
             if ($count > 0) {
                 $this->_existe = true;
@@ -161,7 +161,7 @@ class Pedidos {
             $sql.= " WHERE cve_cliente = $this->cveCliente and cve_pedido= $this->cvePedido";
             $count = UtilDB::ejecutaSQL($sql);
         }
-        
+
 
         return $count;
     }
@@ -187,6 +187,4 @@ class Pedidos {
     }
 
 }
-
 ?>
-
