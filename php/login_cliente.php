@@ -1,7 +1,7 @@
 <?php
 require_once '../clases/UtilDB.php';
 session_start();
-if (isset($_SESSION['cve_cliente'])) {
+if (isset($_SESSION['habilitado'])) {
     header('Location:mis_pedidos.php');
     return;
 }
