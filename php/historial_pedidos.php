@@ -29,7 +29,9 @@ if (isset($_SESSION['habilitado'])) {
 if (isset($_POST['xAccion'])) {
             if ($_POST['xAccion'] == 'logout')
     {   
-        unset($_SESSION['habilitado']);
+         unset($_SESSION['habilitado']);
+         unset($_SESSION['nombre_completo']);
+           unset($_SESSION['carro']);
         header('Location:../index.php');
         return;
     }
@@ -111,7 +113,6 @@ if (isset($_POST['xAccion'])) {
     function logout()
         {
             $("#xAccion").val("logout");
-            alert('entrando');
             $("#mispedidos1").submit();
         }
          

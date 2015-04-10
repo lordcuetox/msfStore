@@ -31,6 +31,7 @@ if (isset($_POST['xAccion'])) {
     {   
         unset($_SESSION['habilitado']);
           unset($_SESSION['nombre_completo']);
+            unset($_SESSION['carro']);
         
         header('Location:../index.php');
         return;
