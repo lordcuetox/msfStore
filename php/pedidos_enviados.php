@@ -163,17 +163,17 @@ if (isset($_POST['xAccion'])) {
                 <div class="navbar-default sidebar" role="navigation">
                     <div class="sidebar-nav navbar-collapse">
                         <ul class="nav" id="side-menu">
-                         <li>
+               <li>
                                 <a href="cat_ritos.php" ><i class="fa fa-university"></i> Ritos</a>
                                  <a href="cat_clasificaciones.php" ><i class="fa fa-leaf"></i> Clasificaciones</a>
                                 <a href="cat_grados.php"><i class="fa fa-crop"></i> Grados</a>
-                                <a href="cat_clasificacion_productos.php"><i class="fa fa-tags"></i> Clasificación productos</a>
+                                <a href="cat_clasificacion_productos.php"><i class="fa fa-tags"></i> Clasificación Productos</a>
                                 <a href="cat_productos.php"><i class="fa fa-truck"></i> Productos</a>
                                  <a href="pedidos_entrantes.php"><i class="fa fa-truck"></i> Nuevo Pedidos</a>
                                   <a href="pedidos_enviados.php"><i class="fa fa-truck"></i> Pedidos Enviados</a>
                                    <a href="pedidos_entregados.php"><i class="fa fa-truck"></i> Historial de Pedidos</a>
-                                 <a href="lista_prospectos.php"><i class="fa fa-truck"></i> Lista de clientes</a>
-                                 <a href="cat_reaton.php" class="active"><i class="fa fa-users"></i> Usuarios y contraseñas</a>
+                                 <a href="lista_prospectos.php"><i class="fa fa-truck"></i> Lista de Clientes</a>
+                                 <a href="cat_reaton.php" class="active"><i class="fa fa-users"></i> Usuario y Contraseña</a>
                                 <a href="javascript:void(0);" onclick="logout();"><i class="fa fa-sign-out"></i> CERRAR SESIÓN</a>
                             </li>
                         </ul>
