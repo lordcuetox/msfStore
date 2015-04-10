@@ -2,7 +2,7 @@
 require_once '../clases/Prospectos.php';
 require_once '../clases/ComunicacionesClientes.php';
 require_once '../clases/UtilDB.php';
-
+session_start();
 $clasf = new Prospectos();
 $correo = new ComunicacionesClientes();
 $telefono = new ComunicacionesClientes();
@@ -79,7 +79,12 @@ if (isset($_POST['xAccion'])) {
         $count3 = $correo->grabar();
         
         if ($count != 0&&$count2 != 0&&$count3 != 0) {
+              $_SESSION['habilitado'] = $clasf->getHabilitado();
+              $_SESSION['nombre_completo'] =  $clasf->getNombre().' '.$clasf->getApellidoPat().' '.$clasf->getApellidoMat();
+                  header('Location:../index.php');
+                   return;
             $msg = "Sus datos han sido grabado con éxito!";
+            
         } else {    
             $msg = "[ERROR] Sus datos no se han grabado";
         }
