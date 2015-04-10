@@ -1,8 +1,7 @@
 <?php
 require_once '../clases/UtilDB.php';
 session_start();
-if (isset($_SESSION['cve_cliente'])) 
-{
+if (isset($_SESSION['cve_cliente'])) {
     header('Location:mis_pedidos.php');
     return;
 }
@@ -12,21 +11,18 @@ if (isset($_POST['xAccion'])) {
         $username = mysql_real_escape_string(trim($_REQUEST['txtUser']));
         $password = mysql_real_escape_string(trim($_REQUEST['txtPassword']));
 
-        
-       // $sql = sprintf("SELECT * FROM prospectos WHERE habilitado = '" . $_POST['txtUser'] . "' AND fresita = '" . $_POST['txtPassword'] . "'");
-         $sql = sprintf("SELECT habilitado FROM prospectos WHERE habilitado = '%s' AND fresita = '%s';",$username,$password);
+
+        // $sql = sprintf("SELECT * FROM prospectos WHERE habilitado = '" . $_POST['txtUser'] . "' AND fresita = '" . $_POST['txtPassword'] . "'");
+        $sql = sprintf("SELECT habilitado, CONCAT(nombre,' ',apellido_pat,' ',apellido_mat) AS nombre_completo FROM prospectos WHERE habilitado = '%s' AND fresita = '%s';", $username, $password);
         $rst = UtilDB::ejecutaConsulta($sql);
         if ($rst->rowCount() > 0) {
-            foreach ($rst as $row)
-            {     
+            foreach ($rst as $row) {
                 $_SESSION['habilitado'] = $row['habilitado'];
-
-              header('Location: mis_pedidos.php');
-              die();
-                 return;
+                $_SESSION['nombre_completo'] = $row['nombre_completo'];
+                header('Location: ../index.php');
+                die();
+                return;
             }
-         
-           
         }
     }
 }
@@ -57,9 +53,12 @@ if (isset($_POST['xAccion'])) {
     </head>
     <body>
         <div class="container">
+            <a href="../index.php">&NestedLessLess;Regresar</a>
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
+
                     <div class="login-panel panel panel-default">
+
                         <div class="panel-heading">
                             <h3 class="panel-title">Iniciar sesión</h3>
                         </div>
@@ -75,8 +74,8 @@ if (isset($_POST['xAccion'])) {
                                     </div>
                                     <!-- Change this to a button or input when using this as a form -->
                                     <input type="button" name="btnLogin" id="btnLogin" value="Login" class="btn btn-lg btn-success btn-block" onclick="login()"/>
-                                       <div class="form-group">
-                                           <a href="cat_prospectos.php">Registrate Aquí</a>
+                                    <div class="form-group">
+                                        <a href="cat_prospectos.php">&NestedGreaterGreater;Registrate Aquí</a>                                          
                                     </div>
                                 </fieldset>
                             </form>
@@ -94,18 +93,18 @@ if (isset($_POST['xAccion'])) {
         <!-- Custom Theme JavaScript -->
         <script src="../twbs/plugins/startbootstrap-sb-admin-2-1.0.5/dist/js/sb-admin-2.js"></script>
         <script>
-        $(document).keypress(function(e) {
-            if(e.which === 13) {
-                login();
-            }
-        });
-        
-        function login()
-        {
-            $("#xAccion").val("login");
-            $("#frmLogin").submit();
+            $(document).keypress(function (e) {
+                if (e.which === 13) {
+                    login();
+                }
+            });
 
-        }
+            function login()
+            {
+                $("#xAccion").val("login");
+                $("#frmLogin").submit();
+
+            }
         </script>
     </body>
 </html>

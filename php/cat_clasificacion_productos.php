@@ -98,7 +98,7 @@ if (isset($_POST['xAccion'])) {
                                 <a href="javascript:void(0);" onclick="logout();"><i class="fa fa-sign-out"></i> CERRAR SESIÓN</a>
                             </li>
                     </ul>
-                </div>
+                </div>  
                 <!-- /.sidebar-collapse -->
             </div>
             <!-- /.navbar-static-side -->

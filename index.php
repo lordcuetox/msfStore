@@ -10,6 +10,15 @@
 require_once './clases/UtilDB.php';
 session_start();
 define("MIN_SLIDES_OFERTA", 4);
+
+if(isset($_POST['xAccion']))
+{
+    if ($_POST['xAccion'] == 'logout')
+    {   
+        unset($_SESSION['habilitado']);
+        unset($_SESSION['nombre_completo']);
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -23,8 +32,8 @@ define("MIN_SLIDES_OFERTA", 4);
         <link href="css/msfstore.css" rel="stylesheet"/>
         <style>
             span.glyphicon-shopping-cart {
-    font-size: 1.2em;
-}
+                font-size: 1.2em;
+            }
         </style>
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
@@ -41,11 +50,11 @@ define("MIN_SLIDES_OFERTA", 4);
                     mode: "vertical",
                     pager: false,
                     auto: true,
-                    minSlides: <?php echo(MIN_SLIDES_OFERTA);?>,
+                    minSlides: <?php echo(MIN_SLIDES_OFERTA); ?>,
                     autoHover: true,
                     speed: 3000,
                     slideMargin: 15,
-                    moveSlides: <?php echo(MIN_SLIDES_OFERTA);?>});
+                    moveSlides: <?php echo(MIN_SLIDES_OFERTA); ?>});
 
                 $('body').on('hidden.bs.modal', '.modal', function () {
                     $(this).removeData('bs.modal');
@@ -82,31 +91,61 @@ define("MIN_SLIDES_OFERTA", 4);
 
             function addToShoppingCart(cve_producto)
             {
-                $("#ajax_msg").load("php/agregacar.php", {"xCveProducto": cve_producto} , function() { $("#ajax_msg").fadeIn();});
+                $("#ajax_msg").load("php/agregacar.php", {"xCveProducto": cve_producto}, function (responseTxt, statusTxt, xhr) {
+                    if (responseTxt === "NO_SESSION")
+                    {
+                        $("#ajax_msg").html("Debe iniciar sesión para poder agregar productos al carrito de compras.");
+                        $("#ajax_msg").removeClass("alert-success");
+                        $("#ajax_msg").addClass("alert-warning");
+                    }
+                    else
+                    {
+                        $("#ajax_msg").removeClass("alert-warning");
+                        $("#ajax_msg").addClass("alert-success");
+                    }
+
+                    $("#ajax_msg").fadeIn();
+                });
+            }
+            
+            function logout()
+            {
+                $("#xAccion").val("logout");
+                $("#frmLogOut").submit();
             }
         </script>
     </head>
     <body>
         <div class="container">
-            <div class="row clearfix">
-                <div class="col-md-12">
-                    <header>
-                        <div class="row">
-                            <div class="col-md-8"><img src="img/encabezado.jpg" alt="MSF Store" class="img-responsive"/></div>
-                            <div class="col-md-4 text-right">
-                                <a href="https://www.facebook.com/MSFStore" target="_blank"><img src="img/facebook.png" class="img-responsive " alt="Facebook" style="display: inline; margin-right: 25px;"/></a>
-                                <a href="https://twitter.com/masinfronteras" target="_blank"><img src="img/twitter.png" class="img-responsive" alt="Twitter" style="display: inline; margin-right: 25px;"/></a>
-                                <a href="mailto:msf_store@hotmail.com"><img src="img/email.png" class="img-responsive" alt="Email" style="display: inline; margin-right: 25px;"/></a>
-                            </div>
-                            <div class="clearfix visible-md"></div>
-                            <div class="col-md-offset-8"></div>
-                            <div class="col-md-2 text-right visible-xs visible-sm"><span class="glyphicon glyphicon-shopping-cart"></span> <a href="javascript:void(0);" data-toggle="modal" data-remote="php/viewShoppingCart.php" data-target="#myModal">Carrito de compras</a></div>
-                            <div class="col-md-2 text-right visible-xs visible-sm"><span class="glyphicon glyphicon-user"></span> <a href="php/login_cliente.php" target="_blank">Inicio de sesión</a></div>
-                            <div class="col-md-2 text-right bottom visible-md visible-lg"><span class="glyphicon glyphicon-shopping-cart"></span> <a href="javascript:void(0);" data-toggle="modal" data-remote="php/viewShoppingCart.php" data-target="#myModal">Carrito de compras</a></div>
-                            <div class="col-md-2 text-right bottom2 visible-md visible-lg"><span class="glyphicon glyphicon-user"></span> <a href="php/login_cliente.php" target="_blank">Inicio de sesión</a></div>
-                            <div class="clearfix visible-md"></div>
-                        </div>
-                    </header>
+            <div class="row">
+                <div class="col-md-12 text-right" id="iconos_redes_sociales">
+                    <a href="https://www.facebook.com/MSFStore" target="_blank"><img src="img/facebook.png" class="img-responsive " alt="Facebook"/></a>
+                    <a href="https://twitter.com/masinfronteras" target="_blank"><img src="img/twitter.png" class="img-responsive" alt="Twitter"/></a>
+                    <a href="mailto:msf_store@hotmail.com"><img src="img/email.png" class="img-responsive" alt="Email"/></a>
+                </div>
+                <div class="col-md-12" id="logo">
+                    <img src="img/encabezado.jpg" alt="Logo MSF Store" class="img-responsive"/>
+                </div>
+                <div class="col-md-12 text-right" id="enlaces">
+                    <?php
+                     if (!isset($_SESSION['habilitado']) && !isset($_SESSION['nombre_completo']))
+                     {
+                    ?>
+                    <span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;<a href="javascript:void(0);" data-toggle="modal" data-remote="php/viewShoppingCart.php" data-target="#myModal">Carrito de compras</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="glyphicon glyphicon-log-in"></span>&nbsp;<a href="php/login_cliente.php" target="_self">Inicio de sesión</a>
+                    <?php
+                     }
+                     else
+                     {
+                    ?>
+                    <span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;<a href="javascript:void(0);" data-toggle="modal" data-remote="php/viewShoppingCart.php" data-target="#myModal">Carrito de compras</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="glyphicon glyphicon-user"></span>&nbsp;<a href="php/mis_pedidos.php" target="_blank"><?php echo($_SESSION['nombre_completo']);?></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="glyphicon glyphicon-log-out"></span>&nbsp;<a href="javascript:void(0);" onclick="logout();">Cerrar Sesión</a>
+                    <?php
+                         
+                     }
+                    ?>
+
                 </div>
             </div>
             <div class="row clearfix">
@@ -151,7 +190,7 @@ define("MIN_SLIDES_OFERTA", 4);
             </div>
             <div class="row clearfix">
                 <div class="col-md-9" id="novedades">
-                    <h1>Novedades</h1>
+                    <h1>¡MÁS VENDIDOS!</h1>
                     <div class="row">
                         <?php
                         $sql2 = "SELECT * FROM productos WHERE novedad = 1 AND ruta_imagen1 IS NOT NULL AND fecha_novedad >= NOW()";
@@ -162,9 +201,10 @@ define("MIN_SLIDES_OFERTA", 4);
                         if ($rst2->rowCount() > 0) {
                             foreach ($rst2 as $row2) {
                                 $tmp2 .= "<div class=\"col-md-4\">";
+                                $tmp2 .= "<a href=\"javascript:void(0);\" data-toggle=\"modal\" data-remote=\"php/productos_id.php?id=" . $row2['cve_producto'] . "&from=novedad\" data-target=\"#myModal\">";
                                 $tmp2 .= "<img src=\"" . $row2['ruta_imagen1'] . "\" class=\"img-responsive\" alt=\"" . $row2['nombre'] . "\"/>";
+                                $tmp2 .= "</a>";
                                 $tmp2 .= "<h4>" . $row2['nombre'] . "</h4>";
-                                $tmp2 .= "<a href=\"javascript:void(0);\" data-toggle=\"modal\" data-remote=\"php/productos_id.php?id=" . $row2['cve_producto'] . "&from=novedad\" data-target=\"#myModal\" class=\"btn btn-custom\">Ver descripción</a>";
                                 $tmp2 .= "</div>";
                                 $count1++;
                                 if ($count1 % 3 == 0) {
@@ -184,7 +224,7 @@ define("MIN_SLIDES_OFERTA", 4);
                 <div class="col-md-3" id="grados" style="display: none;">&nbsp;</div>
                 <div class="col-md-6" id="productos" style="display: none;">&nbsp;</div>
                 <div class="col-md-3" id="ofertas">
-                    <h1 class="text-center">Ofertas</h1>
+                    <h1>¡OFERTAS!</h1>
                     <?php
                     $sql3 = "SELECT * FROM productos WHERE oferta = 1 AND ruta_imagen1 IS NOT NULL AND fecha_oferta >= NOW()";
                     $rst3 = UtilDB::ejecutaConsulta($sql3);
@@ -234,6 +274,7 @@ define("MIN_SLIDES_OFERTA", 4);
         </div>
         <footer class="footer">
             <div class="container">
+                <form action="<?php echo($_SERVER['PHP_SELF']) ?>" name="frmLogOut" id="frmLogOut" method="post"><input type="hidden" name="xAccion" id="xAccion"value="0" /></form> 
                 <p class="text-muted text-center">Copyright <?php echo date("Y"); ?>| Masoneria Sin Fronteras Store| Powered By WEBXICO & Cuetox</p>
             </div>
         </footer>
