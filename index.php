@@ -19,6 +19,7 @@ define("GASTOS_ENVIO", 180);
 $prospecto = NULL;
 $cart = NULL;
 $pedido = NULL;
+$pedido2 = NULL;
 $detalle_pedido = NULL;
 $item = NULL;
 $subto = 0.0;
@@ -46,6 +47,7 @@ if (isset($_POST['xAccionPedido'])) {
                 $pedido->setStatus(1);
                 $pedido->setMontoTotal(0.0);
                 $pedido->grabar();
+                
 
                 foreach ($cart as $arr) {
                     $item = $arr['item'];
@@ -69,8 +71,11 @@ if (isset($_POST['xAccionPedido'])) {
                     $detalle_pedido->grabar();
                 }
                 $suma = $suma + GASTOS_ENVIO;
-                $pedido->setMontoTotal($suma);
-                $pedido->grabar();
+                
+                $pedido2 = new Pedidos($pedido->getCvePedido());
+                $pedido2->setMontoTotal($suma);
+                $pedido2->setReferencia(str_replace("-","",substr($pedido2->getFecha(),0,10))."_000".$pedido->getCvePedido() );
+                $pedido2->grabar();
                 unset($_SESSION['carro']);
             }
         }
