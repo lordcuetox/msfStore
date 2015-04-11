@@ -21,27 +21,24 @@ if ($producto->getCveProducto() != 0) {
     <div class="modal-body">
         <div class="te">
             <?php
-            if ($producto->getRutaImagen1() != "" && $producto->getRutaImagen2() != "" && $producto->getRutaImagen3() != "" && $producto->getRutaImagen4() != "") {
+            if ($producto->getRutaImagen2() != "" && $producto->getRutaImagen2() != "" && $producto->getRutaImagen3() != "" && $producto->getRutaImagen4() != "") {
                 ?>
                 <ul class="bxslider">
-                    <li><img src="<?php echo($producto->getRutaImagen1()); ?>" class="img-responsive"/></li>
                     <li><img src="<?php echo($producto->getRutaImagen2()); ?>" class="img-responsive"/></li>
                     <li><img src="<?php echo($producto->getRutaImagen3()); ?>" class="img-responsive"/></li>
                     <li><img src="<?php echo($producto->getRutaImagen4()); ?>" class="img-responsive"/></li>
                 </ul>
                 <?php
-            } elseif ($producto->getRutaImagen1() != "" && $producto->getRutaImagen2() != "" && $producto->getRutaImagen3() != "") {
+            } elseif ($producto->getRutaImagen2() != "" && $producto->getRutaImagen2() != "" && $producto->getRutaImagen3() != "") {
                 ?>
                 <ul class="bxslider">
-                    <li><img src="<?php echo($producto->getRutaImagen1()); ?>" class="img-responsive"/></li>
                     <li><img src="<?php echo($producto->getRutaImagen2()); ?>" class="img-responsive"/></li>
                     <li><img src="<?php echo($producto->getRutaImagen3()); ?>" class="img-responsive"/></li>
                 </ul>
                 <?php
-            } elseif ($producto->getRutaImagen1() != "" && $producto->getRutaImagen2() != "") {
+            } elseif ($producto->getRutaImagen2() != "" && $producto->getRutaImagen2() != "") {
                 ?>
                 <ul class="bxslider">
-                    <li><img src="<?php echo($producto->getRutaImagen1()); ?>" class="img-responsive"/></li>
                     <li><img src="<?php echo($producto->getRutaImagen2()); ?>" class="img-responsive"/></li>
                 </ul>
                 <?php
