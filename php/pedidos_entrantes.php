@@ -175,6 +175,11 @@ if (isset($_POST['xAccion'])) {
                
             
              }
+                   
+          function imprimir(valor)
+        {
+            window.open('recibo.php?CvePedido='+valor, '_blank');
+        }
 
         </script>
         
@@ -243,6 +248,7 @@ if (isset($_POST['xAccion'])) {
              <th>Total</th>
               <th>Dirección Envío</th>
             <th>Detalle</th>
+            <th>Recibo</th>
             <th>Enviar</th>
             <th>Cancelar Pedido</th>
         </tr>
@@ -264,6 +270,7 @@ if (isset($_POST['xAccion'])) {
                 <th><?php echo('$ '.number_format($row['monto_total'],  2 , '.' , ',' )); ?></th>
                 <th><?php echo($row['direccion_envio']); ?></th>
                 <th><a href="#modal<?PHP echo $row['cve_pedido'];?>">Ver</a></th>
+                <th><a href="javascript:void();" onclick="imprimir(<?PHP echo $row['cve_pedido'];?>);"> <i class="fa fa-file-pdf-o"></i> </a></th>
                 <th><a href="#envio<?PHP echo $row['cve_pedido'];?>">Enviar</a></th>
                 <th><button type="button" class="btn btn-default" id="btnCancelar" name="btnCancelar" onclick="cancelar(<?PHP echo $row['cve_pedido'];?>);">Cancelar</button></th>
             </tr>
