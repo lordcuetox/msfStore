@@ -99,6 +99,7 @@ if (isset($_POST['xAccionPedido'])) {
         <script src="js/jQuery/jquery-1.11.2.min.js"></script>
         <script src="twbs/bootstrap-3.3.2/js/bootstrap.min.js"></script>
         <script src="js/jQuery/plugins/jquery.bxslider/jquery.bxslider.min.js"></script>
+        <script src="js/index.js"></script>
         <script>
             $(document).ready(function () {
                 $.ajaxSetup({"cache": false});
@@ -128,58 +129,6 @@ if (isset($_POST['xAccionPedido'])) {
 
             });
 
-            function getGrados(cveRito, cveClasificacion, nombreClasificacion)
-            {
-                $("#grados").load("index_ajax.php", {"xAccion": "getGrados", "cveRito": cveRito, "cveClasificacion": cveClasificacion, "nombreClasificacion": nombreClasificacion}, function (responseTxt, statusTxt, xhr) {
-                    $("#novedades").css("display", "none");
-                    //$("#ventana_modal").css("display", "none");
-                    $("#grados").css("display", "block");
-                    $("#productos").css("display", "block");
-
-                });
-            }
-
-            function getProductos(cveRito, cveClasificacion, cveGrado, cveClasProducto, nombreClasProducto)
-            {
-                $("#productos").load("index_ajax.php", {"xAccion": "getProductos", "cveRito": cveRito, "cveClasificacion": cveClasificacion, "cveGrado": cveGrado, "cveClasProducto": cveClasProducto, "nombreClasProducto": nombreClasProducto}, function (responseTxt, statusTxt, xhr) {
-
-                    $('body').on('hidden.bs.modal', '.modal', function () {
-                        $(this).removeData('bs.modal');
-                    });
-
-                });
-            }
-
-            function addToShoppingCart(cve_producto)
-            {
-                $("#ajax_msg").load("php/agregacar.php", {"xCveProducto": cve_producto}, function (responseTxt, statusTxt, xhr) {
-                    if (responseTxt === "NO_SESSION")
-                    {
-                        $("#ajax_msg").html("Debe iniciar sesión para poder agregar productos al carrito de compras.&nbsp;<a href=\"php/login_cliente.php\" target=\"_self\">Iniciar sesión</a>");
-                        $("#ajax_msg").removeClass("alert-success");
-                        $("#ajax_msg").addClass("alert-warning");
-                    }
-                    else
-                    {
-                        $("#ajax_msg").removeClass("alert-warning");
-                        $("#ajax_msg").addClass("alert-success");
-                    }
-
-                    $("#ajax_msg").fadeIn();
-                });
-            }
-
-            function logout()
-            {
-                $("#xAccion").val("logout");
-                $("#frmLogOut").submit();
-            }
-
-            function finalizarPedido()
-            {
-                $("#xAccionPedido").val("finalizarPedido");
-                $("#frmFinalizarPedido").submit();
-            }
         </script>
     </head>
     <body>
