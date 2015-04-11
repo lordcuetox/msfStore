@@ -1,10 +1,10 @@
 <?php
 require_once ('../clases/PDF.php');
-
-
-// Creación del objeto de la clase heredada
-$pdf = new PDF();
-$pdf->setCvePedido(3);
-$pdf->imprimir();
-$pdf->Output();
+if (isset($_GET['CvePedido'])) {
+    // Creación del objeto de la clase heredada
+    $pdf = new PDF();
+    $pdf->setCvePedido((int) $_GET['CvePedido']);
+    $pdf->imprimir();
+    $pdf->Output();
+}
 ?>
