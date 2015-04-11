@@ -33,6 +33,12 @@ function Header()
 // Pie de página
 function Footer()
 {
+     // Posición: a 1,5 cm del final
+    $this->SetY(-45);
+      $this->SetFont('','',10);
+       $this->Cell(175,6,iconv('UTF-8', 'windows-1252','*Política de Cobro'));
+         $this->Ln();
+    $this->MultiCell(175,5,iconv('UTF-8', 'windows-1252','El importe total del pedido es válido por 7 días hábiles a partir de la fecha que muestra este recibo, una vez realizado el pago deberá de enviar copia del vaucher y el número del pedido al correo msf_store@hotmail.com o comunicarse  al teléfono (044)993-2-77-2575.Gracias por su compra. '),0,'J');
     // Posición: a 1,5 cm del final
     $this->SetY(-15);
     // Arial italic 8
@@ -81,7 +87,7 @@ $cliente= new Prospectos($pedido->getCveCliente());
     // Restauración de colores y fuentes
     $this->SetFillColor(229,245,255);
     $this->SetTextColor(0);
-    $this->SetFont('','',10);
+    $this->SetFont('','',9);
     // Datos
     $fill = false;
         $sql2 = "SELECT * from detalle_pedido where cve_pedido=".$this->cvePedido;
@@ -91,7 +97,7 @@ $cliente= new Prospectos($pedido->getCveCliente());
     
     foreach($rst as $row)
     {
-        $this->Cell(100,6,iconv('UTF-8', 'windows-1252',$row['etiqueta_producto']),'LR',0,'L',$fill);
+        $this->Cell(100,6,iconv('UTF-8', 'windows-1252',substr($row['etiqueta_producto'],0,51)),'LR',0,'L',$fill);
         $this->Cell(25,6,$row['descuento']==0?('$ '.number_format($row['precio_unitario'],  2 , '.' , ',' )):('$ '.number_format($row['precio_unitario_desc'],  2 , '.' , ',' )),'LR',0,'C',$fill);
         $this->Cell(25,6,number_format($row['cantidad']),'LR',0,'C',$fill);
         $this->Cell(25,6,'$ '.number_format($row['monto_total_pagar'],  2 , '.' , ',' ),'LR',0,'R',$fill);
@@ -132,9 +138,24 @@ $cliente= new Prospectos($pedido->getCveCliente());
                 // agregando el encabezado del cliente
         $this->Cell(175,6,iconv('UTF-8', 'windows-1252','Donde Pagar'),0,0,'C');
         $this->Ln();
+        $this->Ln();
+        $this->Ln();
+            // Restauración de colores y fuentes
+    $this->SetFillColor(229,245,255);
+    $this->SetTextColor(0);
+    $this->SetFont('','',12);
+        $this->Cell(25,8,iconv('UTF-8', 'windows-1252','BANAMEX'),0,0,'L');
+         $this->Cell(150,8,iconv('UTF-8', 'windows-1252','Cuenta No. 0151475352, CLABE: 002790901514753522'),0,0,'L');
+         $this->Ln();
+         $this->Cell(25,8,iconv('UTF-8', 'windows-1252','BANAMEX'),0,0,'L');
+          $this->Cell(150,8,iconv('UTF-8', 'windows-1252','Cuenta No. 0221724178, CLABE: 072790002217241781'),0,0,'L');
+          $this->Ln();
+          $this->Cell(25,8,iconv('UTF-8', 'windows-1252','OXXO'),0,0,'L');
+         $this->Cell(150,8,iconv('UTF-8', 'windows-1252','5256 7816 0910 7995'),0,0,'L');
+        $this->Ln();
         
         
-    // Línea de cierre
+      // Línea de cierre
     //$this->Cell(array_sum($w),0,'','T');
 }
 
