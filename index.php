@@ -16,6 +16,7 @@ require_once 'clases/DetallePedido.php';
 session_start();
 define("MIN_SLIDES_OFERTA", 4);
 define("GASTOS_ENVIO", 180);
+$pedido_guardado = false;
 $prospecto = NULL;
 $cart = NULL;
 $pedido = NULL;
@@ -77,6 +78,7 @@ if (isset($_POST['xAccionPedido'])) {
                 $pedido2->setReferencia(str_replace("-","",substr($pedido2->getFecha(),0,10))."_000".$pedido->getCvePedido() );
                 $pedido2->grabar();
                 unset($_SESSION['carro']);
+                $pedido_guardado = true;
             }
         }
     }
@@ -131,7 +133,14 @@ if (isset($_POST['xAccionPedido'])) {
                     $('#myModal').modal('hide')
                 });
 
-
+                <?php
+                if($pedido_guardado)
+                {
+                ?>
+                        window.open('php/recibo.php?CvePedido=<?php echo($pedido2->getCvePedido());?>', '_blank');
+                <?php
+                }
+                ?>
             });
 
         </script>
