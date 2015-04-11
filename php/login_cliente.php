@@ -8,10 +8,8 @@ if (isset($_SESSION['habilitado'])) {
 
 if (isset($_POST['xAccion'])) {
     if ($_POST['xAccion'] == "login") {
-        $username = mysql_real_escape_string(trim($_REQUEST['txtUser']));
-        $password = mysql_real_escape_string(trim($_REQUEST['txtPassword']));
-
-
+        $username = $_POST['txtUser'];
+        $password = $_POST['txtPassword'];
         // $sql = sprintf("SELECT * FROM prospectos WHERE habilitado = '" . $_POST['txtUser'] . "' AND fresita = '" . $_POST['txtPassword'] . "'");
         $sql = sprintf("SELECT habilitado, CONCAT(nombre,' ',apellido_pat,' ',apellido_mat) AS nombre_completo FROM prospectos WHERE habilitado = '%s' AND fresita = '%s';", $username, $password);
         $rst = UtilDB::ejecutaConsulta($sql);
@@ -19,9 +17,9 @@ if (isset($_POST['xAccion'])) {
             foreach ($rst as $row) {
                 $_SESSION['habilitado'] = $row['habilitado'];
                 $_SESSION['nombre_completo'] = $row['nombre_completo'];
-                header('Location: ../index.php');
-                die();
-                return;
+               header('Location: ../index.php');
+              //  die();
+              //  return;
             }
         }
     }

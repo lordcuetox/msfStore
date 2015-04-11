@@ -15,7 +15,7 @@ if (!isset( $_SESSION['cve_usuario']))
 }
 else
 {
-     $idPrincipal=mysql_real_escape_string($_SESSION['cve_usuario']);
+     $idPrincipal=$_SESSION['cve_usuario'];
 }
 
 $clasf = new Prospectos();

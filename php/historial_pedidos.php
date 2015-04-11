@@ -14,7 +14,7 @@ if (!isset( $_SESSION['habilitado']))
 }
 else
 {
-    $idPrincipal=mysql_real_escape_string($_SESSION['habilitado']);
+    $idPrincipal=$_SESSION['habilitado'];
 }
 
 $clasf = new Prospectos();

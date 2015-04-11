@@ -13,7 +13,7 @@ if (!isset( $_SESSION['habilitado']))
 }
 else
 {
-    $idPrincipal=mysql_real_escape_string($_SESSION['habilitado']);
+    $idPrincipal=$_SESSION['habilitado'];
 }
 
 $clasf = new Prospectos();
@@ -25,6 +25,7 @@ $count3 = NULL;
 $msg = "";
 
 if (isset($_SESSION['habilitado'])) {
+   
    
         $clasf->cargar2($idPrincipal);
           $telefono= new ComunicacionesClientes($clasf->getCveCliente(),1);
