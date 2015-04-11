@@ -147,7 +147,7 @@ $cliente= new Prospectos($pedido->getCveCliente());
         $this->Cell(25,8,iconv('UTF-8', 'windows-1252','BANAMEX'),0,0,'L');
          $this->Cell(150,8,iconv('UTF-8', 'windows-1252','Cuenta No. 0151475352, CLABE: 002790901514753522'),0,0,'L');
          $this->Ln();
-         $this->Cell(25,8,iconv('UTF-8', 'windows-1252','BANAMEX'),0,0,'L');
+         $this->Cell(25,8,iconv('UTF-8', 'windows-1252','BANORTE'),0,0,'L');
           $this->Cell(150,8,iconv('UTF-8', 'windows-1252','Cuenta No. 0221724178, CLABE: 072790002217241781'),0,0,'L');
           $this->Ln();
           $this->Cell(25,8,iconv('UTF-8', 'windows-1252','OXXO'),0,0,'L');

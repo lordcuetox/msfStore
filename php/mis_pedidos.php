@@ -117,6 +117,10 @@ if (isset($_POST['xAccion'])) {
             $("#mispedidos1").submit();
         }
          
+          function imprimir(valor)
+        {
+            window.open('recibo.php?CvePedido='+valor, '_blank');
+        }
 
 
         </script>
@@ -176,6 +180,7 @@ if (isset($_POST['xAccion'])) {
             <th># de Guía</th>
             <th>Paquetería</th>
             <th>Detalle</th>
+             <th>Imprimir</th>
         </tr>
     </thead>
     <tbody>
@@ -195,6 +200,7 @@ if (isset($_POST['xAccion'])) {
                 <th><?php echo($row['status']==2?$row['numero_guia']:''); ?></th>
                 <th><?php echo($row['status']==2?$row['descripcion_guia']:''); ?></th>
                 <th><a href="#modal<?PHP echo $row['cve_pedido'];?>">ver</a></th>
+                <th><a href="javascript:void();" onclick="imprimir(<?PHP echo $row['cve_pedido'];?>);"> <i class="fa fa-file-pdf-o"></i> Imprimir</a></th>
             </tr>
             <!--ventana modal del elemento-->
             <div id="modal<?PHP echo($row['cve_pedido']); ?>" class="modalmask">

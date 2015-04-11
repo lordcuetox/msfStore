@@ -287,7 +287,7 @@ if (isset($_POST['xAccion'])) {
         {
             ?>
              <tr>
-                 <td colspan="7">No hay pedidos</td>
+                 <td colspan="9">No hay pedidos</td>
             </tr>
             <?php
             
