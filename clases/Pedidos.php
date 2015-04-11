@@ -153,6 +153,7 @@ class Pedidos {
             }
         } else {
             $sql = "UPDATE pedidos SET ";
+            $sql.= "referencia= '$this->referencia',";
             $sql.= "monto_total= $this->montoTotal,";
             $sql.= "status= $this->status,";
             $sql.= "fecha_actualizacion=NOW(),";
@@ -166,7 +167,7 @@ class Pedidos {
         return $count;
     }
 
-    function cargar() {
+    function  cargar() {
         $sql = "SELECT * FROM pedidos WHERE cve_pedido = $this->cvePedido";
         $rst = UtilDB::ejecutaConsulta($sql);
 
