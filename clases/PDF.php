@@ -1,9 +1,14 @@
 <?php
 require_once ('../lib/fpdf/fpdf.php');
-require_once '../clases/UtilDB.php';
+require_once ('../clases/UtilDB.php');
+require_once ('../clases/Prospectos.php');
+require_once ('../clases/Pedidos.php');
 class PDF extends FPDF
 {
    private $cvePedido;
+   
+   private $pedido;
+   private $cliente;
 
    function setCvePedido($cvePedido)
    {
@@ -33,10 +38,34 @@ function Footer()
     // Arial italic 8
     $this->SetFont('Arial','I',8);
     // Número de página
-    $this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
+    $this->Cell(0,10,iconv('UTF-8', 'windows-1252','Pág.').$this->PageNo().'/{nb}',0,0,'C');
 }
+
+
 function TablaDetalle($cvePedido)
 {
+                  // consulta del cliente
+$pedido= new Pedidos($cvePedido);
+$cliente= new Prospectos($pedido->getCveCliente());
+        // agregando el encabezado del cliente
+        $this->Cell(140,6,iconv('UTF-8', 'windows-1252','Fecha del pedido:'),0,0,'R');
+        $this->Cell(35,6,substr($pedido->getFecha(),0,10),0,0,'R');
+        $this->Ln();
+          $this->Cell(140,6,iconv('UTF-8', 'windows-1252','Pedido:'),0,0,'R');
+        $this->Cell(35,6,$pedido->getReferencia(),0,0,'R');
+        $this->Ln();
+        $this->Ln();
+        $this->Cell(35,6,iconv('UTF-8', 'windows-1252','Cliente:'));
+        $this->Cell(140,6,iconv('UTF-8', 'windows-1252',$cliente->getNombre().' '.$cliente->getApellidoPat().' '.$cliente->getApellidoMat()));
+        $this->Ln();
+         $this->Cell(35,6,iconv('UTF-8', 'windows-1252','Dirección de envío:'));
+        $this->MultiCell(140,6,iconv('UTF-8', 'windows-1252',$pedido->getDireccionEnvio()),0,'J');
+        $this->Ln();
+        
+
+      
+    
+    
     // Colores, ancho de línea y fuente en negrita
     $this->SetFillColor(43,84,163);
     $this->SetTextColor(255);
@@ -92,12 +121,18 @@ function TablaDetalle($cvePedido)
         }
          $rst2->closeCursor(); 
            $this->SetFont('','B',13);
-        $this->Cell(100,6,iconv('UTF-8', 'windows-1252',''),'LR',0,'L',$fill);
-        $this->Cell(25,6,'','LR',0,'C',$fill);
-        $this->Cell(25,6,'Total','LR',0,'C',$fill);
-        $this->Cell(25,6,'$ '.number_format($totalPagar,  2 , '.' , ',' ),'LR',0,'R',$fill);
+        $this->Cell(100,7,iconv('UTF-8', 'windows-1252',''),'LR',0,'L',$fill);
+        $this->Cell(25,7,'','LR',0,'C',$fill);
+        $this->Cell(25,7,'Total','LR',0,'C',$fill);
+        $this->Cell(25,7,'$ '.number_format($totalPagar,  2 , '.' , ',' ),'LR',0,'R',$fill);
         $this->Ln();
         $fill = !$fill;
+               $this->Ln();
+                       $this->Ln();
+                // agregando el encabezado del cliente
+        $this->Cell(175,6,iconv('UTF-8', 'windows-1252','Donde Pagar'),0,0,'C');
+        $this->Ln();
+        
         
     // Línea de cierre
     //$this->Cell(array_sum($w),0,'','T');
