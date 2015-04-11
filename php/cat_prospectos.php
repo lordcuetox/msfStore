@@ -54,7 +54,7 @@ if (isset($_POST['xAccion'])) {
         $clasf->setFresita($_POST['txtPass']);
         $clasf->setActivo("1");
 
-          $username = mysql_real_escape_string(trim($_REQUEST['txtUsuario']));
+          $username = $_POST['txtUsuario'];
              // $sql = "SELECT * from prospectos where habilitado='".($_POST['txtUsuario'])."'";
               $sql = sprintf("SELECT * FROM prospectos WHERE habilitado = '%s';",$username);
              $rst = UtilDB::ejecutaConsulta($sql);
