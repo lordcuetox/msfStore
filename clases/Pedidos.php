@@ -147,15 +147,16 @@ class Pedidos {
                     . "referencia, fecha,status,monto_total,direccion_envio"
                     . ") VALUES($this->cveCliente,$this->cvePedido,'$this->referencia',NOW(),$this->status,$this->montoTotal,"
                     . "'$this->direccionEnvio')";
-
             $count = UtilDB::ejecutaSQL($sql);
             if ($count > 0) {
                 $this->_existe = true;
             }
         } else {
             $sql = "UPDATE pedidos SET ";
+            $sql.= "referencia= '$this->referencia',";
+            $sql.= "monto_total= $this->montoTotal,";
             $sql.= "status= $this->status,";
-            $sql.= "fecha_actualizacion='$this->fechaActualizacion',";
+            $sql.= "fecha_actualizacion=NOW(),";
             $sql.= "numero_guia='$this->numeroGuia',";
             $sql.= "descripcion_guia = '$this->descripcionGuia' ";
             $sql.= " WHERE cve_cliente = $this->cveCliente and cve_pedido= $this->cvePedido";
@@ -166,7 +167,7 @@ class Pedidos {
         return $count;
     }
 
-    function cargar() {
+    function  cargar() {
         $sql = "SELECT * FROM pedidos WHERE cve_pedido = $this->cvePedido";
         $rst = UtilDB::ejecutaConsulta($sql);
 

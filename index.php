@@ -7,16 +7,78 @@
 -->
 
 <?php
-require_once './clases/UtilDB.php';
+require_once 'clases/UtilDB.php';
+require_once('clases/ShoppingCart.php');
+require_once('clases/Prospectos.php');
+require_once('clases/Productos.php');
+require_once 'clases/Pedidos.php';
+require_once 'clases/DetallePedido.php';
 session_start();
 define("MIN_SLIDES_OFERTA", 4);
+define("GASTOS_ENVIO", 180);
+$prospecto = NULL;
+$cart = NULL;
+$pedido = NULL;
+$pedido2 = NULL;
+$detalle_pedido = NULL;
+$item = NULL;
+$subto = 0.0;
+$suma = 0.0;
 
-if(isset($_POST['xAccion']))
-{
-    if ($_POST['xAccion'] == 'logout')
-    {   
+if (isset($_POST['xAccion'])) {
+    if ($_POST['xAccion'] == 'logout') {
         unset($_SESSION['habilitado']);
         unset($_SESSION['nombre_completo']);
+        unset($_SESSION['carro']);
+    }
+}
+
+if (isset($_POST['xAccionPedido'])) {
+    if ($_POST['xAccionPedido'] == 'finalizarPedido') {
+
+        if (isset($_SESSION['carro'])) {
+            $cart = unserialize($_SESSION['carro']);
+            if (!$cart->isEmpty()) {
+                $pedido = new Pedidos();
+                $prospecto = new Prospectos();
+                $prospecto->cargar2($_SESSION['habilitado']);
+                $pedido->setCveCliente($prospecto->getCveCliente());
+                $pedido->setDireccionEnvio(htmlspecialchars($_POST['txtDireccionEnvio']));
+                $pedido->setStatus(1);
+                $pedido->setMontoTotal(0.0);
+                $pedido->grabar();
+                
+
+                foreach ($cart as $arr) {
+                    $item = $arr['item'];
+                    $subto = $arr['qty'] * $item->getPrecio();
+                    $suma = $suma + $subto;
+
+                    $detalle_pedido = new DetallePedido();
+                    $detalle_pedido->setCve_cliente($pedido->getCveCliente());
+                    $detalle_pedido->setCve_pedido($pedido->getCvePedido());
+                    $detalle_pedido->setCve_rito($item->getCveRito());
+                    $detalle_pedido->setCve_clasificacion($item->getCveClasificacion());
+                    $detalle_pedido->setCve_grado($item->getCveGrado());
+                    $detalle_pedido->setCve_clas_producto($item->getCveClasProducto());
+                    $detalle_pedido->setCve_producto($item->getCveProducto());
+                    $detalle_pedido->setEtiqueta_producto($item->getNombre());
+                    $detalle_pedido->setCantidad((int) $arr['qty']);
+                    $detalle_pedido->setPrecio_unitario($item->getPrecioUnitario());
+                    $detalle_pedido->setDescuento($item->getOferta());
+                    $detalle_pedido->setPrecio_unitario_desc($item->getPrecioOferta());
+                    $detalle_pedido->setMonto_total_pagar($subto);
+                    $detalle_pedido->grabar();
+                }
+                $suma = $suma + GASTOS_ENVIO;
+                
+                $pedido2 = new Pedidos($pedido->getCvePedido());
+                $pedido2->setMontoTotal($suma);
+                $pedido2->setReferencia(str_replace("-","",substr($pedido2->getFecha(),0,10))."_000".$pedido->getCvePedido() );
+                $pedido2->grabar();
+                unset($_SESSION['carro']);
+            }
+        }
     }
 }
 ?>
@@ -42,6 +104,7 @@ if(isset($_POST['xAccion']))
         <script src="js/jQuery/jquery-1.11.2.min.js"></script>
         <script src="twbs/bootstrap-3.3.2/js/bootstrap.min.js"></script>
         <script src="js/jQuery/plugins/jquery.bxslider/jquery.bxslider.min.js"></script>
+        <script src="js/index.js"></script>
         <script>
             $(document).ready(function () {
                 $.ajaxSetup({"cache": false});
@@ -64,55 +127,13 @@ if(isset($_POST['xAccion']))
                     $('div.te ul.bxslider').bxSlider({adaptiveHeight: true});
                 });
 
+                $('#myModalPedido').on('shown.bs.modal', function (e) {
+                    $('#myModal').modal('hide')
+                });
+
 
             });
 
-            function getGrados(cveRito, cveClasificacion, nombreClasificacion)
-            {
-                $("#grados").load("index_ajax.php", {"xAccion": "getGrados", "cveRito": cveRito, "cveClasificacion": cveClasificacion, "nombreClasificacion": nombreClasificacion}, function (responseTxt, statusTxt, xhr) {
-                    $("#novedades").css("display", "none");
-                    //$("#ventana_modal").css("display", "none");
-                    $("#grados").css("display", "block");
-                    $("#productos").css("display", "block");
-
-                });
-            }
-
-            function getProductos(cveRito, cveClasificacion, cveGrado, cveClasProducto, nombreClasProducto)
-            {
-                $("#productos").load("index_ajax.php", {"xAccion": "getProductos", "cveRito": cveRito, "cveClasificacion": cveClasificacion, "cveGrado": cveGrado, "cveClasProducto": cveClasProducto, "nombreClasProducto": nombreClasProducto}, function (responseTxt, statusTxt, xhr) {
-
-                    $('body').on('hidden.bs.modal', '.modal', function () {
-                        $(this).removeData('bs.modal');
-                    });
-
-                });
-            }
-
-            function addToShoppingCart(cve_producto)
-            {
-                $("#ajax_msg").load("php/agregacar.php", {"xCveProducto": cve_producto}, function (responseTxt, statusTxt, xhr) {
-                    if (responseTxt === "NO_SESSION")
-                    {
-                        $("#ajax_msg").html("Debe iniciar sesión para poder agregar productos al carrito de compras.");
-                        $("#ajax_msg").removeClass("alert-success");
-                        $("#ajax_msg").addClass("alert-warning");
-                    }
-                    else
-                    {
-                        $("#ajax_msg").removeClass("alert-warning");
-                        $("#ajax_msg").addClass("alert-success");
-                    }
-
-                    $("#ajax_msg").fadeIn();
-                });
-            }
-            
-            function logout()
-            {
-                $("#xAccion").val("logout");
-                $("#frmLogOut").submit();
-            }
         </script>
     </head>
     <body>
@@ -128,22 +149,17 @@ if(isset($_POST['xAccion']))
                 </div>
                 <div class="col-md-12 text-right" id="enlaces">
                     <?php
-                     if (!isset($_SESSION['habilitado']) && !isset($_SESSION['nombre_completo']))
-                     {
-                    ?>
-                    <span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;<a href="javascript:void(0);" data-toggle="modal" data-remote="php/viewShoppingCart.php" data-target="#myModal">Carrito de compras</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span class="glyphicon glyphicon-log-in"></span>&nbsp;<a href="php/login_cliente.php" target="_self">Inicio de sesión</a>
-                    <?php
-                     }
-                     else
-                     {
-                    ?>
-                    <span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;<a href="javascript:void(0);" data-toggle="modal" data-remote="php/viewShoppingCart.php" data-target="#myModal">Carrito de compras</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span class="glyphicon glyphicon-user"></span>&nbsp;<a href="php/mis_pedidos.php" target="_blank"><?php echo($_SESSION['nombre_completo']);?></a>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span class="glyphicon glyphicon-log-out"></span>&nbsp;<a href="javascript:void(0);" onclick="logout();">Cerrar Sesión</a>
-                    <?php
-                         
-                     }
+                    if (!isset($_SESSION['habilitado']) && !isset($_SESSION['nombre_completo'])) {
+                        ?>
+                        <span class="glyphicon glyphicon-log-in"></span>&nbsp;<a href="php/login_cliente.php" target="_self">Iniciar sesión</a>
+                        <?php
+                    } else {
+                        ?>
+                        <span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;<a href="javascript:void(0);" data-toggle="modal" data-remote="php/viewShoppingCart.php" data-target="#myModal">Carrito de compras</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="glyphicon glyphicon-user"></span>&nbsp;<a href="php/mis_pedidos.php" target="_blank"><?php echo($_SESSION['nombre_completo']); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="glyphicon glyphicon-log-out"></span>&nbsp;<a href="javascript:void(0);" onclick="logout();">Cerrar Sesión</a>
+                        <?php
+                    }
                     ?>
 
                 </div>
@@ -260,6 +276,13 @@ if(isset($_POST['xAccion']))
                 </div>
                 <div class="col-md-12" id="ventana_modal">
                     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12" id="ventana_modal2">
+                    <div class="modal fade" id="myModalPedido" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content"></div>
                         </div>

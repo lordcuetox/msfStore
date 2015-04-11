@@ -57,8 +57,9 @@ $cart = NULL;
 
                 <div align="center"><span class="prod">Total de Artículos: <?php echo count($cart); ?></span></div><br>
                 <div align="center"><span class="prod">Subtotal: $<?php echo number_format($suma, 2); ?></span></div><br>
-                <div align="center"><span class="prod">(+) Gastos de envío: $<?php echo(GASTOS_ENVIO); ?></span></div><br>
+                <div align="center"><span class="prod" style="color:red; font-weight:bold;">(+) Gastos de envío: $<?php echo(GASTOS_ENVIO); ?></span></div><br>
                 <div align="center"><span class="prod">Total: $<?php echo number_format($suma+GASTOS_ENVIO, 2); ?></span></div><br>
+                <div align="center"><span class="prod"><a href="javascript:void(0);" data-toggle="modal" data-remote="php/finalizarPedido.php" data-target="#myModalPedido" style="color:blue; font-size: 24px;">FINALIZAR PEDIDO</a></span></div><br/>
             <?php } else { ?>
                 <p align="center"> <span class="prod">No hay productos seleccionados</span></p>
                 <?php
