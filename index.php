@@ -129,7 +129,7 @@ if (isset($_POST['xAccionPedido'])) {
                 });
 
                 $('#myModal').on('shown.bs.modal', function (e) {
-                    $('div.te ul.bxslider').bxSlider({adaptiveHeight: true});
+                    $('#carousel-productos-msfarreos').carousel();
                 });
 
                 $('#myModalPedido').on('shown.bs.modal', function (e) {
