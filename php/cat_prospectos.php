@@ -3,6 +3,16 @@ require_once '../clases/Prospectos.php';
 require_once '../clases/ComunicacionesClientes.php';
 require_once '../clases/UtilDB.php';
 session_start();
+
+if (isset( $_SESSION['habilitado'])) 
+{
+        header('Location:../index.php');
+    return;
+}
+
+
+
+
 $clasf = new Prospectos();
 $correo = new ComunicacionesClientes();
 $telefono = new ComunicacionesClientes();
@@ -11,6 +21,8 @@ $count2 = NULL;
 $count3 = NULL;
 $msg = "";
 $total=0;
+
+
 
 if (isset($_POST['txtCveCliente'])) {
     if ($_POST['txtCveCliente'] != 0) {

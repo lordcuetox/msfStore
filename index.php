@@ -137,7 +137,7 @@ if (isset($_POST['xAccionPedido'])) {
                 if($pedido_guardado)
                 {
                 ?>
-                        window.open('php/recibo.php?CvePedido=<?php echo($pedido2->getCvePedido());?>', '_blank');
+                        window.open('php/recibo.php?P=<?php echo($pedido2->getCvePedido());?>', '_blank');
                 <?php
                 }
                 ?>
