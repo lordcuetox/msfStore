@@ -187,10 +187,10 @@ if ($pedido_guardado) {
                                 <ul class="nav navbar-nav">
                                     <li class="active"><a href="index.php">Inicio</a></li>
                                     <?php
-                                    $sql = "SELECT * FROM ritos ORDER BY descripcion WHERE activo = 1";
+                                    $sql = "SELECT * FROM ritos WHERE activo = 1 ORDER BY descripcion";
                                     $rst = UtilDB::ejecutaConsulta($sql);
                                     foreach ($rst as $row) {
-                                        $sql2 = "SELECT * FROM clasificaciones WHERE cve_rito =" . $row['cve_rito']." WHERE activo = 1";
+                                        $sql2 = "SELECT * FROM clasificaciones WHERE cve_rito =" . $row['cve_rito']." AND activo = 1";
                                         $rst2 = UtilDB::ejecutaConsulta($sql2);
 
                                         if ($rst2->rowCount() > 0) {
