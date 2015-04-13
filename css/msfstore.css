@@ -17,6 +17,9 @@ h4 { font-family: 'Ubuntu', sans-serif; font-weight: 400;}
 #novedades div div h4,#productos div div h4  { height: 55px;}
 .negritas { font-weight:  bold}
 .negritas_oferta { font-weight:  bold; color:red;}
+.carousel-inner > .item > img {
+    margin: 0 auto;
+}
 .bx-wrapper img {
     margin: 0 auto;
 }

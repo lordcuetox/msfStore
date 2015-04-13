@@ -8,9 +8,9 @@
 
 <?php
 require_once 'clases/UtilDB.php';
-require_once('clases/ShoppingCart.php');
-require_once('clases/Prospectos.php');
-require_once('clases/Productos.php');
+require_once 'clases/ShoppingCart.php';
+require_once 'clases/Prospectos.php';
+require_once 'clases/Productos.php';
 require_once 'clases/Pedidos.php';
 require_once 'clases/DetallePedido.php';
 session_start();
@@ -48,7 +48,7 @@ if (isset($_POST['xAccionPedido'])) {
                 $pedido->setStatus(1);
                 $pedido->setMontoTotal(0.0);
                 $pedido->grabar();
-                
+
 
                 foreach ($cart as $arr) {
                     $item = $arr['item'];
@@ -72,10 +72,10 @@ if (isset($_POST['xAccionPedido'])) {
                     $detalle_pedido->grabar();
                 }
                 $suma = $suma + GASTOS_ENVIO;
-                
+
                 $pedido2 = new Pedidos($pedido->getCvePedido());
                 $pedido2->setMontoTotal($suma);
-                $pedido2->setReferencia(str_replace("-","",substr($pedido2->getFecha(),0,10))."_000".$pedido->getCvePedido() );
+                $pedido2->setReferencia(str_replace("-", "", substr($pedido2->getFecha(), 0, 10)) . "_000" . $pedido->getCvePedido());
                 $pedido2->grabar();
                 unset($_SESSION['carro']);
                 $pedido_guardado = true;
@@ -108,6 +108,9 @@ if (isset($_POST['xAccionPedido'])) {
         <script src="js/jQuery/plugins/jquery.bxslider/jquery.bxslider.min.js"></script>
         <script src="js/index.js"></script>
         <script>
+            var slider_exists = false;
+            var slider;
+
             $(document).ready(function () {
                 $.ajaxSetup({"cache": false});
 
@@ -126,21 +129,20 @@ if (isset($_POST['xAccionPedido'])) {
                 });
 
                 $('#myModal').on('shown.bs.modal', function (e) {
-                    $('div.te ul.bxslider').bxSlider({adaptiveHeight: true});
+                    $('#carousel-productos-msfarreos').carousel();
                 });
 
                 $('#myModalPedido').on('shown.bs.modal', function (e) {
-                    $('#myModal').modal('hide')
+                    $('#myModal').modal('hide');
                 });
 
-                <?php
-                if($pedido_guardado)
-                {
-                ?>
-                        window.open('php/recibo.php?P=<?php echo($pedido2->getCvePedido());?>', '_blank');
-                <?php
-                }
-                ?>
+<?php
+if ($pedido_guardado) {
+    ?>
+                    window.open('php/recibo.php?P=<?php echo($pedido2->getCvePedido()); ?>', '_blank');
+    <?php
+}
+?>
             });
 
         </script>
@@ -185,10 +187,10 @@ if (isset($_POST['xAccionPedido'])) {
                                 <ul class="nav navbar-nav">
                                     <li class="active"><a href="index.php">Inicio</a></li>
                                     <?php
-                                    $sql = "SELECT * FROM ritos ORDER BY descripcion";
+                                    $sql = "SELECT * FROM ritos WHERE activo = 1 ORDER BY descripcion";
                                     $rst = UtilDB::ejecutaConsulta($sql);
                                     foreach ($rst as $row) {
-                                        $sql2 = "SELECT * FROM clasificaciones WHERE cve_rito =" . $row['cve_rito'];
+                                        $sql2 = "SELECT * FROM clasificaciones WHERE cve_rito =" . $row['cve_rito']." AND activo = 1";
                                         $rst2 = UtilDB::ejecutaConsulta($sql2);
 
                                         if ($rst2->rowCount() > 0) {
@@ -219,7 +221,7 @@ if (isset($_POST['xAccionPedido'])) {
                     <h1>¡MÁS VENDIDOS!</h1>
                     <div class="row">
                         <?php
-                        $sql2 = "SELECT * FROM productos WHERE novedad = 1 AND ruta_imagen1 IS NOT NULL AND fecha_novedad >= NOW()";
+                        $sql2 = "SELECT * FROM productos WHERE novedad = 1 AND ruta_imagen1 IS NOT NULL AND fecha_novedad >= NOW() AND activo = 1";
                         $rst2 = UtilDB::ejecutaConsulta($sql2);
                         $tmp2 = "";
                         $count1 = 0;
@@ -252,7 +254,7 @@ if (isset($_POST['xAccionPedido'])) {
                 <div class="col-md-3" id="ofertas">
                     <h1>¡OFERTAS!</h1>
                     <?php
-                    $sql3 = "SELECT * FROM productos WHERE oferta = 1 AND ruta_imagen1 IS NOT NULL AND fecha_oferta >= NOW()";
+                    $sql3 = "SELECT * FROM productos WHERE oferta = 1 AND ruta_imagen1 IS NOT NULL AND fecha_oferta >= NOW() AND activo = 1";
                     $rst3 = UtilDB::ejecutaConsulta($sql3);
                     $rowCount = $rst3->rowCount();
                     $tmp3 = "";
