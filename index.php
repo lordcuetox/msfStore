@@ -161,6 +161,7 @@ if (isset($_POST['xAccionPedido'])) {
                     if (!isset($_SESSION['habilitado']) && !isset($_SESSION['nombre_completo'])) {
                         ?>
                         <span class="glyphicon glyphicon-log-in"></span>&nbsp;<a href="php/login_cliente.php" target="_self">Iniciar sesión</a>
+                        <span class="glyphicon glyphicon-user"></span>&nbsp;<a href="php/cat_prospectos.php" target="_self">Registro</a>
                         <?php
                     } else {
                         ?>
