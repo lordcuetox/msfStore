@@ -38,7 +38,7 @@ function Footer()
       $this->SetFont('','',10);
        $this->Cell(175,6,iconv('UTF-8', 'windows-1252','*Política de Cobro'));
          $this->Ln();
-    $this->MultiCell(175,5,iconv('UTF-8', 'windows-1252','El importe total del pedido es válido por 7 días hábiles a partir de la fecha que muestra este recibo, una vez realizado el pago deberá de enviar copia del vaucher y el número del pedido al correo msf_store@hotmail.com o comunicarse  al teléfono (044)993-2-77-2575.Gracias por su compra. '),0,'J');
+    $this->MultiCell(175,5,iconv('UTF-8', 'windows-1252','El importe total del pedido es válido por 7 días hábiles a partir de la fecha que muestra este recibo, una vez realizado el pago deberá de enviar copia del voucher y el número del pedido al correo msf_store@hotmail.com o comunicarse  al teléfono (044)993-2-77-2575.Gracias por su compra. '),0,'J');
     // Posición: a 1,5 cm del final
     $this->SetY(-15);
     // Arial italic 8
