@@ -8,7 +8,9 @@
 
 <?php
 require_once 'clases/UtilDB.php';
-require_once('clases/Prospectos.php');
+require_once 'clases/ShoppingCart.php';
+require_once 'clases/Prospectos.php';
+require_once 'clases/Productos.php';
 require_once 'clases/Pedidos.php';
 require_once 'clases/DetallePedido.php';
 session_start();
@@ -46,7 +48,7 @@ if (isset($_POST['xAccionPedido'])) {
                 $pedido->setStatus(1);
                 $pedido->setMontoTotal(0.0);
                 $pedido->grabar();
-                
+
 
                 foreach ($cart as $arr) {
                     $item = $arr['item'];
@@ -70,10 +72,10 @@ if (isset($_POST['xAccionPedido'])) {
                     $detalle_pedido->grabar();
                 }
                 $suma = $suma + GASTOS_ENVIO;
-                
+
                 $pedido2 = new Pedidos($pedido->getCvePedido());
                 $pedido2->setMontoTotal($suma);
-                $pedido2->setReferencia(str_replace("-","",substr($pedido2->getFecha(),0,10))."_000".$pedido->getCvePedido() );
+                $pedido2->setReferencia(str_replace("-", "", substr($pedido2->getFecha(), 0, 10)) . "_000" . $pedido->getCvePedido());
                 $pedido2->grabar();
                 unset($_SESSION['carro']);
                 $pedido_guardado = true;
@@ -106,6 +108,9 @@ if (isset($_POST['xAccionPedido'])) {
         <script src="js/jQuery/plugins/jquery.bxslider/jquery.bxslider.min.js"></script>
         <script src="js/index.js"></script>
         <script>
+            var slider_exists = false;
+            var slider;
+
             $(document).ready(function () {
                 $.ajaxSetup({"cache": false});
 
@@ -128,17 +133,16 @@ if (isset($_POST['xAccionPedido'])) {
                 });
 
                 $('#myModalPedido').on('shown.bs.modal', function (e) {
-                    $('#myModal').modal('hide')
+                    $('#myModal').modal('hide');
                 });
 
-                <?php
-                if($pedido_guardado)
-                {
-                ?>
-                        window.open('php/recibo.php?P=<?php echo($pedido2->getCvePedido());?>', '_blank');
-                <?php
-                }
-                ?>
+<?php
+if ($pedido_guardado) {
+    ?>
+                    window.open('php/recibo.php?P=<?php echo($pedido2->getCvePedido()); ?>', '_blank');
+    <?php
+}
+?>
             });
 
         </script>
