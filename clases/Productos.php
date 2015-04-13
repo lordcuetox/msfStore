@@ -323,6 +323,13 @@ class Productos {
         }
         $rst->closeCursor();
     }
+           function borrar($cveProducto) {
+               $sql = "UPDATE productos SET activo=0 WHERE cve_producto = $cveProducto";
+        $rst = UtilDB::ejecutaConsulta($sql);
+
+         $rst->closeCursor();
+       
+       }
 
 }
 

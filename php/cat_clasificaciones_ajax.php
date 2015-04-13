@@ -16,6 +16,7 @@ if(isset($_POST['cveRito']))
             <th>Rito</th>
             <th>Descripción</th>
             <th>Activo</th>
+            <th>Desactivar</th>
         </tr>
     </thead>
     <tbody>
@@ -25,11 +26,12 @@ if(isset($_POST['cveRito']))
         foreach ($rst as $row) {
             ?>
             <tr>
-                <td><a href="javascript:void(0);" onclick="$('#txtCveClasificacion').val(<?php echo($row['cve_clasificacion']); ?>);
-                                            recargar();"><?php echo($row['cve_clasificacion']); ?></a></td>
-                <td><?php echo($row['rito']); ?></td>
-                <td><?php echo($row['descripcion']); ?></td>
-                <td><?php echo($row['activo'] == 1 ? "Si" : "No"); ?></td>
+                <th><a href="javascript:void(0);" onclick="$('#txtCveClasificacion').val(<?php echo($row['cve_clasificacion']); ?>);
+                                            recargar();"><?php echo($row['cve_clasificacion']); ?></a></th>
+                <td><?php echo($row['rito']); ?></th>
+                <td><?php echo($row['descripcion']); ?></th>
+                <td><?php echo($row['activo'] == 1 ? "Si" : "No"); ?></th>
+                <th><a href="javascript:void();" onclick="eliminar(<?PHP echo $row['cve_clasificacion'];?>);"> <i class="fa fa-trash-o"></i> </a></th>
             </tr>
         <?php } $rst->closeCursor(); ?>
     </tbody>

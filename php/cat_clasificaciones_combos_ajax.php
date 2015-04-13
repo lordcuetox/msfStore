@@ -12,7 +12,7 @@ if(isset($_POST['cveRito']) && isset($_POST['cveClasificacion']) )
 ?>
     <option value="0">--------- SELECCIONE UNA OPCIÓN ---------</option>
                             <?php
-                            $sql2 = "SELECT * FROM clasificaciones where cve_rito=$cveRito ORDER BY cve_clasificacion";
+                            $sql2 = "SELECT * FROM clasificaciones where activo=1 and cve_rito=$cveRito ORDER BY cve_clasificacion";
                             $rst2 = UtilDB::ejecutaConsulta($sql2);
                             foreach ($rst2 as $row) {
                                 echo("<option value='" . $row['cve_clasificacion'] . "' " . ($cveClasificacion== $row['cve_clasificacion']  ? "selected" : "")  . ">" . $row['descripcion'] . "</option>");
@@ -28,7 +28,7 @@ if(isset($_POST['cveRito']))
 
      <option value="0">--------- SELECCIONE UNA OPCIÓN ---------</option>
                             <?php
-                            $sql2 = "SELECT * FROM clasificaciones where cve_rito=$cveRito ORDER BY cve_clasificacion";
+                            $sql2 = "SELECT * FROM clasificaciones where activo=1 and cve_rito=$cveRito ORDER BY cve_clasificacion";
                             $rst2 = UtilDB::ejecutaConsulta($sql2);
                             foreach ($rst2 as $row) {
                                 echo("<option value='" . $row['cve_clasificacion'] . "'> " . $row['descripcion'] . "</option>");

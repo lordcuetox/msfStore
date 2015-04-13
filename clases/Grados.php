@@ -136,6 +136,19 @@ class Grados {
         }
         $rst->closeCursor();
     }
+    
+          function borrar($cveGrado) {
+                     $sql = "update  productos set activo =0 WHERE cve_grado = $cveGrado";
+        $rst = UtilDB::ejecutaConsulta($sql);
+               $sql = "UPDATE clasificaciones_productos SET activo=0 WHERE cve_grado = $cveGrado";
+        $rst = UtilDB::ejecutaConsulta($sql);
+
+               $sql = "UPDATE grados SET activo=0 WHERE cve_grado = $cveGrado";
+        $rst = UtilDB::ejecutaConsulta($sql);
+
+         $rst->closeCursor();
+       
+       }
 
 }
 

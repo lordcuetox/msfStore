@@ -51,6 +51,9 @@ if (isset($_POST['xAccion'])) {
             $msg = "[ERROR] Producto  no grabado";
         }
     }
+              if ($_POST['xAccion'] == 'eliminar') {
+        $clasf->borrar($_POST['txtCveProductoEli']);
+    }
     if ($_POST['xAccion'] == 'logout') {
         unset($_SESSION['cve_usuario']);
         header('Location:login.php');
@@ -196,6 +199,7 @@ if (isset($_POST['xAccion2'])) {
                     <form role="form" name="frmProductos" id="frmProductos" action="<?php echo($_SERVER['PHP_SELF']); ?>" method="POST">
                         <div class="form-group">
                             <input type="hidden" class="form-control" name="xAccion" id="xAccion" value="0" />
+                              <input type="hidden" class="form-control" id="txtCveProductoEli" name="txtCveProductoEli"  value="">
                             <input type="hidden" class="form-control" id="txtCveProducto" name="txtCveProducto" placeholder="ID Grado" value="<?php echo($clasf->getCveProducto()); ?>">
                         </div>
                         <div class="form-group">
@@ -203,7 +207,7 @@ if (isset($_POST['xAccion2'])) {
                             <select name="cmbCveRito" id="cmbCveRito" class="form-control" placeholder="Rito">
                                 <option value="0">--------- SELECCIONE UNA OPCIÓN ---------</option>
 <?php
-$sql2 = "SELECT * FROM ritos ORDER BY cve_rito";
+$sql2 = "SELECT * FROM ritos where activo=1 ORDER BY cve_rito";
 $rst2 = UtilDB::ejecutaConsulta($sql2);
 foreach ($rst2 as $row) {
     echo("<option value='" . $row['cve_rito'] . "' " . ($clasf->getCveRito() != 0 ? ($clasf->getCveRito() == $row['cve_rito'] ? "selected" : "") : "") . ">" . $row['descripcion'] . "</option>");
@@ -537,6 +541,12 @@ $rst2->closeCursor();
                 $("#frmUpload").submit();
             }
         }
+                   function eliminar(valor)
+    {
+        $("#xAccion").val("eliminar");
+        $("#txtCveProductoEli").val(valor);
+        $("#frmProductos").submit();
+    }
 
     </script>
 </body>

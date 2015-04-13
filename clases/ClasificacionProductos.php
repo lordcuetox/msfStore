@@ -144,6 +144,15 @@ class ClasificacionProductos {
         }
         $rst->closeCursor();
     }
+       function borrar($cveClasProducto) {
+         $sql = "update  productos set activo =0 WHERE cve_clas_producto = $cveClasProducto";
+        $rst = UtilDB::ejecutaConsulta($sql);
+               $sql = "UPDATE clasificaciones_productos SET activo=0 WHERE cve_clas_producto = $cveClasProducto";
+        $rst = UtilDB::ejecutaConsulta($sql);
+
+         $rst->closeCursor();
+       
+       }
 
 }
 

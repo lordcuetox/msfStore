@@ -10,8 +10,6 @@ if (!isset($_SESSION['cve_usuario']))
 }
 
 
-$sql = "SELECT * FROM ritos ORDER BY cve_rito";
-$rst = UtilDB::ejecutaConsulta($sql);
 
 $rito = new Rito();
 $count = NULL;
@@ -29,6 +27,9 @@ if (isset($_POST['xAccion'])) {
         $rito->setActivo(isset($_POST['cbxActivo']) ? "1" : "0");
         $count = $rito->grabar();
     }
+       if ($_POST['xAccion'] == 'eliminar') {
+        $rito->borrar($_POST['txtIdRitoEli']);
+    }
     if ($_POST['xAccion'] == 'logout')
     {   
         unset($_SESSION['cve_usuario']);
@@ -36,6 +37,10 @@ if (isset($_POST['xAccion'])) {
         return;
     }
 }
+
+
+$sql = "SELECT * FROM ritos ORDER BY cve_rito";
+$rst = UtilDB::ejecutaConsulta($sql);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -109,6 +114,7 @@ if (isset($_POST['xAccion'])) {
                         <form role="form" name="frmRitos" id="frmRitos" action="cat_ritos.php" method="POST">
                             <div class="form-group">
                                 <label for="txtIdRito"><input type="hidden" class="form-control" name="xAccion" id="xAccion" value="0" /></label>
+                                       <input type="hidden" class="form-control" id="txtIdRitoEli" name="txtIdRitoEli"  value="">    
                                 <input type="hidden" class="form-control" id="txtIdRito" name="txtIdRito"
                                        placeholder="ID Rito" value="<?php echo($rito->getCve_rito()); ?>">
                             </div>
@@ -124,7 +130,7 @@ if (isset($_POST['xAccion'])) {
                             </div>
                             <button type="button" class="btn btn-default" id="btnLimpiar" name="btnLimpiar" onclick="limpiar();">Limpiar</button>
                             <button type="button" class="btn btn-default" id="btnGrabar" name="btnGrabar" onclick="grabar();">Enviar</button>
-                        </form>
+                       
                         <br/>
                         <br/>
                         <table class="table table-bordered table-striped table-hover table-responsive">
@@ -133,19 +139,22 @@ if (isset($_POST['xAccion'])) {
                                     <th>ID Rito</th>
                                     <th>Descripción</th>
                                     <th>Activo</th>
+                                    <th>Desactivar</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach ($rst as $row) { ?>
                                     <tr>
-                                        <td><a href="javascript:void(0);" onclick="$('#txtIdRito').val(<?php echo($row['cve_rito']); ?>);
-                                                    recargar();"><?php echo($row['cve_rito']); ?></a></td>
-                                        <td><?php echo($row['descripcion']); ?></td>
-                                        <td><?php echo($row['activo'] == 1 ? "Si" : "No"); ?></td>
+                                        <th><a href="javascript:void(0);" onclick="$('#txtIdRito').val(<?php echo($row['cve_rito']); ?>);
+                                                    recargar();"><?php echo($row['cve_rito']); ?></a></th>
+                                        <th><?php echo($row['descripcion']); ?></th>
+                                        <th><?php echo($row['activo'] == 1 ? "Si" : "No"); ?></th>
+                                        <th><button type="button" class="btn btn-default" id="btnEliminar" name="btnEliminar" onclick="eliminar(<?PHP echo $row['cve_rito'];?>);">Desactivar</button></th>
                                     </tr>
                                 <?php } ?>
                             </tbody>
                         </table>
+                         </form>
                     </div>
                     <div class="col-sm-4">&nbsp;</div>
                 </div>
@@ -196,6 +205,16 @@ if (isset($_POST['xAccion'])) {
             $("#frmRitos").submit();
 
         }
+        
+           function eliminar(valor)
+        {
+           
+            $("#xAccion").val("eliminar");
+            $("#txtIdRitoEli").val(valor);
+            $("#frmRitos").submit();
+
+        }
+
 
 
         function abrirVentana() {

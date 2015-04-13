@@ -104,6 +104,23 @@ class Rito {
         }
         $rst->closeCursor();
     }
+    
+       function borrar($cve_rito) {
+                                     $sql = "update  productos set activo =0 WHERE cve_rito = $cve_rito";
+        $rst = UtilDB::ejecutaConsulta($sql);
+               $sql = "UPDATE clasificaciones_productos SET activo=0 WHERE cve_rito = $cve_rito";
+        $rst = UtilDB::ejecutaConsulta($sql);
+
+               $sql = "UPDATE grados SET activo=0 WHERE cve_rito = $cve_rito";
+        $rst = UtilDB::ejecutaConsulta($sql);
+               $sql = "UPDATE clasificaciones SET activo=0 WHERE cve_rito = $cve_rito";
+        $rst = UtilDB::ejecutaConsulta($sql);
+               $sql = "update  ritos set activo=0 WHERE cve_rito = $cve_rito";
+        $rst = UtilDB::ejecutaConsulta($sql);
+
+         $rst->closeCursor();
+       
+       }
 
 }
 

@@ -21,6 +21,7 @@ if(isset($_POST['cveRito']) && isset($_POST['cveClasificacion'])&& isset($_POST[
             <th>ID Clas. Prod.</th>
             <th>Descripción</th>
             <th>Activo</th>
+            <th>Desactivar</th>
         </tr>
     </thead>
     <tbody>
@@ -30,10 +31,11 @@ if(isset($_POST['cveRito']) && isset($_POST['cveClasificacion'])&& isset($_POST[
         foreach ($rst as $row) {
             ?>
             <tr>
-                <td><a href="javascript:void(0);" onclick="$('#txtCveClasProducto').val(<?php echo($row['cve_clas_producto']); ?>);
-                                            recargar();"><?php echo($row['cve_clas_producto']); ?></a></td>
-                <td><?php echo($row['descripcion']); ?></td>
-                <td><?php echo($row['activo'] == 1 ? "Si" : "No"); ?></td>
+                <th><a href="javascript:void(0);" onclick="$('#txtCveClasProducto').val(<?php echo($row['cve_clas_producto']); ?>);
+                                            recargar();"><?php echo($row['cve_clas_producto']); ?></a></th>
+                <th><?php echo($row['descripcion']); ?></th>
+                <th><?php echo($row['activo'] == 1 ? "Si" : "No"); ?></th>
+                   <th><a href="javascript:void();" onclick="eliminar(<?PHP echo $row['cve_clas_producto'];?>);"> <i class="fa fa-trash-o"></i> </a></th>
             </tr>
         <?php } $rst->closeCursor(); ?>
     </tbody>
