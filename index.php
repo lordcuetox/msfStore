@@ -8,9 +8,7 @@
 
 <?php
 require_once 'clases/UtilDB.php';
-require_once('clases/ShoppingCart.php');
 require_once('clases/Prospectos.php');
-require_once('clases/Productos.php');
 require_once 'clases/Pedidos.php';
 require_once 'clases/DetallePedido.php';
 session_start();
