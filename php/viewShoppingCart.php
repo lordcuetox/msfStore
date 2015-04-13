@@ -1,6 +1,6 @@
 <?php
-require_once('../Clases/ShoppingCart.php');
-require_once('../Clases/Productos.php');
+require_once '../clases/ShoppingCart.php';
+require_once '../clases/Productos.php';
 session_start();
 define("GASTOS_ENVIO",180);
 $cart = NULL;
