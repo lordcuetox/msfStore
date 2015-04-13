@@ -187,10 +187,10 @@ if ($pedido_guardado) {
                                 <ul class="nav navbar-nav">
                                     <li class="active"><a href="index.php">Inicio</a></li>
                                     <?php
-                                    $sql = "SELECT * FROM ritos ORDER BY descripcion";
+                                    $sql = "SELECT * FROM ritos ORDER BY descripcion WHERE activo = 1";
                                     $rst = UtilDB::ejecutaConsulta($sql);
                                     foreach ($rst as $row) {
-                                        $sql2 = "SELECT * FROM clasificaciones WHERE cve_rito =" . $row['cve_rito'];
+                                        $sql2 = "SELECT * FROM clasificaciones WHERE cve_rito =" . $row['cve_rito']." WHERE activo = 1";
                                         $rst2 = UtilDB::ejecutaConsulta($sql2);
 
                                         if ($rst2->rowCount() > 0) {
@@ -221,7 +221,7 @@ if ($pedido_guardado) {
                     <h1>¡MÁS VENDIDOS!</h1>
                     <div class="row">
                         <?php
-                        $sql2 = "SELECT * FROM productos WHERE novedad = 1 AND ruta_imagen1 IS NOT NULL AND fecha_novedad >= NOW()";
+                        $sql2 = "SELECT * FROM productos WHERE novedad = 1 AND ruta_imagen1 IS NOT NULL AND fecha_novedad >= NOW() AND activo = 1";
                         $rst2 = UtilDB::ejecutaConsulta($sql2);
                         $tmp2 = "";
                         $count1 = 0;
@@ -254,7 +254,7 @@ if ($pedido_guardado) {
                 <div class="col-md-3" id="ofertas">
                     <h1>¡OFERTAS!</h1>
                     <?php
-                    $sql3 = "SELECT * FROM productos WHERE oferta = 1 AND ruta_imagen1 IS NOT NULL AND fecha_oferta >= NOW()";
+                    $sql3 = "SELECT * FROM productos WHERE oferta = 1 AND ruta_imagen1 IS NOT NULL AND fecha_oferta >= NOW() AND activo = 1";
                     $rst3 = UtilDB::ejecutaConsulta($sql3);
                     $rowCount = $rst3->rowCount();
                     $tmp3 = "";
