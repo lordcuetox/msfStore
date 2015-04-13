@@ -96,6 +96,10 @@ class Pedidos {
     function getDireccionEnvio() {
         return $this->direccionEnvio;
     }
+    
+     function existe() {
+        return $this->_existe;
+    }
 
     function setCveCliente($cveCliente) {
         $this->cveCliente = $cveCliente;
@@ -169,6 +173,27 @@ class Pedidos {
 
     function  cargar() {
         $sql = "SELECT * FROM pedidos WHERE cve_pedido = $this->cvePedido";
+        $rst = UtilDB::ejecutaConsulta($sql);
+
+        foreach ($rst as $row) {
+            $this->cveCliente = $row['cve_cliente'];
+            $this->cvePedido = $row['cve_pedido'];
+            $this->referencia = $row['referencia'];
+            $this->fecha = $row['fecha'];
+            $this->status = $row['status'];
+            $this->montoTotal = $row['monto_total'];
+            $this->fechaActualizacion = $row['fecha_actualizacion'];
+            $this->numeroGuia = $row['numero_guia'];
+            $this->descripcionGuia = $row['descripcion_guia'];
+            $this->direccionEnvio = $row['direccion_envio'];
+            $this->_existe = true;
+        }
+        $rst->closeCursor();
+    }
+    
+    
+    function  cargar2($cveCliente,$cvePedido) {
+        $sql = "SELECT * FROM pedidos WHERE cve_pedido = $cvePedido and cve_cliente=$cveCliente";
         $rst = UtilDB::ejecutaConsulta($sql);
 
         foreach ($rst as $row) {

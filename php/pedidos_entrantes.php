@@ -178,7 +178,7 @@ if (isset($_POST['xAccion'])) {
                    
           function imprimir(valor)
         {
-            window.open('recibo.php?CvePedido='+valor, '_blank');
+            window.open('recibo.php?P='+valor, '_blank');
         }
 
         </script>
