@@ -9,7 +9,7 @@ if (isset($_POST['xAccion'])) {
             $cveClasificacion = $_POST['cveClasificacion'];
             $nombreClasificacion = $_POST['nombreClasificacion'];
 
-            $sql = "SELECT * FROM grados WHERE cve_rito = $cveRito AND cve_clasificacion = $cveClasificacion";
+            $sql = "SELECT * FROM grados WHERE cve_rito = $cveRito AND cve_clasificacion = $cveClasificacion". " AND activo = 1";
             $rst = UtilDB::ejecutaConsulta($sql);
             $tmp = "<div id=\"menu\">";
             $tmp .= "<div class=\"panel list-group\">";
@@ -19,7 +19,7 @@ if (isset($_POST['xAccion'])) {
             foreach ($rst as $row) {
                 //$tmp .= "<a href=\"javascript:void(0);\" class=\"list-group-item\" onclick=\"getClasificacionesProductos($cveRito,$cveClasificacion," . $row['cve_grado'] . ",'" . $row['descripcion'] . "');\">" . $row['descripcion'] . "</a>";
                 $tmp .= "<a href=\"javascript:void(0);\" class=\"list-group-item\" data-toggle=\"collapse\" data-target=\"#sm" . $row['cve_grado'] . "\" data-parent=\"#menu\">" . $row['descripcion'] . "</a>";
-                $sql3 = "SELECT * FROM clasificaciones_productos WHERE cve_grado=" . $row['cve_grado'];
+                $sql3 = "SELECT * FROM clasificaciones_productos WHERE cve_grado=" . $row['cve_grado']." AND activo = 1";
                 $rst3 = UtilDB::ejecutaConsulta($sql3);
                 if ($rst3->rowCount() > 0) {
                     $tmp .= "<div id=\"sm" . $row['cve_grado'] . "\" class=\"sublinks collapse\">";
@@ -49,7 +49,7 @@ if (isset($_POST['xAccion'])) {
             $count = 0;
             $tmp2 = "<div class=\"row\"><div class=\"col-md-12\"><h1>$nombreClasProducto2</h1></div></div>";
 
-            $sql2 = "SELECT * FROM productos WHERE cve_rito = $cveRito2 AND cve_clasificacion= $cveClasificacion2 AND cve_grado=$cveGrado2 AND cve_clas_producto= $cveClasProducto2";
+            $sql2 = "SELECT * FROM productos WHERE cve_rito = $cveRito2 AND cve_clasificacion= $cveClasificacion2 AND cve_grado=$cveGrado2 AND cve_clas_producto= $cveClasProducto2". " AND activo = 1";
             $rst2 = UtilDB::ejecutaConsulta($sql2);
 
             if ($rst2->rowCount() > 0) {
