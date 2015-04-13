@@ -34,6 +34,7 @@ if (isset($_POST['cveRito']) && isset($_POST['cveClasificacion']) && isset($_POS
                     <th>Imagen 3</th>
                     <th>Imagen 4</th>
                     <th>Activo</th>
+                    <th>Desactivar</th>
                 </tr>
             </thead>
             <tbody>
@@ -41,22 +42,23 @@ if (isset($_POST['cveRito']) && isset($_POST['cveClasificacion']) && isset($_POS
                 foreach ($rst as $row) {
                     ?>
                     <tr>
-                        <td><a href="javascript:void(0);" onclick="$('#txtCveProducto').val(<?php echo($row['cve_producto']); ?>);
-                                            recargar();"><?php echo($row['cve_producto']); ?></a></td>
-                        <td><?php echo($row['nombre']); ?></td>
-                        <td><?php echo($row['descripcion']); ?></td>
-                        <td><?php echo($row['precio']); ?></td>
-                        <td><?php echo($row['novedad'] == 1 ? "Si" : "No"); ?></td>
-                        <td><?php echo($row['fecha_novedad']); ?></td>
-                        <td><?php echo($row['oferta'] == 1 ? "Si" : "No"); ?></td>
-                        <td><?php echo($row['fecha_oferta']); ?></td>
-                        <td><?php echo($row['precio_oferta']); ?></td>
-                        <td><?php echo($row['existencias']); ?></td>
-                        <td><?php echo($row['ruta_imagen1'] != NULL ? "<img src=\"../img/File-JPG-icon.png\" alt=\"" . utf8_encode($row['nombre']) . "\" title=\"" . $row['nombre'] . "\" data-toggle=\"popover\" data-content=\"<img src='../" . $row['ruta_imagen1'] . "' alt='" . $row['nombre'] . "' class='img-responsive'/>\" style=\"cursor:pointer;\"/>&nbsp;&nbsp;<a data-toggle=\"modal\" data-target=\"#myModal\" href=\"\" onclick=\"$('#xCveProducto').val(" . $row['cve_producto'] . ");$('#xNumImagen').val('1');\">Cambiar imagen</a>" : "<a data-toggle=\"modal\" data-target=\"#myModal\" href=\"\" onclick=\"$('#xCveProducto').val(" . $row['cve_producto'] . ");$('#xNumImagen').val('1');\">Subir imagen</a>"); ?></td>
-                        <td><?php echo($row['ruta_imagen2'] != NULL ? "<img src=\"../img/File-JPG-icon.png\" alt=\"" . utf8_encode($row['nombre']) . "\" title=\"" . $row['nombre'] . "\" data-toggle=\"popover\" data-content=\"<img src='../" . $row['ruta_imagen2'] . "' alt='" . $row['nombre'] . "' class='img-responsive'/>\" style=\"cursor:pointer;\"/>&nbsp;&nbsp;<a data-toggle=\"modal\" data-target=\"#myModal\" href=\"\" onclick=\"$('#xCveProducto').val(" . $row['cve_producto'] . ");$('#xNumImagen').val('2');\">Cambiar imagen</a>" : "<a data-toggle=\"modal\" data-target=\"#myModal\" href=\"\" onclick=\"$('#xCveProducto').val(" . $row['cve_producto'] . ");$('#xNumImagen').val('2');\">Subir imagen</a>"); ?></td>
-                        <td><?php echo($row['ruta_imagen3'] != NULL ? "<img src=\"../img/File-JPG-icon.png\" alt=\"" . utf8_encode($row['nombre']) . "\" title=\"" . $row['nombre'] . "\" data-toggle=\"popover\" data-content=\"<img src='../" . $row['ruta_imagen3'] . "' alt='" . $row['nombre'] . "' class='img-responsive'/>\" style=\"cursor:pointer;\"/>&nbsp;&nbsp;<a data-toggle=\"modal\" data-target=\"#myModal\" href=\"\" onclick=\"$('#xCveProducto').val(" . $row['cve_producto'] . ");$('#xNumImagen').val('3');\">Cambiar imagen</a>" : "<a data-toggle=\"modal\" data-target=\"#myModal\" href=\"\" onclick=\"$('#xCveProducto').val(" . $row['cve_producto'] . ");$('#xNumImagen').val('3');\">Subir imagen</a>"); ?></td>
-                        <td><?php echo($row['ruta_imagen4'] != NULL ? "<img src=\"../img/File-JPG-icon.png\" alt=\"" . utf8_encode($row['nombre']) . "\" title=\"" . $row['nombre'] . "\" data-toggle=\"popover\" data-content=\"<img src='../" . $row['ruta_imagen4'] . "' alt='" . $row['nombre'] . "' class='img-responsive'/>\" style=\"cursor:pointer;\"/>&nbsp;&nbsp;<a data-toggle=\"modal\" data-target=\"#myModal\" href=\"\" onclick=\"$('#xCveProducto').val(" . $row['cve_producto'] . ");$('#xNumImagen').val('4');\">Cambiar imagen</a>" : "<a data-toggle=\"modal\" data-target=\"#myModal\" href=\"\" onclick=\"$('#xCveProducto').val(" . $row['cve_producto'] . ");$('#xNumImagen').val('4');\">Subir imagen</a>"); ?></td>
-                        <td><?php echo($row['activo'] == 1 ? "Si" : "No"); ?></td>
+                        <th><a href="javascript:void(0);" onclick="$('#txtCveProducto').val(<?php echo($row['cve_producto']); ?>);
+                                            recargar();"><?php echo($row['cve_producto']); ?></a></th>
+                        <th><?php echo($row['nombre']); ?></th>
+                        <th><?php echo($row['descripcion']); ?></th>
+                        <th><?php echo($row['precio']); ?></th>
+                        <th><?php echo($row['novedad'] == 1 ? "Si" : "No"); ?></th>
+                        <th><?php echo($row['fecha_novedad']); ?></th>
+                        <th><?php echo($row['oferta'] == 1 ? "Si" : "No"); ?></th>
+                        <th><?php echo($row['fecha_oferta']); ?></th>
+                        <th><?php echo($row['precio_oferta']); ?></th>
+                        <th><?php echo($row['existencias']); ?></th>
+                        <th><?php echo($row['ruta_imagen1'] != NULL ? "<img src=\"../img/File-JPG-icon.png\" alt=\"" . utf8_encode($row['nombre']) . "\" title=\"" . $row['nombre'] . "\" data-toggle=\"popover\" data-content=\"<img src='../" . $row['ruta_imagen1'] . "' alt='" . $row['nombre'] . "' class='img-responsive'/>\" style=\"cursor:pointer;\"/>&nbsp;&nbsp;<a data-toggle=\"modal\" data-target=\"#myModal\" href=\"\" onclick=\"$('#xCveProducto').val(" . $row['cve_producto'] . ");$('#xNumImagen').val('1');\">Cambiar imagen</a>" : "<a data-toggle=\"modal\" data-target=\"#myModal\" href=\"\" onclick=\"$('#xCveProducto').val(" . $row['cve_producto'] . ");$('#xNumImagen').val('1');\">Subir imagen</a>"); ?></th>
+                        <th><?php echo($row['ruta_imagen2'] != NULL ? "<img src=\"../img/File-JPG-icon.png\" alt=\"" . utf8_encode($row['nombre']) . "\" title=\"" . $row['nombre'] . "\" data-toggle=\"popover\" data-content=\"<img src='../" . $row['ruta_imagen2'] . "' alt='" . $row['nombre'] . "' class='img-responsive'/>\" style=\"cursor:pointer;\"/>&nbsp;&nbsp;<a data-toggle=\"modal\" data-target=\"#myModal\" href=\"\" onclick=\"$('#xCveProducto').val(" . $row['cve_producto'] . ");$('#xNumImagen').val('2');\">Cambiar imagen</a>" : "<a data-toggle=\"modal\" data-target=\"#myModal\" href=\"\" onclick=\"$('#xCveProducto').val(" . $row['cve_producto'] . ");$('#xNumImagen').val('2');\">Subir imagen</a>"); ?></th>
+                        <th><?php echo($row['ruta_imagen3'] != NULL ? "<img src=\"../img/File-JPG-icon.png\" alt=\"" . utf8_encode($row['nombre']) . "\" title=\"" . $row['nombre'] . "\" data-toggle=\"popover\" data-content=\"<img src='../" . $row['ruta_imagen3'] . "' alt='" . $row['nombre'] . "' class='img-responsive'/>\" style=\"cursor:pointer;\"/>&nbsp;&nbsp;<a data-toggle=\"modal\" data-target=\"#myModal\" href=\"\" onclick=\"$('#xCveProducto').val(" . $row['cve_producto'] . ");$('#xNumImagen').val('3');\">Cambiar imagen</a>" : "<a data-toggle=\"modal\" data-target=\"#myModal\" href=\"\" onclick=\"$('#xCveProducto').val(" . $row['cve_producto'] . ");$('#xNumImagen').val('3');\">Subir imagen</a>"); ?></th>
+                        <th><?php echo($row['ruta_imagen4'] != NULL ? "<img src=\"../img/File-JPG-icon.png\" alt=\"" . utf8_encode($row['nombre']) . "\" title=\"" . $row['nombre'] . "\" data-toggle=\"popover\" data-content=\"<img src='../" . $row['ruta_imagen4'] . "' alt='" . $row['nombre'] . "' class='img-responsive'/>\" style=\"cursor:pointer;\"/>&nbsp;&nbsp;<a data-toggle=\"modal\" data-target=\"#myModal\" href=\"\" onclick=\"$('#xCveProducto').val(" . $row['cve_producto'] . ");$('#xNumImagen').val('4');\">Cambiar imagen</a>" : "<a data-toggle=\"modal\" data-target=\"#myModal\" href=\"\" onclick=\"$('#xCveProducto').val(" . $row['cve_producto'] . ");$('#xNumImagen').val('4');\">Subir imagen</a>"); ?></th>
+                        <th><?php echo($row['activo'] == 1 ? "Si" : "No"); ?></th>
+                         <th><a href="javascript:void();" onclick="eliminar(<?PHP echo $row['cve_producto'];?>);"> <i class="fa fa-trash-o"></i> </a></th>
                     </tr>
                 <?php } $rst->closeCursor(); ?>
             </tbody>

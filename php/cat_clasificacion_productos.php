@@ -35,6 +35,9 @@ if (isset($_POST['xAccion'])) {
             $msg = "[ERROR] Clasificación del producto  no grabado";
         }
     }
+              if ($_POST['xAccion'] == 'eliminar') {
+        $clasf->borrar($_POST['txtCveClasProductoEli']);
+    }
     if ($_POST['xAccion'] == 'logout')
     {   
         unset($_SESSION['cve_usuario']);
@@ -117,6 +120,7 @@ if (isset($_POST['xAccion'])) {
                     <form role="form" name="frmClasificacionProductos" id="frmClasificacionProductos" action="<?php echo($_SERVER['PHP_SELF']); ?>" method="POST">
                         <div class="form-group">
                             <label for="txtCveClasProducto"><input type="hidden" class="form-control" name="xAccion" id="xAccion" value="0" /></label>
+                            <input type="hidden" class="form-control" id="txtCveClasProductoEli" name="txtCveClasProductoEli"  value=""> 
                             <input type="hidden" class="form-control" id="txtCveClasProducto" name="txtCveClasProducto" placeholder="ID Grado" value="<?php echo($clasf->getCveClasProducto()); ?>">
                         </div>
                         <div class="form-group">
@@ -124,7 +128,7 @@ if (isset($_POST['xAccion'])) {
                             <select name="cmbCveRito" id="cmbCveRito" class="form-control" placeholder="Rito">
                                 <option value="0">--------- SELECCIONE UNA OPCIÓN ---------</option>
                                 <?php
-                                $sql2 = "SELECT * FROM ritos ORDER BY cve_rito";
+                                $sql2 = "SELECT * FROM ritos where activo=1 ORDER BY cve_rito";
                                 $rst2 = UtilDB::ejecutaConsulta($sql2);
                                 foreach ($rst2 as $row) {
                                     echo("<option value='" . $row['cve_rito'] . "' " . ($clasf->getCveRito() != 0 ? ($clasf->getCveRito() == $row['cve_rito'] ? "selected" : "") : "") . ">" . $row['descripcion'] . "</option>");
@@ -303,6 +307,13 @@ if (isset($_POST['xAccion'])) {
     if (Rito !== 0)
     {
         cargarCombo2(Rito,<?php echo($clasf->getCveClasificacion() ) ?>,<?php echo($clasf->getCveGrado() ) ?>);
+    }
+    
+               function eliminar(valor)
+    {
+        $("#xAccion").val("eliminar");
+        $("#txtCveClasProductoEli").val(valor);
+        $("#frmClasificacionProductos").submit();
     }
 
     </script>

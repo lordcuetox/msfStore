@@ -110,5 +110,19 @@ class Clasificacion {
 
         $rst->closeCursor();
     }
+        function borrar($cveClasificacion) {
+                          $sql = "update  productos set activo =0 WHERE cve_clasificacion = $cveClasificacion";
+        $rst = UtilDB::ejecutaConsulta($sql);
+               $sql = "UPDATE clasificaciones_productos SET activo=0 WHERE cve_clasificacion = $cveClasificacion";
+        $rst = UtilDB::ejecutaConsulta($sql);
+
+               $sql = "UPDATE grados SET activo=0 WHERE cve_clasificacion = $cveClasificacion";
+        $rst = UtilDB::ejecutaConsulta($sql);
+               $sql = "UPDATE clasificaciones SET activo=0 WHERE cve_clasificacion = $cveClasificacion";
+        $rst = UtilDB::ejecutaConsulta($sql);
+
+         $rst->closeCursor();
+       
+       }
 
 }
