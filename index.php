@@ -130,10 +130,17 @@ if (isset($_POST['xAccionPedido'])) {
 
                 $('#myModal').on('shown.bs.modal', function (e) {
                     $('#carousel-productos-msfarreos').carousel();
+
                 });
 
                 $('#myModalPedido').on('shown.bs.modal', function (e) {
                     $('#myModal').modal('hide');
+                    $('#myModalFinalizarPedido').modal('hide');
+                });
+                
+                $('#myModalFinalizarPedido').on('shown.bs.modal', function (e) {
+                    $('#myModal').modal('hide');
+                    $('#myModalPedido').modal('hide');
                 });
 
 <?php
@@ -242,7 +249,7 @@ if ($pedido_guardado) {
                                 }
                             }
                         } else {
-                            $tmp2 .= "<div class=\"col-md-12\">Lo sentimos, en este momento no hay productos en novedad.</div>";
+                            $tmp2 .= "<div class=\"col-md-12 text-center\">Lo sentimos, en este momento no hay productos en novedad.</div>";
                         }
                         $rst2->closeCursor();
                         echo($tmp2);
@@ -251,7 +258,7 @@ if ($pedido_guardado) {
                 </div>
                 <div class="col-md-3" id="grados" style="display: none;">&nbsp;</div>
                 <div class="col-md-6" id="productos" style="display: none;">&nbsp;</div>
-                <div class="col-md-3" id="ofertas">
+                <div class="col-md-3 text-center" id="ofertas">
                     <h1>¡OFERTAS!</h1>
                     <?php
                     $sql3 = "SELECT * FROM productos WHERE oferta = 1 AND ruta_imagen1 IS NOT NULL AND fecha_oferta >= NOW() AND activo = 1";
@@ -295,6 +302,13 @@ if ($pedido_guardado) {
                 </div>
                 <div class="col-md-12" id="ventana_modal2">
                     <div class="modal fade" id="myModalPedido" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12" id="ventana_modal3">
+                    <div class="modal fade" id="myModalFinalizarPedido" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content"></div>
                         </div>

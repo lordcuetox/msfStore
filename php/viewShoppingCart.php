@@ -7,7 +7,7 @@ $cart = NULL;
 ?>
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h4 class="modal-title">Resumen Carrito de compras</h4>
+    <h4 class="modal-title">Resumen Carrito de Compras</h4>
 </div>
 <div class="modal-body">
     <div class="te">
@@ -59,8 +59,8 @@ $cart = NULL;
                                     <input name="txtCveProducto<?php echo($id_producto); ?>" type="hidden" id="txtCveProducto<?php echo($id_producto); ?>" value="<?php echo($id_producto); ?>">
                                     <input name="txtCantidad<?php echo($id_producto); ?>" type="text" id="txtCantidad<?php echo($id_producto); ?>" value="<?php echo $arr['qty'] ?>" size="3">
                                 </td>
-                                <td align="center"><a href="php/borrarcar.php?xCveProducto=<?php echo($id_producto) ?>"><img src="img/trash.gif" width="12" height="14" border="0"></a></td>
-                                <td align="center"><a href="javascript:void(0);" onclick="$('#xAccion').val('update');$('#frmShoppingCart').submit();"><img src="img/actualizar.gif" width="20" height="20" border="0"></a></td>
+                                <td align="center"><a href="php/borrarcar.php?xCveProducto=<?php echo($id_producto) ?>" class="btn"><span class="glyphicon glyphicon-trash"></span></a></td>
+                                <td align="center"><a href="javascript:void(0);" onclick="$('#xAccion').val('update');$('#frmShoppingCart').submit();" class="btn"><span class="glyphicon glyphicon-repeat"></span></a></td>
                             </tr>
 
                             <?php
@@ -72,7 +72,7 @@ $cart = NULL;
                 <div align="center"><span class="prod">Subtotal: $<?php echo number_format($suma, 2); ?></span></div><br>
                 <div align="center"><span class="prod" style="color:red; font-weight:bold;">(+) Gastos de envío: $<?php echo(GASTOS_ENVIO); ?></span></div><br>
                 <div align="center"><span class="prod">Total: $<?php echo number_format($suma + GASTOS_ENVIO, 2); ?></span></div><br>
-                <div align="center"><span class="prod"><a href="javascript:void(0);" data-toggle="modal" data-remote="php/finalizarPedido.php" data-target="#myModalPedido" style="color:blue; font-size: 24px;">FINALIZAR PEDIDO</a></span></div><br/>
+                <div align="center"><span class="prod"><a href="javascript:void(0);" data-toggle="modal" data-remote="php/finalizarPedido.php" data-target="#myModalPedido" class="btn btn-success"><span class="glyphicon glyphicon-thumbs-up"></span> Finalizar pedido</a></span></div><br/>
             <?php } else { ?>
                 <p align="center"> <span class="prod">No hay productos seleccionados</span></p>
                 <?php
