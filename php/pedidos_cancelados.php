@@ -32,6 +32,22 @@ if (isset($_POST['xAccion'])) {
         header('Location:../index.php');
         return;
     }
+    
+                if ($_POST['xAccion'] == 'reactivar')
+    {  
+            $fecha = strtotime(str_replace('/', '-', (date("d/m/Y h:i"))));
+          $fRegistro = date('Y-m-d H:i:s', $fecha);
+          
+          $clasf3= new Pedidos($_POST['xPedido']);
+          
+          $clasf3->setFechaActualizacion($fRegistro);
+          $clasf3->setStatus(1);
+          $count = $clasf3->grabar();
+            if ($count != 0) {
+            $msg = "Sus datos han sido grabado con éxito!";
+        } 
+                
+    }
 }
 
 ?>
@@ -129,6 +145,17 @@ if (isset($_POST['xAccion'])) {
                     alert("Es necesario que ingrese la paquetería y la guía de envío"); 
                  }
              }
+               function reactivar( valor)
+            {
+              if( confirm("¿Seguro que desea reactivar el pedido?"))
+              {
+                  $("#xAccion").val("reactivar");
+                    $("#xPedido").val(valor);
+                   $("#pedidosEntrantes").submit();
+               }
+               
+            
+             }
 
 
         </script>
@@ -199,6 +226,7 @@ if (isset($_POST['xAccion'])) {
               <th>Dirección Envío</th>
                  <th>Estatus</th>
               <th>Fecha de Cancelación</th>
+              <th>Enviar a Entrantes</th>
             <th>Detalle</th>
         </tr>
     </thead>
@@ -220,6 +248,7 @@ if (isset($_POST['xAccion'])) {
                 <th><?php echo($row['direccion_envio']); ?></th>
                  <th>Cancelado</th>
                 <th><?php echo( substr($row['fecha_actualizacion'],0,10));  ?></th>
+                <th><button type="button" class="btn btn-default" id="btnReactivar" name="btnReactivar" onclick="reactivar(<?PHP echo $row['cve_pedido'];?>);">Reactivar</button></th>
                 <th><a href="#modal<?PHP echo $row['cve_pedido'];?>">Ver</a></th>
             </tr>
             <!-- ventana modal de envio-->
@@ -277,7 +306,7 @@ if (isset($_POST['xAccion'])) {
         {
             ?>
              <tr>
-                 <td colspan="8">No hay pedidos</td>
+                 <td colspan="9">No hay pedidos</td>
             </tr>
             <?php
             
