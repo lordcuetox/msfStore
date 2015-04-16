@@ -47,7 +47,7 @@ if (isset($_POST['xAccion'])) {
             $cveClasProducto2 = $_POST['cveClasProducto'];
             $nombreClasProducto2 = $_POST['nombreClasProducto'];
             $count = 0;
-            $tmp2 = "<div class=\"row\"><div class=\"col-md-12\"><h1>$nombreClasProducto2</h1></div></div>";
+            $tmp2 = "<div class=\"row\"><div class=\"col-md-12\" id=\"productos\"><h1>$nombreClasProducto2</h1></div></div>";
 
             $sql2 = "SELECT * FROM productos WHERE cve_rito = $cveRito2 AND cve_clasificacion= $cveClasificacion2 AND cve_grado=$cveGrado2 AND cve_clas_producto= $cveClasProducto2". " AND activo = 1";
             $rst2 = UtilDB::ejecutaConsulta($sql2);

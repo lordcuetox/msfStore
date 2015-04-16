@@ -12,7 +12,7 @@
                     <textarea class="form-control" rows="5" id="txtDireccionEnvio" name="txtDireccionEnvio"></textarea>
                 </div>
             </div>
-            <button type="button" class="btn btn-default" onclick="if(confirm('¿Esta realmente seguro de finalizar el pedido?')){ finalizarPedido();}">Finalizar Pedido</button>
+            <button type="button" class="btn btn-success" onclick="if(confirm('¿Esta realmente seguro de finalizar el pedido?')){ finalizarPedido();}"><span class="glyphicon glyphicon-thumbs-up"></span> Finalizar pedido</button>
         </form>
     </div>
 </div> 

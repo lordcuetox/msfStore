@@ -121,21 +121,14 @@ if ($producto->getCveProducto() != 0) {
             </div>
             <p class="negritas">Descripción:</p>
             <p><?php echo($producto->getDescripcion()); ?></p>
-            <p <?php
-            if ($producto->isOfertaVigente()) {
-                echo("style=\"color:red;\"");
-            }
-            ?>>$ <?php echo $producto->getPrecio() ?> <span <?php
-                    if ($producto->isOfertaVigente()) {
-                        echo("style=\"color:red;\"");
-                    }
-                    ?>><?php
-                        if ($producto->isOfertaVigente()) {
-                            echo("OFERTA!!");
-                        }
-                        ?></span></p>
+            <p <?php if ($producto->isOfertaVigente()) {echo("style=\"color:red;\"");}?>>$ <?php echo $producto->getPrecio() ?> 
+            <span <?php if ($producto->isOfertaVigente()) { echo("style=\"color:red;\"");}?>>
+            <?php if ($producto->isOfertaVigente()) {echo("OFERTA!!");}?>
+            </span>
+            </p>
            <!--<p class="negritas">Existencias: <?php echo($producto->getExistencias()); ?></p>-->
-            <p><a href="javascript:void(0);" onclick="addToShoppingCart(<?php echo($producto->getCveProducto()); ?>);"><img src="img/Shopping-cart-accept-icon.png" alt="Carrito de comprar" title="Agregar al carrito de compras <?php echo($producto->getNombre()); ?>" class="img-responsive"/></a></p>
+            <p><a href="javascript:void(0);" onclick="addToShoppingCart(<?php echo($producto->getCveProducto()); ?>);" class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"></span> Agregar</a></p>
+            <p><a href="javascript:void(0);" data-toggle="modal" data-remote="php/viewShoppingCart.php" data-target="#myModalFinalizarPedido" class="btn btn-primary"><span class="glyphicon glyphicon-th-list"></span> Ver Carrito de compras</a></p>
             <div id="ajax_msg" class="alert alert-success" style="display: none"></div>
         </div>
     </div>
