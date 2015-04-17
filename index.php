@@ -128,19 +128,14 @@ if (isset($_POST['xAccionPedido'])) {
                     $(this).removeData('bs.modal');
                 });
 
-                $('#myModal').on('shown.bs.modal', function (e) {
-                    $('#carousel-productos-msfarreos').carousel();
-
+                $('#mResumenCarritoCompras').on('shown.bs.modal', function (e) {
+                    console.log('#mResumenCarritoCompras');
+                    $('#mDetalleProducto').modal('hide');
                 });
 
-                $('#myModalPedido').on('shown.bs.modal', function (e) {
-                    $('#myModal').modal('hide');
-                    $('#myModalFinalizarPedido').modal('hide');
-                });
-                
-                $('#myModalFinalizarPedido').on('shown.bs.modal', function (e) {
-                    $('#myModal').modal('hide');
-                    $('#myModalPedido').modal('hide');
+                $('#mFinalizarPedido').on('shown.bs.modal', function (e) {
+                    console.log('#mFinalizarPedido');
+                    $('#mResumenCarritoCompras').modal('hide');
                 });
 
 <?php
@@ -174,7 +169,7 @@ if ($pedido_guardado) {
                         <?php
                     } else {
                         ?>
-                        <span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;<a href="javascript:void(0);" data-toggle="modal" data-remote="php/viewShoppingCart.php" data-target="#myModal">Carrito de compras</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;<a href="javascript:void(0);" data-toggle="modal" data-remote="php/viewShoppingCart.php" data-target="#mResumenCarritoCompras">Carrito de compras</a>&nbsp;&nbsp;&nbsp;&nbsp;
                         <span class="glyphicon glyphicon-user"></span>&nbsp;<a href="php/mis_pedidos.php" target="_blank"><?php echo($_SESSION['nombre_completo']); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;
                         <span class="glyphicon glyphicon-log-out"></span>&nbsp;<a href="javascript:void(0);" onclick="logout();">Cerrar Sesión</a>
                         <?php
@@ -197,7 +192,7 @@ if ($pedido_guardado) {
                                     $sql = "SELECT * FROM ritos WHERE activo = 1 ORDER BY descripcion";
                                     $rst = UtilDB::ejecutaConsulta($sql);
                                     foreach ($rst as $row) {
-                                        $sql2 = "SELECT * FROM clasificaciones WHERE cve_rito =" . $row['cve_rito']." AND activo = 1";
+                                        $sql2 = "SELECT * FROM clasificaciones WHERE cve_rito =" . $row['cve_rito'] . " AND activo = 1";
                                         $rst2 = UtilDB::ejecutaConsulta($sql2);
 
                                         if ($rst2->rowCount() > 0) {
@@ -236,7 +231,7 @@ if ($pedido_guardado) {
                         if ($rst2->rowCount() > 0) {
                             foreach ($rst2 as $row2) {
                                 $tmp2 .= "<div class=\"col-md-4\">";
-                                $tmp2 .= "<a href=\"javascript:void(0);\" data-toggle=\"modal\" data-remote=\"php/productos_id.php?id=" . $row2['cve_producto'] . "&from=novedad\" data-target=\"#myModal\">";
+                                $tmp2 .= "<a href=\"javascript:void(0);\" data-toggle=\"modal\" data-remote=\"php/productos_id.php?id=" . $row2['cve_producto'] . "&from=novedad\" data-target=\"#mDetalleProducto\">";
                                 $tmp2 .= "<img src=\"" . $row2['ruta_imagen1'] . "\" class=\"img-responsive\" alt=\"" . $row2['nombre'] . "\"/>";
                                 $tmp2 .= "</a>";
                                 $tmp2 .= "<h4>" . $row2['nombre'] . "</h4>";
@@ -271,7 +266,7 @@ if ($pedido_guardado) {
                             $tmp3 .= "<ul class=\"bxslider\">";
                             foreach ($rst3 as $row3) {
                                 $tmp3 .= "<li>";
-                                $tmp3 .= "<a href=\"javascript:void(0);\" data-toggle=\"modal\" data-remote=\"php/productos_id.php?id=" . $row3['cve_producto'] . "&from=ofertas\" data-target=\"#myModal\">";
+                                $tmp3 .= "<a href=\"javascript:void(0);\" data-toggle=\"modal\" data-remote=\"php/productos_id.php?id=" . $row3['cve_producto'] . "&from=ofertas\" data-target=\"#mDetalleProducto\">";
                                 $tmp3 .= "<img src=\"" . $row3['ruta_imagen1'] . "\" class=\"img-responsive\" title =\"" . $row3['nombre'] . "\" alt=\"" . $row3['nombre'] . "\"/>";
                                 $tmp3 .= "</a>";
                                 $tmp3 .= "<h4 style=\"text-align:center\">" . $row3['nombre'] . "</h4>";
@@ -280,7 +275,7 @@ if ($pedido_guardado) {
                             $tmp3 .= "</ul>";
                         } else {
                             foreach ($rst3 as $row3) {
-                                $tmp3 .= "<a href=\"javascript:void(0);\" data-toggle=\"modal\" data-remote=\"php/productos_id.php?id=" . $row3['cve_producto'] . "&from=ofertas\" data-target=\"#myModal\">";
+                                $tmp3 .= "<a href=\"javascript:void(0);\" data-toggle=\"modal\" data-remote=\"php/productos_id.php?id=" . $row3['cve_producto'] . "&from=ofertas\" data-target=\"#mDetalleProducto\">";
                                 $tmp3 .= "<img src=\"" . $row3['ruta_imagen1'] . "\" class=\"img-responsive\" title =\"" . $row3['nombre'] . "\" alt=\"" . $row3['nombre'] . "\"/>";
                                 $tmp3 .= "</a>";
                                 $tmp3 .= "<h4 style=\"text-align:center\">" . $row3['nombre'] . "</h4>";
@@ -294,21 +289,21 @@ if ($pedido_guardado) {
                     ?>
                 </div>
                 <div class="col-md-12" id="ventana_modal">
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="mDetalleProducto" tabindex="-1" role="dialog" aria-labelledby="mDetalleProductoLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content"></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-12" id="ventana_modal2">
-                    <div class="modal fade" id="myModalPedido" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="mResumenCarritoCompras" tabindex="-1" role="dialog" aria-labelledby="mDetalleProductoLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content"></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-12" id="ventana_modal3">
-                    <div class="modal fade" id="myModalFinalizarPedido" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="mFinalizarPedido" tabindex="-1" role="dialog" aria-labelledby="mDetalleProductoLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content"></div>
                         </div>
