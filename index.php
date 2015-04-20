@@ -89,6 +89,9 @@ if (isset($_POST['xAccionPedido'])) {
     <head>
         <title>MSF Store | Todo para el Mason, Todo para su logia</title>
         <meta charset="utf-8">
+        <meta name="author" content="WEBXICO and Cuetox">
+        <meta name="description" content="MSF Store, Todo para el Mason, Todo para su logia">
+        <meta name="keywords" content="arreos, masoneria, mason, store, tienda">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="twbs/bootstrap-3.3.2/css/bootstrap.min.css" rel="stylesheet"/>
