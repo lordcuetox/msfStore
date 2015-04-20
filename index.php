@@ -14,7 +14,7 @@ require_once 'clases/Productos.php';
 require_once 'clases/Pedidos.php';
 require_once 'clases/DetallePedido.php';
 session_start();
-define("MIN_SLIDES_OFERTA", 4);
+define("MIN_SLIDES_OFERTA", 3);
 define("GASTOS_ENVIO", 180);
 $pedido_guardado = false;
 $prospecto = NULL;
@@ -121,11 +121,13 @@ if (isset($_POST['xAccionPedido'])) {
 
                 $('div#ofertas ul.bxslider').bxSlider({
                     mode: "vertical",
+                    adaptiveHeight: true,
                     pager: false,
+                    controls: false,
                     auto: true,
                     minSlides: <?php echo(MIN_SLIDES_OFERTA); ?>,
                     autoHover: true,
-                    speed: 3000,
+                    speed: 5000,
                     slideMargin: 15,
                     moveSlides: <?php echo(MIN_SLIDES_OFERTA); ?>});
 
@@ -291,7 +293,7 @@ if ($pedido_guardado) {
                 <div class="col-md-3 text-center" id="ofertas">
                     <h1>OFERTAS</h1>
                     <?php
-                    $sql3 = "SELECT * FROM productos WHERE oferta = 1 AND ruta_imagen1 IS NOT NULL AND fecha_oferta >= NOW() AND activo = 1 LIMIT 3";
+                    $sql3 = "SELECT * FROM productos WHERE oferta = 1 AND ruta_imagen1 IS NOT NULL AND fecha_oferta >= NOW() AND activo = 1";
                     $rst3 = UtilDB::ejecutaConsulta($sql3);
                     $rowCount = $rst3->rowCount();
                     $tmp3 = "";
