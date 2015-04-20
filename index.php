@@ -127,6 +127,10 @@ if (isset($_POST['xAccionPedido'])) {
                 $('body').on('hidden.bs.modal', '.modal', function () {
                     $(this).removeData('bs.modal');
                 });
+                
+                $('#mDetalleProducto').on('shown.bs.modal', function (e) {
+                    console.log('#mDetalleProducto');
+                });
 
                 $('#mResumenCarritoCompras').on('shown.bs.modal', function (e) {
                     console.log('#mResumenCarritoCompras');
@@ -312,7 +316,7 @@ if ($pedido_guardado) {
             </div>
             <div class="row clearfix">
                 <div class="col-md-12">
-                    <p class="text-center">Calle 2 de Abril Nº. 233 Villahermosa, Tab. <!--| Tel. 312 67 00, 312 67 01--> | Cel. 9932772575</p>
+                    <p class="text-center">Calle 2 de Abril Nº. 233, Col. Nueva Villahermosa, Villahermosa, Tabasco <!--| Tel. 312 67 00, 312 67 01--> | Cel. 9932772575</p>
                 </div>
             </div>
         </div>
