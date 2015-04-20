@@ -255,7 +255,7 @@ if ($pedido_guardado) {
             </div>
             <div class="row clearfix">
                 <div class="col-md-9" id="novedades">
-                    <h1>MÁS VENDIDOS</h1>
+                    <h1>LOS MÁS VENDIDOS</h1>
                     <div class="row">
                         <?php
                         $sql2 = "SELECT * FROM productos WHERE novedad = 1 AND ruta_imagen1 IS NOT NULL AND fecha_novedad >= NOW() AND activo = 1 LIMIT 6";
