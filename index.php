@@ -157,12 +157,12 @@ if ($pedido_guardado) {
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-right" id="iconos_redes_sociales">
-                    <a href="https://www.facebook.com/MSFStore" target="_blank"><img src="img/facebook.png" class="img-responsive " alt="Facebook"/></a>
-                    <a href="https://twitter.com/masinfronteras" target="_blank"><img src="img/twitter.png" class="img-responsive" alt="Twitter"/></a>
-                    <a href="mailto:msf_store@hotmail.com"><img src="img/email.png" class="img-responsive" alt="Email"/></a>
+                    <a href="https://www.facebook.com/MSFStore" target="_blank"><img src="img/Facebook-icon.png" class="img-responsive " alt="Facebook"/></a>
+                    <a href="https://twitter.com/masinfronteras" target="_blank"><img src="img/Twitter-icon.png" class="img-responsive" alt="Twitter"/></a>
+                    <a href="mailto:msf_store@hotmail.com"><img src="img/Email-icon.png" class="img-responsive" alt="Email"/></a>
                 </div>
                 <div class="col-md-12" id="logo">
-                    <img src="img/encabezado.jpg" alt="Logo MSF Store" class="img-responsive"/>
+                    <img src="img/encabezado3.png" alt="Logo MSF Store" class="img-responsive"/>
                 </div>
                 <div class="col-md-12 text-right" id="enlaces">
                     <?php
@@ -227,7 +227,7 @@ if ($pedido_guardado) {
                     <h1>MÁS VENDIDOS</h1>
                     <div class="row">
                         <?php
-                        $sql2 = "SELECT * FROM productos WHERE novedad = 1 AND ruta_imagen1 IS NOT NULL AND fecha_novedad >= NOW() AND activo = 1";
+                        $sql2 = "SELECT * FROM productos WHERE novedad = 1 AND ruta_imagen1 IS NOT NULL AND fecha_novedad >= NOW() AND activo = 1 LIMIT 6";
                         $rst2 = UtilDB::ejecutaConsulta($sql2);
                         $tmp2 = "";
                         $count1 = 0;
@@ -260,7 +260,7 @@ if ($pedido_guardado) {
                 <div class="col-md-3 text-center" id="ofertas">
                     <h1>OFERTAS</h1>
                     <?php
-                    $sql3 = "SELECT * FROM productos WHERE oferta = 1 AND ruta_imagen1 IS NOT NULL AND fecha_oferta >= NOW() AND activo = 1";
+                    $sql3 = "SELECT * FROM productos WHERE oferta = 1 AND ruta_imagen1 IS NOT NULL AND fecha_oferta >= NOW() AND activo = 1 LIMIT 3";
                     $rst3 = UtilDB::ejecutaConsulta($sql3);
                     $rowCount = $rst3->rowCount();
                     $tmp3 = "";
