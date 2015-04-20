@@ -58,7 +58,7 @@ if (isset($_POST['xAccion'])) {
                     //$tmp2 .="<div class=\"row\"><div class=\"col-md-12\"><h2>" . $row2['descripcion'] . "</h2></div></div>";
                     $count ++;
                     $tmp2 .= "<div class=\"col-md-4\">";
-                    $tmp2 .= "<a href=\"javascript:void(0);\" data-toggle=\"modal\" data-remote=\"php/productos_id.php?id=" . $row2['cve_producto'] . "\" data-target=\"#myModal\">";
+                    $tmp2 .= "<a href=\"javascript:void(0);\" data-toggle=\"modal\" data-remote=\"php/productos_id.php?id=" . $row2['cve_producto'] . "\" data-target=\"#mDetalleProducto\">";
                     $tmp2 .= "<img src=\"" . $row2['ruta_imagen1'] . "\" class=\"img-responsive\" alt=\"" . $row2['nombre'] . "\"/>";
                     $tmp2 .= "</a>";
                     $tmp2 .= "<h4>" . $row2['nombre'] . "</h4>";
