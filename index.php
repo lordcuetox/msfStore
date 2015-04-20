@@ -111,8 +111,9 @@ if (isset($_POST['xAccionPedido'])) {
         <script src="js/jQuery/plugins/jquery.bxslider/jquery.bxslider.min.js"></script>
         <script src="js/index.js"></script>
         <script>
-            var slider_exists = false;
-            var slider;
+            var mDetalleProducto = false;
+            var mResumenCarritoCompras = false;
+            var mFinalizarPedido = false;
 
             $(document).ready(function () {
                 $.ajaxSetup({"cache": false});
@@ -132,17 +133,34 @@ if (isset($_POST['xAccionPedido'])) {
                 });
                 
                 $('#mDetalleProducto').on('shown.bs.modal', function (e) {
+                    mDetalleProducto  = true;
                     console.log('#mDetalleProducto');
                 });
 
                 $('#mResumenCarritoCompras').on('shown.bs.modal', function (e) {
+                    mResumenCarritoCompras = true;
                     console.log('#mResumenCarritoCompras');
-                    $('#mDetalleProducto').modal('hide');
+                    if(mDetalleProducto)
+                    { $('#mDetalleProducto').modal('hide'); }
                 });
 
                 $('#mFinalizarPedido').on('shown.bs.modal', function (e) {
+                    FinalizarPedido = true;
                     console.log('#mFinalizarPedido');
-                    $('#mResumenCarritoCompras').modal('hide');
+                    if(mResumenCarritoCompras)
+                    { $('#mResumenCarritoCompras').modal('hide'); }
+                });
+                
+                $('#mDetalleProducto').on('hidden.bs.modal', function (e) {
+                    mDetalleProducto  = false;
+                });
+
+                $('#mResumenCarritoCompras').on('hidden.bs.modal', function (e) {
+                    mResumenCarritoCompras = false;
+                });
+
+                $('#mFinalizarPedido').on('hidden.bs.modal', function (e) {
+                    FinalizarPedido = false;
                 });
 
 <?php
