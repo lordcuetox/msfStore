@@ -114,6 +114,7 @@ if (isset($_POST['xAccionPedido'])) {
             var mDetalleProducto = false;
             var mResumenCarritoCompras = false;
             var mFinalizarPedido = false;
+            var mMessage = false;
 
             $(document).ready(function () {
                 $.ajaxSetup({"cache": false});
@@ -151,6 +152,10 @@ if (isset($_POST['xAccionPedido'])) {
                     { $('#mResumenCarritoCompras').modal('hide'); }
                 });
                 
+                $('#mMessage').on('shown.bs.modal', function (e) {
+                    mMessage = true;
+                });
+                
                 $('#mDetalleProducto').on('hidden.bs.modal', function (e) {
                     mDetalleProducto  = false;
                 });
@@ -162,11 +167,16 @@ if (isset($_POST['xAccionPedido'])) {
                 $('#mFinalizarPedido').on('hidden.bs.modal', function (e) {
                     FinalizarPedido = false;
                 });
+                
+                $('#mMessage').on('hidden.bs.modal', function (e) {
+                    mMessage = false;
+                });
 
 <?php
 if ($pedido_guardado) {
     ?>
-                    window.open('php/recibo.php?P=<?php echo($pedido2->getCvePedido()); ?>', '_blank');
+                    //window.open('php/recibo.php?P=<?php echo($pedido2->getCvePedido()); ?>', '_blank');
+                    $('#mMessage').modal("show");
     <?php
 }
 ?>
@@ -331,6 +341,28 @@ if ($pedido_guardado) {
                     <div class="modal fade" id="mFinalizarPedido" tabindex="-1" role="dialog" aria-labelledby="mDetalleProductoLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12" id="ventana_modal4">
+                    <div class="modal fade" id="mMessage" tabindex="-1" role="dialog" aria-labelledby="mDetalleProductoLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title">Recibo de MSF Store</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="te">
+                                        <div class="alert alert-success" role="alert">
+                                            <strong>Pedido registrado con exito, puede acceder a su recibo de MSF Store desde <a href="php/recibo.php?P=<?php echo($pedido2 != NULL ? $pedido2->getCvePedido() : 0); ?>" target="_blank">aqui</a>.</strong> <span class="glyphicon glyphicon-ok"></span><span class="glyphicon glyphicon-ok"></span>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
