@@ -5,15 +5,15 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:600,400,700);
 @import url(http://fonts.googleapis.com/css?family=Ubuntu:400,400italic);
 * { margin: 0;padding: 0;}
-body {font-family: 'Open Sans' !important;font-style: normal;font-weight: 600; font-size: 1.5em}
+body {font-family: 'Open Sans' !important;font-style: normal;font-weight: 600; font-size: 1.5em; background-color: #eee;}
 #iconos_redes_sociales a img{ display: inline; margin-right: 25px;}
 #logo img{ margin:0 auto;}
 h1 { text-align: center;}
 h2 { text-align: center;}
-h4 { font-family: 'Ubuntu', sans-serif; font-weight: 400;}
-#novedades h1 { color: white;text-shadow: 2px 2px 4px #000000;}
+h4 { font-family: 'Ubuntu', sans-serif; font-weight:bold;}
+#novedades h1 { color: red;text-shadow: 2px 2px 4px #000000; font-weight: bold;}
 #productos h1 { color: white;text-shadow: 2px 2px 4px #000000;}
-#ofertas h1 { color: red;text-shadow: 2px 2px 4px #000000;/*text-shadow:5px 5px 3px darkred; color:red;*/}
+#ofertas h1 { color: red;text-shadow: 2px 2px 4px #000000; font-weight: bold;}
 #novedades div div img,#novedades div div a ,#productos div div img,#productos div div a{ margin-bottom: 10px;}
 #novedades div div h4,#productos div div h4  { height: 55px;}
 .negritas { font-weight:  bold}

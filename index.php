@@ -89,6 +89,9 @@ if (isset($_POST['xAccionPedido'])) {
     <head>
         <title>MSF Store | Todo para el Mason, Todo para su logia</title>
         <meta charset="utf-8">
+        <meta name="author" content="WEBXICO and Cuetox">
+        <meta name="description" content="Masoneria Sin Fronteras Store, Todo para el Mason, Todo para su logia.">
+        <meta name="keywords" content="arreos, masoneria, mason, store, tienda">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="twbs/bootstrap-3.3.2/css/bootstrap.min.css" rel="stylesheet"/>
@@ -108,8 +111,10 @@ if (isset($_POST['xAccionPedido'])) {
         <script src="js/jQuery/plugins/jquery.bxslider/jquery.bxslider.min.js"></script>
         <script src="js/index.js"></script>
         <script>
-            var slider_exists = false;
-            var slider;
+            var mDetalleProducto = false;
+            var mResumenCarritoCompras = false;
+            var mFinalizarPedido = false;
+            var mMessage = false;
 
             $(document).ready(function () {
                 $.ajaxSetup({"cache": false});
@@ -127,21 +132,51 @@ if (isset($_POST['xAccionPedido'])) {
                 $('body').on('hidden.bs.modal', '.modal', function () {
                     $(this).removeData('bs.modal');
                 });
+                
+                $('#mDetalleProducto').on('shown.bs.modal', function (e) {
+                    mDetalleProducto  = true;
+                    console.log('#mDetalleProducto');
+                });
 
                 $('#mResumenCarritoCompras').on('shown.bs.modal', function (e) {
+                    mResumenCarritoCompras = true;
                     console.log('#mResumenCarritoCompras');
-                    $('#mDetalleProducto').modal('hide');
+                    if(mDetalleProducto)
+                    { $('#mDetalleProducto').modal('hide'); }
                 });
 
                 $('#mFinalizarPedido').on('shown.bs.modal', function (e) {
+                    FinalizarPedido = true;
                     console.log('#mFinalizarPedido');
-                    $('#mResumenCarritoCompras').modal('hide');
+                    if(mResumenCarritoCompras)
+                    { $('#mResumenCarritoCompras').modal('hide'); }
+                });
+                
+                $('#mMessage').on('shown.bs.modal', function (e) {
+                    mMessage = true;
+                });
+                
+                $('#mDetalleProducto').on('hidden.bs.modal', function (e) {
+                    mDetalleProducto  = false;
+                });
+
+                $('#mResumenCarritoCompras').on('hidden.bs.modal', function (e) {
+                    mResumenCarritoCompras = false;
+                });
+
+                $('#mFinalizarPedido').on('hidden.bs.modal', function (e) {
+                    FinalizarPedido = false;
+                });
+                
+                $('#mMessage').on('hidden.bs.modal', function (e) {
+                    mMessage = false;
                 });
 
 <?php
 if ($pedido_guardado) {
     ?>
-                    window.open('php/recibo.php?P=<?php echo($pedido2->getCvePedido()); ?>', '_blank');
+                    //window.open('php/recibo.php?P=<?php echo($pedido2->getCvePedido()); ?>', '_blank');
+                    $('#mMessage').modal("show");
     <?php
 }
 ?>
@@ -153,12 +188,12 @@ if ($pedido_guardado) {
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-right" id="iconos_redes_sociales">
-                    <a href="https://www.facebook.com/MSFStore" target="_blank"><img src="img/facebook.png" class="img-responsive " alt="Facebook"/></a>
-                    <a href="https://twitter.com/masinfronteras" target="_blank"><img src="img/twitter.png" class="img-responsive" alt="Twitter"/></a>
-                    <a href="mailto:msf_store@hotmail.com"><img src="img/email.png" class="img-responsive" alt="Email"/></a>
+                    <a href="https://www.facebook.com/MSFStore" target="_blank"><img src="img/Facebook-icon.png" class="img-responsive " alt="Facebook"/></a>
+                    <a href="https://twitter.com/masinfronteras" target="_blank"><img src="img/Twitter-icon.png" class="img-responsive" alt="Twitter"/></a>
+                    <a href="mailto:msf_store@hotmail.com"><img src="img/Email-icon.png" class="img-responsive" alt="Email"/></a>
                 </div>
                 <div class="col-md-12" id="logo">
-                    <img src="img/encabezado.jpg" alt="Logo MSF Store" class="img-responsive"/>
+                    <img src="img/encabezado3.png" alt="Logo MSF Store" class="img-responsive"/>
                 </div>
                 <div class="col-md-12 text-right" id="enlaces">
                     <?php
@@ -220,10 +255,10 @@ if ($pedido_guardado) {
             </div>
             <div class="row clearfix">
                 <div class="col-md-9" id="novedades">
-                    <h1>¡MÁS VENDIDOS!</h1>
+                    <h1>MÁS VENDIDOS</h1>
                     <div class="row">
                         <?php
-                        $sql2 = "SELECT * FROM productos WHERE novedad = 1 AND ruta_imagen1 IS NOT NULL AND fecha_novedad >= NOW() AND activo = 1";
+                        $sql2 = "SELECT * FROM productos WHERE novedad = 1 AND ruta_imagen1 IS NOT NULL AND fecha_novedad >= NOW() AND activo = 1 LIMIT 6";
                         $rst2 = UtilDB::ejecutaConsulta($sql2);
                         $tmp2 = "";
                         $count1 = 0;
@@ -254,9 +289,9 @@ if ($pedido_guardado) {
                 <div class="col-md-3" id="grados" style="display: none;">&nbsp;</div>
                 <div class="col-md-6" id="productos" style="display: none;">&nbsp;</div>
                 <div class="col-md-3 text-center" id="ofertas">
-                    <h1>¡OFERTAS!</h1>
+                    <h1>OFERTAS</h1>
                     <?php
-                    $sql3 = "SELECT * FROM productos WHERE oferta = 1 AND ruta_imagen1 IS NOT NULL AND fecha_oferta >= NOW() AND activo = 1";
+                    $sql3 = "SELECT * FROM productos WHERE oferta = 1 AND ruta_imagen1 IS NOT NULL AND fecha_oferta >= NOW() AND activo = 1 LIMIT 3";
                     $rst3 = UtilDB::ejecutaConsulta($sql3);
                     $rowCount = $rst3->rowCount();
                     $tmp3 = "";
@@ -309,10 +344,32 @@ if ($pedido_guardado) {
                         </div>
                     </div>
                 </div>
+                <div class="col-md-12" id="ventana_modal4">
+                    <div class="modal fade" id="mMessage" tabindex="-1" role="dialog" aria-labelledby="mDetalleProductoLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title">Recibo de MSF Store</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="te">
+                                        <div class="alert alert-success" role="alert">
+                                            <strong>Pedido registrado con exito, puede acceder a su recibo de MSF Store desde <a href="php/recibo.php?P=<?php echo($pedido2 != NULL ? $pedido2->getCvePedido() : 0); ?>" target="_blank">aqui</a>.</strong> <span class="glyphicon glyphicon-ok"></span><span class="glyphicon glyphicon-ok"></span>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="row clearfix">
                 <div class="col-md-12">
-                    <p class="text-center">Calle 2 de Abril Nº. 233 Villahermosa, Tab. <!--| Tel. 312 67 00, 312 67 01--> | Cel. 9932772575</p>
+                    <p class="text-center">Calle 2 de Abril Nº. 233, Col. Nueva Villahermosa, Villahermosa, Tabasco <!--| Tel. 312 67 00, 312 67 01--> | Cel. 9932772575</p>
                 </div>
             </div>
         </div>
