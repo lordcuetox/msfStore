@@ -189,7 +189,7 @@ if (isset($_POST['xAccion'])) {
             <tr>
                 <th><?php echo( substr($row['fecha'],0,10));  ?></th>
                 <th><?php echo($row['referencia']); ?></th>
-                <th><?php echo('$ '.number_format($row['monto_total'],  2 , '.' , ',' )); ?></th>
+                <th><?php echo('$ '.number_format($row['monto_total'],  2 , '.' , ',' ).' M.X.'); ?></th>
                 <th><?php echo($row['status']==3?'Entregado':''); ?></th>
                 <th><?php echo($row['status']==3?$row['numero_guia']:''); ?></th>
                 <th><?php echo($row['status']==3?$row['descripcion_guia']:''); ?></th>
@@ -219,9 +219,9 @@ if (isset($_POST['xAccion'])) {
             ?>
                         <div id="LineaDetalle">
                             <div class="CeldaDetalleModal1"> <?php echo($clasf2->getNombre()); ?></div>
-                            <div class="CeldaDetalleModal"><?php echo($row2['descuento']==0?('$ '.number_format($row2['precio_unitario'],  2 , '.' , ',' )):('$ '.number_format($row2['precio_unitario_desc'],  2 , '.' , ',' ))); ?> </div>
+                            <div class="CeldaDetalleModal"><?php echo($row2['descuento']==0?('$ '.number_format($row2['precio_unitario'],  2 , '.' , ',' ).' M.X.'):('$ '.number_format($row2['precio_unitario_desc'],  2 , '.' , ',' ).' M.X.')); ?> </div>
                             <div class="CeldaDetalleModal"><?php echo($row2['cantidad']); ?></div>
-                            <div class="CeldaDetalleModal"><?php echo('$ '.number_format($row2['monto_total_pagar'],  2 , '.' , ',' )); ?></div>    
+                            <div class="CeldaDetalleModal"><?php echo('$ '.number_format($row2['monto_total_pagar'],  2 , '.' , ',' ).' M.X.'); ?></div>    
                     </div>
                      <?php }
         

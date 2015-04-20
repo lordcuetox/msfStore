@@ -98,9 +98,9 @@ $cliente= new Prospectos($pedido->getCveCliente());
     foreach($rst as $row)
     {
         $this->Cell(100,6,iconv('UTF-8', 'windows-1252',substr($row['etiqueta_producto'],0,51)),'LR',0,'L',$fill);
-        $this->Cell(25,6,$row['descuento']==0?('$ '.number_format($row['precio_unitario'],  2 , '.' , ',' )):('$ '.number_format($row['precio_unitario_desc'],  2 , '.' , ',' )),'LR',0,'C',$fill);
+        $this->Cell(25,6,$row['descuento']==0?('$ '.number_format($row['precio_unitario'],  2 , '.' , ',' ).' M.X.'):('$ '.number_format($row['precio_unitario_desc'],  2 , '.' , ',' ).' M.X.'),'LR',0,'C',$fill);
         $this->Cell(25,6,number_format($row['cantidad']),'LR',0,'C',$fill);
-        $this->Cell(25,6,'$ '.number_format($row['monto_total_pagar'],  2 , '.' , ',' ),'LR',0,'R',$fill);
+        $this->Cell(25,6,'$ '.number_format($row['monto_total_pagar'],  2 , '.' , ',' ).' M.X.','LR',0,'R',$fill);
         $this->Ln();
         $fill = !$fill;
     }
@@ -108,9 +108,9 @@ $cliente= new Prospectos($pedido->getCveCliente());
         $rst->closeCursor(); 
       // agregando los gastos de envío
         $this->Cell(100,6,iconv('UTF-8', 'windows-1252','Gastos de envío'),'LR',0,'L',$fill);
-        $this->Cell(25,6,'$ 180.00','LR',0,'C',$fill);
+        $this->Cell(25,6,'$ 180.00 M.X.','LR',0,'C',$fill);
         $this->Cell(25,6,'1','LR',0,'C',$fill);
-        $this->Cell(25,6,'$ 180.00','LR',0,'R',$fill);
+        $this->Cell(25,6,'$ 180.00 M.X.','LR',0,'R',$fill);
         $this->Ln();
         $fill = !$fill;
       
@@ -130,7 +130,7 @@ $cliente= new Prospectos($pedido->getCveCliente());
         $this->Cell(100,7,iconv('UTF-8', 'windows-1252',''),'LR',0,'L',$fill);
         $this->Cell(25,7,'','LR',0,'C',$fill);
         $this->Cell(25,7,'Total','LR',0,'C',$fill);
-        $this->Cell(25,7,'$ '.number_format($totalPagar,  2 , '.' , ',' ),'LR',0,'R',$fill);
+        $this->Cell(25,7,'$ '.number_format($totalPagar,  2 , '.' , ',' ).' M.X.','LR',0,'R',$fill);
         $this->Ln();
         $fill = !$fill;
                $this->Ln();
