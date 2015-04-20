@@ -72,7 +72,7 @@ $cart = NULL;
                 <div align="center"><span class="prod">Subtotal: $<?php echo number_format($suma, 2); ?></span></div><br>
                 <div align="center"><span class="prod" style="color:red; font-weight:bold;">(+) Gastos de envío: $<?php echo(GASTOS_ENVIO); ?></span></div><br>
                 <div align="center"><span class="prod">Total: $<?php echo number_format($suma + GASTOS_ENVIO, 2); ?></span></div><br>
-                <div align="center"><span class="prod"><a href="javascript:void(0);" data-toggle="modal" data-remote="php/finalizarPedido.php" data-target="#myModalPedido" class="btn btn-success"><span class="glyphicon glyphicon-thumbs-up"></span> Finalizar pedido</a></span></div><br/>
+                <div align="center"><span class="prod"><a href="javascript:void(0);" data-toggle="modal" data-remote="php/finalizarPedido.php" data-target="#mFinalizarPedido" class="btn btn-success"><span class="glyphicon glyphicon-thumbs-up"></span> Finalizar pedido</a></span></div><br/>
             <?php } else { ?>
                 <p align="center"> <span class="prod">No hay productos seleccionados</span></p>
                 <?php
