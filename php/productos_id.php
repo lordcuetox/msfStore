@@ -37,21 +37,12 @@ if ($producto->getCveProducto() != 0) {
                     <div class="carousel-inner" role="listbox">
                         <div class="item active">
                             <img src="<?php echo($producto->getRutaImagen2()); ?>" alt="<?php echo($producto->getNombre()); ?> - Imagen 2">
-                            <div class="carousel-caption">
-                                <?php echo($producto->getNombre()); ?>
-                            </div>
                         </div>
                         <div class="item">
                             <img src="<?php echo($producto->getRutaImagen3()); ?>" alt="<?php echo($producto->getNombre()); ?> - Imagen 3">
-                            <div class="carousel-caption">
-                                <?php echo($producto->getNombre()); ?>
-                            </div>
                         </div>
                         <div class="item">
                             <img src="<?php echo($producto->getRutaImagen4()); ?>" alt="<?php echo($producto->getNombre()); ?> - Imagen 4">
-                            <div class="carousel-caption">
-                                <?php echo($producto->getNombre()); ?>
-                            </div>
                         </div>
                     </div>    
                     <?php
@@ -66,15 +57,9 @@ if ($producto->getCveProducto() != 0) {
                     <div class="carousel-inner" role="listbox">
                         <div class="item active">
                             <img src="<?php echo($producto->getRutaImagen2()); ?>" alt="<?php echo($producto->getNombre()); ?> - Imagen 2">
-                            <div class="carousel-caption">
-                                <?php echo($producto->getNombre()); ?>
-                            </div>
                         </div>
                         <div class="item">
                             <img src="<?php echo($producto->getRutaImagen3()); ?>" alt="<?php echo($producto->getNombre()); ?> - Imagen 3">
-                            <div class="carousel-caption">
-                                <?php echo($producto->getNombre()); ?>
-                            </div>
                         </div>
                     </div>    
                     <?php
@@ -88,9 +73,6 @@ if ($producto->getCveProducto() != 0) {
                     <div class="carousel-inner" role="listbox">
                         <div class="item active">
                             <img src="<?php echo($producto->getRutaImagen2()); ?>" alt="<?php echo($producto->getNombre()); ?> - Imagen 2">
-                            <div class="carousel-caption">
-                                <?php echo($producto->getNombre()); ?>
-                            </div>
                         </div>
                     </div>
                     <?php
@@ -99,9 +81,6 @@ if ($producto->getCveProducto() != 0) {
                     <div class="carousel-inner" role="listbox">
                         <div class="item active">
                             <img src="<?php echo($producto->getRutaImagen1()); ?>" alt="<?php echo($producto->getNombre()); ?> - Imagen 1">
-                            <div class="carousel-caption">
-                                <?php echo($producto->getNombre()); ?>
-                            </div>
                         </div>
                     </div>
                     <?php
