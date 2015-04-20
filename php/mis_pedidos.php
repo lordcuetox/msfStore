@@ -228,7 +228,7 @@ if (isset($_POST['xAccion'])) {
                             <div class="CeldaDetalleModal1"> <?php echo($clasf2->getNombre()); ?></div>
                             <div class="CeldaDetalleModal"><?php echo($row2['descuento']==0?('$ '.number_format($row2['precio_unitario'],  2 , '.' , ',' )):('$ '.number_format($row2['precio_unitario_desc'],  2 , '.' , ',' ))); ?> </div>
                             <div class="CeldaDetalleModal"><?php echo($row2['cantidad']); ?></div>
-                            <div class="CeldaDetalleModal"><?php echo('$ '.number_format($row2['monto_total_pagar'],  2 , '.' , ',' )); ?></div>    
+                            <div class="CeldaDetalleModal"><?php echo('$ '.number_format($row2['monto_total_pagar'],  2 , '.' , ',' ).' M.X.'); ?></div>    
                     </div>
                      <?php }
         

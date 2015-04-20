@@ -45,7 +45,7 @@ $cart = NULL;
                                 if ($item->isOfertaVigente()) {
                                     echo("style=\"color:red;\"");
                                 }
-                                ?>>$ <?php echo $item->getPrecio() ?> <span <?php
+                                ?>>$ <?php echo(number_format($item->getPrecio(),  2 , '.' , ',' ).' M.X.')  ?> <span <?php
                                         if ($item->isOfertaVigente()) {
                                             echo("style=\"color:red;\"");
                                         }
@@ -69,9 +69,9 @@ $cart = NULL;
                     </table>
                 </form>
                 <div align="center"><span class="prod">Total de Artículos: <?php echo count($cart); ?></span></div><br>
-                <div align="center"><span class="prod">Subtotal: $<?php echo number_format($suma, 2); ?></span></div><br>
-                <div align="center"><span class="prod" style="color:red; font-weight:bold;">(+) Gastos de envío: $<?php echo(GASTOS_ENVIO); ?></span></div><br>
-                <div align="center"><span class="prod">Total: $<?php echo number_format($suma + GASTOS_ENVIO, 2); ?></span></div><br>
+                <div align="center"><span class="prod">Subtotal: $<?php echo(number_format($suma,  2 , '.' , ',' ).' M.X.') ; ?></span></div><br>
+                <div align="center"><span class="prod" style="color:red; font-weight:bold;">(+) Gastos de envío: $<?php echo(number_format(GASTOS_ENVIO,  2 , '.' , ',' ).' M.X.'); ?></span></div><br>
+                <div align="center"><span class="prod">Total: $<?php echo(number_format($suma + GASTOS_ENVIO,  2 , '.' , ',' ).' M.X.') ; ?></span></div><br>
                 <div align="center"><span class="prod"><a href="javascript:void(0);" data-toggle="modal" data-remote="php/finalizarPedido.php" data-target="#mFinalizarPedido" class="btn btn-success"><span class="glyphicon glyphicon-thumbs-up"></span> Finalizar pedido</a></span></div><br/>
             <?php } else { ?>
                 <p align="center"> <span class="prod">No hay productos seleccionados</span></p>

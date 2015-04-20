@@ -100,7 +100,7 @@ if ($producto->getCveProducto() != 0) {
             </div>
             <p class="negritas">Descripción:</p>
             <p><?php echo($producto->getDescripcion()); ?></p>
-            <p <?php if ($producto->isOfertaVigente()) {echo("style=\"color:red;\"");}?>>$ <?php echo $producto->getPrecio() ?> 
+            <p <?php if ($producto->isOfertaVigente()) {echo("style=\"color:red;\"");}?>>$ <?php echo(number_format($producto->getPrecio(),  2 , '.' , ',' ).' M.X.')  ?> 
             <span <?php if ($producto->isOfertaVigente()) { echo("style=\"color:red;\"");}?>>
             <?php if ($producto->isOfertaVigente()) {echo("OFERTA!!");}?>
             </span>
