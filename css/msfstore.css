@@ -12,7 +12,7 @@ h1 { text-align: center;}
 h2 { text-align: center;}
 h4 { font-family: 'Ubuntu', sans-serif; font-weight:bold;}
 #novedades h1 { color: red;text-shadow: 2px 2px 4px #000000; font-weight: bold;}
-#productos h1 { color: white;text-shadow: 2px 2px 4px #000000;}
+#productos h1 { color: #8FD6F6;text-shadow: 2px 2px 4px #000000;}
 #ofertas h1 { color: red;text-shadow: 2px 2px 4px #000000; font-weight: bold;}
 #novedades div div img,#novedades div div a ,#productos div div img,#productos div div a{ margin-bottom: 10px;}
 #novedades div div h4,#productos div div h4  { height: 55px;}
