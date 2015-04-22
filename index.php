@@ -291,7 +291,7 @@ if ($pedido_guardado) {
                 <div class="col-md-3" id="grados" style="display: none;">&nbsp;</div>
                 <div class="col-md-6" id="productos" style="display: none;">&nbsp;</div>
                 <div class="col-md-3 text-center" id="ofertas">
-                    <h1>OFERTAS</h1>
+                    <h1>¡OFERTAS!</h1>
                     <?php
                     $sql3 = "SELECT * FROM productos WHERE oferta = 1 AND ruta_imagen1 IS NOT NULL AND fecha_oferta >= NOW() AND activo = 1";
                     $rst3 = UtilDB::ejecutaConsulta($sql3);
