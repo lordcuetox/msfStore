@@ -51,7 +51,7 @@ if (isset($_POST['xAccion'])) {
     </head>
     <body>
         <div class="container">
-            <a href="../index.php">&NestedLessLess;Regresar</a>
+            <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<a href="../index.php">Regresar</a>
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
 
@@ -68,12 +68,16 @@ if (isset($_POST['xAccion'])) {
                                         <input class="form-control" placeholder="Usuario" name="txtUser" id="txtUser" type="text" autofocus>
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" placeholder="Password" name="txtPassword" id="txtPassword" type="password" value="">
+                                        <input class="form-control" placeholder="Contraseña" name="txtPassword" id="txtPassword" type="password" value="">
                                     </div>
                                     <!-- Change this to a button or input when using this as a form -->
                                     <input type="button" name="btnLogin" id="btnLogin" value="Login" class="btn btn-lg btn-success btn-block" onclick="login()"/>
+                                    <br/>
                                     <div class="form-group">
-                                        <a href="cat_prospectos.php">&NestedGreaterGreater;Registrate Aquí</a>                                          
+                                        <ol style=" text-align:left">
+                                            <li>Si ya tiene una cuenta, ingrese <strong>usuario</strong> y <strong>contraseña</strong> en los campos de arriba&nbsp;<span class="glyphicon glyphicon-arrow-up"></span></li><br/>
+                                            <li>Si aun no tiene cuenta,<br/><a href="cat_prospectos.php">Regístrese aquí</a>&nbsp;<span class="glyphicon glyphicon-user"></span></li>                                          </li>
+                                        </ol>
                                     </div>
                                 </fieldset>
                             </form>

@@ -259,7 +259,7 @@ if (isset($_POST['xAccion'])) {
         </script>
     </head>
     <div class="container">
-        <a href="../index.php">&NestedLessLess;Regresar</a>
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<a href="../index.php">Regresar</a>
         <div class="row" >
             <div class="col-sm-4">&nbsp;</div>
             <div class="col-sm-4">

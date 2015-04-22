@@ -63,10 +63,16 @@ if (isset($_POST['xAccion'])) {
                                         <input class="form-control" placeholder="Usuario" name="txtUser" id="txtUser" type="text" autofocus>
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" placeholder="Password" name="txtPassword" id="txtPassword" type="password" value="">
+                                        <input class="form-control" placeholder="Contraseña" name="txtPassword" id="txtPassword" type="password" value="">
                                     </div>
                                     <!-- Change this to a button or input when using this as a form -->
                                     <input type="button" name="btnLogin" id="btnLogin" value="Login" class="btn btn-lg btn-success btn-block" onclick="login()"/>
+                                    <br/>
+                                    <div class="form-group">
+                                        <ul style=" text-align:left">
+                                            <li>Ingrese <strong>usuario</strong> y <strong>contraseña</strong> en los campos de arriba&nbsp;<span class="glyphicon glyphicon-arrow-up"></span></li>
+                                        </ul>
+                                    </div>
                                 </fieldset>
                             </form>
                         </div>
