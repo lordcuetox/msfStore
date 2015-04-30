@@ -76,7 +76,7 @@ if (isset($_POST['xAccion'])) {
                                     <div class="form-group">
                                         <ol style=" text-align:left">
                                             <li>Si ya tiene una cuenta, ingrese <strong>usuario</strong> y <strong>contraseña</strong> en los campos de arriba&nbsp;<span class="glyphicon glyphicon-arrow-up"></span></li><br/>
-                                            <li>Si aun no tiene cuenta,<br/><a href="cat_prospectos.php">Regístrese aquí</a>&nbsp;<span class="glyphicon glyphicon-user"></span></li>                                          </li>
+                                            <li>Si aún no tiene cuenta,<br/><a href="cat_prospectos.php">Regístrese aquí</a>&nbsp;<span class="glyphicon glyphicon-user"></span></li>                                          </li>
                                         </ol>
                                     </div>
                                 </fieldset>
