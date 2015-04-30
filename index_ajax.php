@@ -35,6 +35,9 @@ if (isset($_POST['xAccion'])) {
             $tmp .= "</div>";
             $tmp .= "<br/>";
             $tmp .= "<img src=\"img/contacto.png\" class=\"img-responsive hidden-xs\" alt=\"Contacto\"/>";
+            $tmp .= "<img src=\"img/tarjetas.png\" class=\"img-responsive hidden-xs\" alt=\"tarjetas\"/>";
+            $tmp .= "<img src=\"img/paypal.png\" class=\"img-responsive hidden-xs\" alt=\"paypal\"/>";
+            $tmp .= "<img src=\"img/estafeta.png\" class=\"img-responsive hidden-xs\" alt=\"estafeta\"/>";
             echo($tmp);
         }
     }
